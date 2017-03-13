@@ -1,0 +1,3 @@
+Perfiles-->Java
+Notaciones-->Visibilidad and Multiplicidad
+Apariencia-->X ocultar puntos, relaciones bidireccionales
