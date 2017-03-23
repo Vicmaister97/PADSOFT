@@ -9,12 +9,12 @@ public class Course extends VisibleElement {
 	private List<CourseElement> elements;
 	
 	public Course (String name, String teachername, Boolean visibility){
+		super(visibility);
 		this.setName(name);
 		this.setTeachername(teachername);
 		this.students = new ArrayList<Student>();
 		this.expelled = new ArrayList<Student>();
 		this.elements = new ArrayList<CourseElement>();
-		this.setVisible(visibility);
 	}
 	/**
 	 * Adds a student to the course
