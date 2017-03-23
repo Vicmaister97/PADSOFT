@@ -33,7 +33,8 @@ public class Course extends VisibleElement {
 	}
 	/**
 	 * Creates a note
-	 * @param the note text and the visibility
+	 * @param text the note text 
+	 * @param visibility the visibility
 	 */
 	public void addNote(String text, boolean visibility){
 		Note e = new Note(name, visibility);
@@ -41,7 +42,7 @@ public class Course extends VisibleElement {
 	}
 	/**
 	 * Expells a student
-	 * @param the student to expell
+	 * @param stuedn the student to expell
 	 * @return true if succeeds false if not (the student isn't in the course)
 	 */
 	public boolean expellStudent(Student student){
@@ -55,7 +56,11 @@ public class Course extends VisibleElement {
 		}
 		
 	}
-	
+	/**
+	 * Readmits a student
+	 * @param student the student to readmit
+	 * @return true if suceeds false if not (the student wasn't expelled)
+	 */
 	public boolean admitStudent (Student student){
 		if (this.getExpelled().contains(student)==false){
 			return false;
