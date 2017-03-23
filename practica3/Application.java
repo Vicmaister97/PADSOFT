@@ -7,7 +7,9 @@ public class Application {
 		this.setStudent(student);
 		this.setCourse(course);
 	}
-	
+	/**
+	 * Accepts the application and adds the student to the course
+	 */
 	void admitStudent(){
 		this.getCourse().addStudent(this.getStudent());
 	}
