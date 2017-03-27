@@ -9,27 +9,68 @@ public class Course extends VisibleElement {
 	private List<CourseElement> elements;
 	
 	public Course (String name, String teachername, Boolean visibility){
+		super(visibility);
 		this.setName(name);
 		this.setTeachername(teachername);
 		this.students = new ArrayList<Student>();
+		this.expelled = new ArrayList<Student>();
 		this.elements = new ArrayList<CourseElement>();
-		this.setVisible(visibility);
 	}
-	
+	/**
+	 * Adds a student to the course
+	 * @param the student to add to the course
+	 */
 	public void addStudent(Student student){
 		this.getStudents().add(student);
 	}
-	
-	public void addSubunit(String name, boolean visibility){
+	/**
+	 * Creates a Unit
+	 * @param the name of the unit and the visibility
+	 */
+	public void addUnit(String name, boolean visibility){
 		Unit u = new Unit(name, visibility);
 		this.getElements().add(u);
 	}
-	
+	/**
+	 * Creates a note
+	 * @param text the note text 
+	 * @param visibility the visibility
+	 */
 	public void addNote(String text, boolean visibility){
 		Note e = new Note(name, visibility);
 		this.getElements().add(e);
 	}
-
+	/**
+	 * Expells a student
+	 * @param stuedn the student to expell
+	 * @return true if succeeds false if not (the student isn't in the course)
+	 */
+	public boolean expellStudent(Student student){
+		if (this.getStudents().contains(student)==false){
+			return false;
+		}
+		else {
+			this.getStudents().remove(student);
+			this.getExpelled().add(student);
+			return true;
+		}
+		
+	}
+	/**
+	 * Readmits a student
+	 * @param student the student to readmit
+	 * @return true if suceeds false if not (the student wasn't expelled)
+	 */
+	public boolean admitStudent (Student student){
+		if (this.getExpelled().contains(student)==false){
+			return false;
+		}
+		else {
+			this.getExpelled().remove(student);
+			this.getStudents().add(student);
+			return true;
+		}
+	}
 	/**
 	 * @return the name
 	 */

@@ -3,8 +3,8 @@ public class Note extends CourseElement{
 	private String text;
 
 	public Note (String text, boolean visibility){
+		super(visibility);
 		this.setText(text);
-		this.setVisible(visibility);
 	}
 	/**
 	 * @return the text

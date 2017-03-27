@@ -6,8 +6,8 @@ public class Unit extends CourseElement{
 	private List<CourseElement> elements;
 	
 	public Unit(String name, boolean visibility){
+		super(visibility);
 		this.setName(name);
-		this.setVisible(visibility);
 		this.elements = new ArrayList<CourseElement>();
 	}
 	
