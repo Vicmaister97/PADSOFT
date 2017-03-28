@@ -27,8 +27,7 @@ public class Course extends VisibleElement {
 	 * Creates a Unit
 	 * @param the name of the unit and the visibility
 	 */
-	public void addUnit(String name, boolean visibility){
-		Unit u = new Unit(name, visibility);
+	public void addUnit(Unit u){
 		this.getElements().add(u);
 	}
 	/**
@@ -36,9 +35,32 @@ public class Course extends VisibleElement {
 	 * @param text the note text 
 	 * @param visibility the visibility
 	 */
-	public void addNote(String text, boolean visibility){
-		Note e = new Note(name, visibility);
+	public void addNote(Note n){
+		this.getElements().add(n);
+	}
+	
+	public boolean deleteNote(Note n){
+		if (this.getElements().contains(n)){
+			this.getElements().remove(n);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public void addExercise(Exercise e){
 		this.getElements().add(e);
+	}
+	
+	public boolean deleteExercise(Exercise e){
+		if (this.getElements().contains(e)){
+			this.getElements().remove(e);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	/**
 	 * Expells a student
