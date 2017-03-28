@@ -19,7 +19,7 @@ public class Student extends User{
 	}
 	
 	public boolean accessCourse(Course course){
-		if (course.getStudents().contains(this))
+		return course.getStudents().contains(this);
 	}
 	/**
 	 * @return name

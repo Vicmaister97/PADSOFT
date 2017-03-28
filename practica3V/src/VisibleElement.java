@@ -3,6 +3,9 @@
 public abstract class VisibleElement {
 	private boolean visible;
 	
+	public VisibleElement(boolean visibility){
+		this.setVisible(visibility);
+	}
 	/**
 	 * @return the visible
 	 */
