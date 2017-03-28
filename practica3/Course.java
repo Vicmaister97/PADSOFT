@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 import java.util.List;
 
 public class Course extends VisibleElement {

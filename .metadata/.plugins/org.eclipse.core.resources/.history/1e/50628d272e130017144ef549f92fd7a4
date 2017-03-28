@@ -1,0 +1,21 @@
+
+public class AnswerQuestion {
+	private Question question;
+	private Student student;
+	private QuestionOption answer;
+	private int mark;
+	
+	public AnswerQuestion(Question question, Student student, QuestionOption answer, int mark){
+		this.question = question;
+		this.student = student;
+		this.answer = answer;
+		this.mark = mark;		
+	}
+	
+	public boolean isCorrect(){
+		if ()
+	}
+	
+	
+	
+}

@@ -1,0 +1,34 @@
+
+public class SimpleChoice extends QuestionChoice{
+	private String correctAnswer;
+	
+	protected SimpleChoice (double weight, String QText, boolean randOrd, String correct){
+		super(weight, QText, randOrd);
+		this.correctAnswer = correct;
+	}
+
+	public String getCorrectAnswer() {
+		return correctAnswer;
+	}
+
+	public void setCorrectAnswer(String correctanswer) {
+		this.correctAnswer = correctanswer;
+	}
+	
+	public AnswerQuestion solveQuestion(Student student, String answer){
+		double mark;
+		QuestionOption choice = new QuestionOption(answer);
+		AnswerQuestion finalAnswer;
+		
+		if (this.correctAnswer.equals(answer) == true){ /*The answer is correct*/
+			mark = this.getWeight();
+		}
+		else{
+			mark = 0;
+		}
+		finalAnswer = new AnswerQuestion(this, student, choice, mark);
+		return finalAnswer;
+	}
+	
+	
+}

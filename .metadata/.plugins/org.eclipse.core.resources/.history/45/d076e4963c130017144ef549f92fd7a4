@@ -1,0 +1,16 @@
+import java.time.LocalDate;
+
+public class Exercise {
+	private boolean randomOrder;
+	private LocalDate iniDate;
+	private LocalDate endDate;
+	private double weightE;
+	
+	public Exercise (boolean random, LocalDate ini, LocalDate end, double weight){
+		this.randomOrder = random;
+		this.iniDate = ini;
+		this.endDate = end;
+		this.weightE = weight;
+	}
+	
+}

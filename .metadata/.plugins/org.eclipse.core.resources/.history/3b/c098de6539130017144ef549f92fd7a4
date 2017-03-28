@@ -1,0 +1,35 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Question {
+	private double weight;
+	private String questionText;
+	private List<QuestionOption> option;
+	private List<AnswerQuestion> answers;
+	protected Question (double weight, String questionText){
+		this.weight = weight;
+		this.questionText = questionText;
+		this.option = new ArrayList<QuestionOption>();
+	}
+	public double getWeight() {
+		return weight;
+	}
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+	
+	public String getQuestionText() {
+		return questionText;
+	}
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
+	}
+	public List<QuestionOption> getOption() {
+		return option;
+	}
+	public void setOption(List<QuestionOption> option) {
+		this.option = option;
+	}
+	
+	
+}

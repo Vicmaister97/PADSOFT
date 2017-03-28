@@ -1,0 +1,17 @@
+
+public class QuestionOption {
+	private String choice;
+	
+	public QuestionOption(String option){
+		this.choice = option;
+	}
+
+	public String getChoice() {
+		return choice;
+	}
+
+	public void setChoice(String choice) {
+		this.choice = choice;
+	}
+	
+}

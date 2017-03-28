@@ -1,0 +1,19 @@
+
+public class SimpleChoice extends QuestionChoice{
+	private String correctanswer;
+	
+	protected SimpleChoice (double weight, String QText, int numAnswers, boolean randOrd, String correct){
+		super(weight, QText, numAnswers, randOrd);
+		this.correctanswer = correct;
+	}
+
+	public String getCorrectanswer() {
+		return correctanswer;
+	}
+
+	public void setCorrectanswer(String correctanswer) {
+		this.correctanswer = correctanswer;
+	}
+	
+	
+}

@@ -1,0 +1,55 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class AnswerExercise {
+	private Exercise exercise;
+	private Student student;
+	private List<AnswerQuestion> answers;
+	private double mark;
+	
+	protected AnswerExercise (Exercise exercise, Student student, List<AnswerQuestion> answers){
+		this.exercise = exercise;
+		this.student = student;
+		this.answers = new ArrayList<AnswerQuestion>(answers);
+		this.mark = calculateMark();
+	}
+
+	public Exercise getExercise() {
+		return exercise;
+	}
+
+	public Student getStudent() {
+		return student;
+	}
+
+	public List<AnswerQuestion> getAnswers() {
+		return answers;
+	}
+
+	public double getMark() {
+		return mark;
+	}
+
+	public double calculateMark(){
+		double exerciseMark = 0;
+		for (Question q: this.exercise.getQuestions()){ /*We look through all the questions of the exercise*/
+			for (AnswerQuestion answers: q.getAnswers()){ /*For every question, we look for the answer of our student*/
+				if (answers.getStudent() == this.student){ /*We choose the answer of the student*/
+					exerciseMark += answers.getMark();
+					if (answers.isCorrect() == false){ /*The answer of the student to that question was wrong*/
+						exerciseMark -= this.exercise.getPenalisation();
+					}
+					break;
+				}
+			}
+		}
+		if (exerciseMark < 0){ /*The student made so many mistakes that his mark is under 0 because of the penalisation*/
+			exerciseMark = 0;
+		}
+		return exerciseMark;
+		
+	}
+	
+	
+	
+}

@@ -1,0 +1,25 @@
+
+public class AnswerQuestion {
+	private Question question;
+	private Student student;
+	private QuestionOption answer;
+	private double mark;
+	
+	public AnswerQuestion(Question question, Student student, QuestionOption answer, double mark){
+		this.question = question;
+		this.student = student;
+		this.answer = answer;
+		this.mark = mark;		
+	}
+	
+	public boolean isCorrect(){
+		if (question.getWeight() == mark){
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
+	
+}

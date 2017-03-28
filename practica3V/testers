@@ -1,0 +1,8 @@
+Primero un test con los argumentos
+Luego el SetUp donde creamos los objetos
+Finalmente comprobamos los methods, lo llamamos de forma representativa (TestCorrectStudentLogin)
+hacemos asserts para comprobar que pasa lo que queremos que pase
+
+CLASES ABSTRACTAS NO SE HACEN TESTERS
+
+EL SET UP ES GLOBAL, SE LLAMA AUTOMATICAMENTE DESPUES DE CADA TEST DE LOS METHODS. TESTEAR EL CONSTRUCTOR EN EL TESTER DE LOS METODOS A SER POSIBLE

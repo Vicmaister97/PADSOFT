@@ -1,0 +1,53 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Exercise {
+	private boolean randomOrder;
+	private LocalDate iniDate;
+	private LocalDate endDate;
+	private double weightE;
+	private List<Question> questions;
+	
+	public Exercise (boolean random, LocalDate ini, LocalDate end, double weight){
+		this.randomOrder = random;
+		this.iniDate = ini;
+		this.endDate = end;
+		this.weightE = weight;
+	}
+
+	public boolean isRandomOrder() {
+		return randomOrder;
+	}
+
+	public void setRandomOrder(boolean randomOrder) {
+		this.randomOrder = randomOrder;
+	}
+
+	public LocalDate getIniDate() {
+		return iniDate;
+	}
+
+	public void setIniDate(LocalDate iniDate) {
+		this.iniDate = iniDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		this.endDate = endDate;
+	}
+
+	public double getWeightE() {
+		return weightE;
+	}
+
+	public void setWeightE(double weightE) {
+		this.weightE = weightE;
+	}
+	
+	
+	
+}

@@ -1,0 +1,23 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class QuestionOption {
+	private List<String> choice;
+	
+	public QuestionOption(){
+		this.choice = new ArrayList<String>();
+	}
+	
+	/*public void addchoice(String choice){
+		
+	}*/
+
+	public List<String> getChoice() {
+		return choice;
+	}
+
+	public void setChoice(List<String> choice) {
+		this.choice = choice;
+	}
+	
+}

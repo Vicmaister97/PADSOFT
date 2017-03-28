@@ -1,0 +1,20 @@
+
+public class TextAnswer extends Question {
+	private String answer;
+	
+	protected TextAnswer(double weight, String QText, String answer) {
+		super(weight, QText);
+		this.answer = answer;
+
+	}
+	
+	public String getAnswer() {
+		return answer;
+	}
+	
+	public void setAnswer(String answer) {
+		this.answer = answer;
+	}
+
+	
+}

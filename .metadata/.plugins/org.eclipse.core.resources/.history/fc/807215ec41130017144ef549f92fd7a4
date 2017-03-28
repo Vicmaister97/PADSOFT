@@ -1,0 +1,75 @@
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.time.Period;
+
+public class Exercise {
+	private boolean randomOrder;
+	private LocalDate iniDate;
+	private LocalDate endDate;
+	private double weightE;
+	private List<Question> questions;
+	private double penalisation;
+	
+	public Exercise (boolean random, LocalDate ini, LocalDate end, double weight, double penalisation){
+		this.randomOrder = random;
+		this.setIniDate(ini);
+		this.setEndDate(end);
+		this.weightE = weight;
+		this.questions = new ArrayList<Question>();
+		this.penalisation = penalisation;
+	}
+
+	public boolean isRandomOrder() {
+		return randomOrder;
+	}
+
+	public void setRandomOrder(boolean randomOrder) {
+		this.randomOrder = randomOrder;
+	}
+
+	public LocalDate getIniDate() {
+		return iniDate;
+	}
+
+	public void setIniDate(LocalDate iniDate) {
+		if (this.getQuestions().isEmpty() == false){ /*There are already questions created*/
+			for (Question q: this.getQuestions()){
+				if (q.getAnswers().isEmpty() == false){ /*There is someone who answered a question of the exercise*/
+					return;
+				}
+			}
+		}
+		this.iniDate = iniDate;
+	}
+
+	public LocalDate getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(LocalDate endDate) {
+		long days = Period.between(this.iniDate, endDate).getDays();
+		if (days < 0){
+			this.endDate = endDate;
+		}
+	}
+
+	public double getWeightE() {
+		return weightE;
+	}
+
+	public void setWeightE(double weightE) {
+		this.weightE = weightE;
+	}
+
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}
+	
+	
+	
+}

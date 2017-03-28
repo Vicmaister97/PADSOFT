@@ -1,0 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class QuestionChoice extends Question{
+	private List<String> possibleAnswers;
+	private int numAnswers;
+	private boolean randomOrder;
+	
+	protected QuestionChoice(int numAnswers, boolean randOrder){
+		this.possibleAnswers = new ArrayList<String>();
+		
+	}
+}

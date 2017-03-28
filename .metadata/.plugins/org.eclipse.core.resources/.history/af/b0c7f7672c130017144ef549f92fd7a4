@@ -1,0 +1,6 @@
+
+public class AnswerQuestion {
+	private Question question;
+	private Student student;
+	private QuestionOption answer;
+}

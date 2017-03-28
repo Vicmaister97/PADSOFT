@@ -1,0 +1,43 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class QuestionChoice extends Question{
+	private List<String> possibleAnswers;
+	private int numAnswers;
+	private boolean randomOrder;
+	
+	protected QuestionChoice(double weight, String QText, int numAnswers, boolean randOrder){
+		super(weight, QText);
+		this.possibleAnswers = new ArrayList<String>();
+		this.numAnswers = numAnswers;
+		this.randomOrder = randOrder;
+	}
+
+	public List<String> getPossibleAnswers() {
+		return possibleAnswers;
+	}
+
+	public void setPossibleAnswers(List<String> possibleAnswers) {
+		this.possibleAnswers = possibleAnswers;
+	}
+
+	public int getNumAnswers() {
+		return numAnswers;
+	}
+
+	public void setNumAnswers(int numAnswers) {
+		this.numAnswers = numAnswers;
+	}
+
+	public boolean isRandomOrder() {
+		return randomOrder;
+	}
+
+	public void changeOrder(boolean randomOrder) {
+		this.randomOrder = randomOrder;
+	}
+	
+	
+	
+	
+}

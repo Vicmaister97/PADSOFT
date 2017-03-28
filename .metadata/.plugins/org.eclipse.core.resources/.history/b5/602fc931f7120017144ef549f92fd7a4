@@ -1,0 +1,31 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class MultipleChoice extends QuestionChoice {
+	private int numCorrectAnswers;
+	private List<String> correctAnswers;
+	
+	protected MultipleChoice (double weight, String QText, int numAnswers, boolean randOrd, int numCorrect){
+		super(weight, QText, numAnswers, randOrd);
+		this.correctAnswers = new ArrayList<>();
+		this.numCorrectAnswers = numCorrect;
+	}
+
+	public int getNumCorrectAnswers() {
+		return numCorrectAnswers;
+	}
+
+	public void setNumCorrectAnswers(int numCorrectAnswers) {
+		this.numCorrectAnswers = numCorrectAnswers;
+	}
+
+	public List<String> getCorrectAnswers() {
+		return correctAnswers;
+	}
+
+	public void setCorrectAnswers(List<String> correctAnswers) {
+		this.correctAnswers = correctAnswers;
+	}
+	
+	
+}
