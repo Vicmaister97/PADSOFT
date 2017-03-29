@@ -1,11 +1,13 @@
 
 public class Student extends User{
-	public String name;
-	public int id;
+	public String firstname;
+	public String lastname;
+	public String id;
 	public String email;
-	public Student(String username, String password, String name, int id, String email) {
+	public Student(String username, String password, String firstname, String lastname, String id, String email) {
 		super(username, password);
-		this.name = name;
+		this.firstname = firstname;
+		this.lastname = lastname;
 		this.id = id;
 		this.email = email;
 	}
@@ -22,27 +24,27 @@ public class Student extends User{
 		return course.getStudents().contains(this);
 	}
 	/**
-	 * @return name
+	 * @return firstname
 	 */
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstname;
 	}
 	/**
-	 * @param name the name to set
+	 * @param firstname the firstname to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setName(String firstname) {
+		this.firstname = firstname;
 	}
 	/**
 	 * @return the id
 	 */
-	public int getId(){
+	public String getId(){
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id){
+	public void setId(String id){
 		this.id = id;
 	}
 	/**
