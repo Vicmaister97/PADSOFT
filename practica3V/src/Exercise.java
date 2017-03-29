@@ -3,23 +3,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.Period;
 
-public class Exercise {
+public class Exercise extends CourseElement {
 	private boolean randomOrder;
 	private LocalDate iniDate;
 	private LocalDate endDate;
-	private double weightE;
+	private double weightE; /*It's going to be the percentage of the exercise on the global mark*/
+	private double score; /*Here we store the total amount of points of an exercise, depending on the weight of the questions*/
+	private String name;
 	private List<Question> questions;
 	private List<AnswerExercise> answers;
 	private double penalisation;
+	private boolean Done; /*This attribute shows whether an exercise has been done or not yet*/
 	
-	public Exercise (boolean random, LocalDate ini, LocalDate end, double weight, List<Question> questions, double penalisation){
+	public Exercise (boolean visibility, boolean random, LocalDate ini, LocalDate end, String name, double weight, double penalisation){
+		super(visibility);
 		this.randomOrder = random;
 		this.setIniDate(ini);
 		this.setEndDate(end);
+		this.name = name;
 		this.weightE = weight;
-		this.questions = new ArrayList<Question>(questions);
+		this.score = 0;
+		this.questions = new ArrayList<Question>();
 		this.answers = new ArrayList<AnswerExercise>();
 		this.penalisation = penalisation;
+		this.Done = false; /*When we create the exercise, no one has done it yet*/
 	}
 
 	public boolean isRandomOrder() {
@@ -27,6 +34,9 @@ public class Exercise {
 	}
 
 	public void setRandomOrder(boolean randomOrder) {
+		if (this.isDone()){ /*Someone has already answered the exercise*/
+			return;
+		}
 		this.randomOrder = randomOrder;
 	}
 
@@ -35,14 +45,10 @@ public class Exercise {
 	}
 
 	public void setIniDate(LocalDate iniDate) {
-		if (this.getQuestions().isEmpty() == false){ /*There are already questions created*/
-			for (Question q: this.getQuestions()){
-				if (q.getAnswers().isEmpty() == false){ /*There is someone who answered a question of the exercise*/
-					return;
-				}
-			}
+		if (this.isDone() == false){ /*No one has answered the exercise yet*/
+			this.iniDate = iniDate;
 		}
-		this.iniDate = iniDate;
+		return;
 	}
 
 	public LocalDate getEndDate() {
@@ -61,15 +67,35 @@ public class Exercise {
 	}
 
 	public void setWeightE(double weightE) {
-		this.weightE = weightE;
+		if (this.isDone() == false){ /*No one has answered the exercise yet*/
+			this.weightE = weightE;
+		}
+		return;
+	}
+	
+	public double getScore() {
+		return score;
 	}
 
 	public List<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(List<Question> questions) {
-		this.questions = questions;
+	public boolean addQuestion(Question question) {
+		if (this.isDone()){ /*Someone has already answered the exercise*/
+			return false;
+		}
+		
+		this.questions.add(question);
+		this.score += question.getWeight();
+		return true;
+	}
+	
+	public boolean removeQuestion (Question question){
+		if (this.questions.remove(question)){
+			return true;
+		}
+		return false;
 	}
 
 	public double getPenalisation() {
@@ -77,6 +103,10 @@ public class Exercise {
 	}
 
 	public void setPenalisation(double penalisation) { /*The penalisation for a wrong answer is a positive number or 0*/
+		if (this.isDone()){ /*Someone has already answered the exercise*/
+			return;
+		}
+		
 		if (penalisation < 0){
 			this.penalisation = penalisation*(-1);
 		}
@@ -87,10 +117,39 @@ public class Exercise {
 		return answers;
 	}
 
-	public void setAnswers(List<AnswerExercise> answers) {
-		this.answers = answers;
+	public boolean addAnswer(AnswerExercise answer) {
+		for (AnswerExercise ans: this.answers){
+			if (ans.getStudent().equals(answer.getStudent())){ /*The student has already answered the exercise*/
+				return false;
+			}
+		}
+		if (this.answers.add(answer)){
+			this.Done = true;
+			return true;
+		}
+		return false;		
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		if (this.isDone()){ /*Someone has already answered the exercise*/
+			return;
+		}
+		this.name = name;
+	}
+
+	public boolean isDone() {
+		return Done;
 	}
 	
+	public void setVisible(boolean visible){
+		if (this.isDone() == false){ /* No one has answered the exercise yet*/
+			this.visible = visible;
+		}
+	}
 	
 	
 }

@@ -12,10 +12,42 @@ public class MultipleChoice extends QuestionChoice {
 	public List<String> getCorrectAnswers() {
 		return correctAnswers;
 	}
+	
+	/*public String getACorrectAnswer(String answer){
+		
+	}*/
 
-	public void setCorrectAnswers(List<String> correctAnswers) {
-		this.correctAnswers = correctAnswers;
+	public boolean addCorrectAnswer(String correctanswer) {
+		if(this.getPossibleAnswers().contains(correctanswer)){ /*Our answer is one of the possible answers of the question*/
+			this.correctAnswers.add(correctanswer);
+			return true;
+		}
+		return false;
 	}
+	
+	public boolean removeCorrectAnswer(String noMoreCorrectAnswer){
+		if (this.correctAnswers.remove(noMoreCorrectAnswer)){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean addPossibleAnswer(String possibleAnswer){
+		if (this.getPossibleAnswers().contains(possibleAnswer)){ /*That possible answer already exists*/
+			return false;
+		}
+		this.getPossibleAnswers().add(possibleAnswer);
+		return true;
+	}
+	
+	public boolean removePossibleAnswer(String noMorePossibleAnswer){
+		if (this.getPossibleAnswers().remove(noMorePossibleAnswer)){ /*The possible answer was in the list and it was removed correctly*/
+			this.correctAnswers.remove(noMorePossibleAnswer);
+			return true;
+		}
+		return false;
+	}
+	
 	
 	public AnswerQuestion solveQuestion(Student student, List<String> answer){
 		double mark = 0;

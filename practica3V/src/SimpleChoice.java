@@ -11,8 +11,30 @@ public class SimpleChoice extends QuestionChoice{
 		return correctAnswer;
 	}
 
-	public void setCorrectAnswer(String correctanswer) {
-		this.correctAnswer = correctanswer;
+	public boolean setCorrectAnswer(String correctanswer) {
+		if(this.getPossibleAnswers().contains(correctanswer)){ /*Our answer is one of the possible answers of the question*/
+			this.correctAnswer = correctanswer;
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean addPossibleAnswer(String possibleAnswer){
+		if (this.getPossibleAnswers().contains(possibleAnswer)){ /*That possible answer already exists*/
+			return false;
+		}
+		this.getPossibleAnswers().add(possibleAnswer);
+		return true;
+	}
+	
+	public boolean removePossibleAnswer(String noMorePossibleAnswer){
+		if (this.getPossibleAnswers().remove(noMorePossibleAnswer)){ /*The possible answer was in the list and it was removed correctly*/
+			if (this.getCorrectAnswer().equals(noMorePossibleAnswer)){ /*The possible answer that was removed was the correct answer of the question*/
+				this.correctAnswer = null; /*The teacher must be the one that chooses after this the new correct answer*/
+			}
+			return true;
+		}
+		return false;
 	}
 	
 	public AnswerQuestion solveQuestion(Student student, String answer){
@@ -20,7 +42,7 @@ public class SimpleChoice extends QuestionChoice{
 		QuestionOption choice = new QuestionOption(answer);
 		AnswerQuestion finalAnswer;
 		
-		if (this.correctAnswer.equals(answer) == true){ /*The answer is correct*/
+		if (this.correctAnswer.equals(answer)){ /*The answer is correct*/
 			mark = this.getWeight();
 		}
 		else{

@@ -1,7 +1,7 @@
 
 
 public abstract class VisibleElement {
-	private boolean visible;
+	public boolean visible;
 	
 	/**
 	 * @return the visible

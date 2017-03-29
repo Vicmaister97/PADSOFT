@@ -4,13 +4,11 @@ import java.util.List;
 public abstract class Question {
 	private double weight;
 	private String questionText;
-	//private List<QuestionOption> option; Creo que es innecesario
 	private List<AnswerQuestion> answers;
 	
 	protected Question (double weight, String questionText){
 		this.weight = weight;
 		this.questionText = questionText;
-		//this.option = new ArrayList<QuestionOption>();
 		this.answers = new ArrayList<AnswerQuestion>();
 	}
 	public double getWeight() {
@@ -26,19 +24,22 @@ public abstract class Question {
 	public void setQuestionText(String questionText) {
 		this.questionText = questionText;
 	}
-	/*public List<QuestionOption> getOption() {
-		return option;
-	}
-	public void setOption(List<QuestionOption> option) {
-		this.option = option;
-	}*/
+	
 	public List<AnswerQuestion> getAnswers() {
 		return answers;
 	}
-	public void setAnswers(List<AnswerQuestion> answers) {
-		this.answers = answers;
+	public boolean addAnswer(AnswerQuestion answer) {
+		for (AnswerQuestion ans: this.answers){
+			if (ans.getStudent().equals(answer.getStudent())){ /*The student has already answered that question*/
+				return false;
+			}
+		}
+		
+		if (this.answers.add(answer)){
+			return true;
+		}
+		return false;
 	}
-	
 	
 	
 	

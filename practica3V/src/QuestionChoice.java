@@ -15,10 +15,6 @@ public abstract class QuestionChoice extends Question{
 		return possibleAnswers;
 	}
 
-	public void setPossibleAnswers(List<String> possibleAnswers) {
-		this.possibleAnswers = possibleAnswers;
-	}
-
 	public boolean isRandomOrder() {
 		return randomOrder;
 	}
@@ -26,7 +22,6 @@ public abstract class QuestionChoice extends Question{
 	public void changeOrder(boolean randomOrder) {
 		this.randomOrder = randomOrder;
 	}
-	
 	
 	
 }

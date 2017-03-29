@@ -35,10 +35,6 @@ public class QuestionOption {
 	public boolean isMultiple() {
 		return multiple;
 	}
-
-	/*public void setMultiple(boolean multiple) {
-		this.multiple = multiple;
-	}*/
 	
 	
 }
