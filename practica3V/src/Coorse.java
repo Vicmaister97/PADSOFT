@@ -41,6 +41,7 @@ public class Coorse implements java.io.Serializable {
 			String test;
 			String firstname, lastname, email, id, pass;
 			BufferedReader br = new BufferedReader(new FileReader(fname));
+			
 			while((test = br.readLine()) != null){
 				StringTokenizer Tok = new StringTokenizer(test, ";");
 				firstname=Tok.nextToken();
