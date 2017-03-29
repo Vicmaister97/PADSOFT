@@ -24,6 +24,9 @@ public class TextAnswer extends Question {
 	
 	public AnswerQuestion solveQuestion(Student student, String answer){
 		double mark;
+		if (this.getExercise().getCourse().getStudents().contains(student) == false){ /*The student isn't part of the course*/
+			return null;
+		}
 		QuestionOption choice = new QuestionOption(answer);
 		AnswerQuestion finalAnswer;
 		

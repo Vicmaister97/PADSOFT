@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="MultipleChoiceTest" project="Padsoft" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="Tests.MultipleChoiceTest" time="0.141">
+    <testcase name="testRemoveCorrectAnswer" classname="Tests.MultipleChoiceTest" time="0.135"/>
+    <testcase name="testAddCorrectAnswer" classname="Tests.MultipleChoiceTest" time="0.006"/>
+  </testsuite>
+</testrun>

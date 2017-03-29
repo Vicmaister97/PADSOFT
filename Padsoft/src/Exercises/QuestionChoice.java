@@ -28,5 +28,16 @@ public abstract class QuestionChoice extends Question{
 		this.randomOrder = randomOrder;
 	}
 	
+	public boolean addPossibleAnswer(String possibleAnswer){
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
+		if (this.getPossibleAnswers().contains(possibleAnswer)){ /*That possible answer already exists*/
+			return false;
+		}
+		this.getPossibleAnswers().add(possibleAnswer);
+		return true;
+	}
 	
 }

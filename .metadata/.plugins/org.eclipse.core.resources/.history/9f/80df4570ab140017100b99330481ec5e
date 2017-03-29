@@ -1,0 +1,100 @@
+package Exercises;
+import CourseElements.Exercise;
+import Users.Student;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MultipleChoice extends QuestionChoice {
+	private List<String> correctAnswers;
+	
+	public MultipleChoice (Exercise exe, double weight, String QText, boolean randOrd, List<String> answers){
+		super(exe, weight, QText, randOrd);
+		this.correctAnswers = new ArrayList<>(answers);
+	}
+
+	public List<String> getCorrectAnswers() {
+		return correctAnswers;
+	}
+	
+
+	public boolean addCorrectAnswer(String correctanswer) {
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
+		if(this.getPossibleAnswers().contains(correctanswer)){ /*Our answer is one of the possible answers of the question*/
+			this.correctAnswers.add(correctanswer);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean removeCorrectAnswer(String noMoreCorrectAnswer){
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
+		if (this.correctAnswers.remove(noMoreCorrectAnswer)){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean removePossibleAnswer(String noMorePossibleAnswer){
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
+		if (this.getPossibleAnswers().remove(noMorePossibleAnswer)){ /*The possible answer was in the list and it was removed correctly*/
+			this.correctAnswers.remove(noMorePossibleAnswer);
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public AnswerQuestion solveQuestion(Student student, List<String> answer){
+		double mark = 0;
+		boolean correct = true;
+		for (String ans : answer){
+			if (this.getPossibleAnswers().contains(ans) == false){ /*One of the answers isn't a possible answer*/
+				return null;
+			}
+		}
+		
+		if (this.getExercise().getCourse().getStudents().contains(student) == false){ /*The student isn't part of the course*/
+			return null;
+		}
+		
+		QuestionOption choice = new QuestionOption(answer);
+		AnswerQuestion finalAnswer;
+		
+		if (this.getCorrectAnswers().size() == answer.size()){ /*The same number of answers*/
+			for (String anscorrect: this.getCorrectAnswers()){
+				correct = true;
+				for(String a : answer)
+					if(a.equals(anscorrect) == true)
+						
+				//if (answer.contains(anscorrect) == false){ /*There is a correct answer of the question missing*/
+					correct = false;
+				//}
+				
+			}
+			
+		}
+		else{ /*The question is incorrect, different number of answers*/
+			correct = false;
+		}
+		if (correct == false){
+			mark = 0;
+		}
+		else{
+			mark = this.getWeight();
+		}
+		finalAnswer = new AnswerQuestion(this, student, choice, mark);
+		this.addAnswer(finalAnswer);
+		return finalAnswer;
+	}
+	
+	
+}

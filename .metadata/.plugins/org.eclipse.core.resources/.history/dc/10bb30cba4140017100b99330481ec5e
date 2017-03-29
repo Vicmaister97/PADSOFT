@@ -1,0 +1,76 @@
+package Tests;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import CourseElements.Course;
+import CourseElements.Exercise;
+import Exercises.MultipleChoice;
+import Users.Student;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+
+public class MultipleChoiceTest {
+
+	private Course course;
+	private Student student;
+	private Student student2;
+	private Student student3;
+	private Exercise exerciseNotDone;
+	private Exercise exerciseDone;
+	private MultipleChoice question1;
+	private MultipleChoice question2;
+	private List<String> answersCorrect;
+	private List<String> answersMixed;
+	private List<String> answersNotEnough;
+	private List<String> answersSoMany;
+
+	
+	@Before
+	public void setUp() throws Exception{
+		course = new Course ("Historia del Arte", "Paco", true);
+		student = new Student ("Platanito", "nerd68", "Carlos", "Isasa", "1", "platanito@gmail.com");
+		student2 = new Student ("Victor", "nerd69", "Victor", "Garcia", "2", "boss@gmail.com");
+		student3 = new Student ("Paco", "nerd70", "Paco", "Martinez", "3", "noboss@gmail.com");
+		course.addStudent(student);
+		course.addStudent(student2);
+		exerciseNotDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 100, 0);
+		answersCorrect = new ArrayList<String>();
+		answersMixed = new ArrayList<String>();
+		answersNotEnough = new ArrayList<String>();
+		answersSoMany = new ArrayList<String>();
+		answersCorrect.add("Paco");
+		answersCorrect.add("Alberto");
+		answersMixed.add("Paco");
+		answersMixed.add("Marta");
+		answersNotEnough.add("Paco");
+		answersSoMany.add("Paco");
+		answersSoMany.add("Alberto");
+		answersSoMany.add("Marta");
+		question1 = new MultipleChoice (exerciseNotDone, 4, "Which are male names?", false, answersCorrect);
+		question1.addPossibleAnswer("Paco");
+		question1.addPossibleAnswer("Alberto");
+		question1.addPossibleAnswer("Marta");
+		exerciseDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 100, 0);
+		question2 = new MultipleChoice (exerciseDone, 4, "Which are male names?", false, answersCorrect);
+		question2.addPossibleAnswer("Paco");
+		question2.addPossibleAnswer("Alberto");
+		question2.addPossibleAnswer("Marta");
+		exerciseDone.solveExercise(student);
+		
+	}
+	@Test
+	public void testAddCorrectAnswer() {
+		assertTrue(question1.addCorrectAnswer("Marta"));
+		assertTrue(question1.getCorrectAnswers().contains("Marta")); /*The correct answers have been changed, the new one is stored*/
+		assertFalse(question1.addCorrectAnswer("Enrique")); /*It's not a possible answer*/
+		assertFalse(question2.addCorrectAnswer("Enrique")); /*Must fail because question2 is a question of an exercise that has been already solved*/
+		assertFalse(question2.addCorrectAnswer("Marta")); /*Must fail because question2 is a question of an exercise that has been already solved, although it can be a correct answer*/
+	}
+
+}

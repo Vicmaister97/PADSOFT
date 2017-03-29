@@ -152,6 +152,10 @@ public class Exercise extends CourseElement {
 		return Done;
 	}
 	
+	public void setDone(boolean done) {
+		Done = done;
+	}
+
 	public void setVisible(boolean visible){
 		if (this.isDone() == false){ /* No one has answered the exercise yet*/
 			this.visible = visible;
@@ -169,6 +173,7 @@ public class Exercise extends CourseElement {
 			}
 		}
 		AnswerExercise finalAns = new AnswerExercise(this, student);
+		this.addAnswer(finalAns);
 		return finalAns;
 	}
 	
