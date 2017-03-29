@@ -44,11 +44,6 @@ public abstract class QuestionChoice extends Question{
 		return true;
 	}
 	
-	/**
-	 * @param possibleAnswer
-	 * @return true if the possible answer has been added to the list of possible answers of the question
-	 * or false if not
-	 */
 	public boolean addPossibleAnswer(String possibleAnswer){
 		if (this.getExercise().isDone()){
 			return false;

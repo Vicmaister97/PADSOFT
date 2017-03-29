@@ -1,8 +1,3 @@
-/**
- * 
- * @author Carlos Isasa Martin and Victor Garcia Carrera
- */
-
 package Exercises;
 import Users.Student;
 import CourseElements.Exercise;
@@ -30,38 +25,22 @@ public class AnswerExercise {
 		this.mark = calculateMark();
 	}
 
-	/**
-	 * @return the exercise of the answer
-	 */
 	public Exercise getExercise() {
 		return exercise;
 	}
 
-	/**
-	 * @return the student that have answered this
-	 */
 	public Student getStudent() {
 		return student;
 	}
 
-	/**
-	 * @return the answers of the questions of that exercise from the given student
-	 */
 	public List<AnswerQuestion> getAnswers() {
 		return answers;
 	}
 
-	/**
-	 * @return the mark of the exercise
-	 */
 	public double getMark() {
 		return mark;
 	}
 
-	/**
-	 * @return the mark of the exercise. It calculates it based on the list of AnswerQuestion in
-	 * the exercise from the given student
-	 */
 	public double calculateMark(){
 		double exerciseMark = 0;
 		

@@ -14,17 +14,10 @@ public class SimpleChoice extends QuestionChoice{
 		this.correctAnswer = correct;
 	}
 
-	/**
-	 * @return the correct Answer of the question
-	 */
 	public String getCorrectAnswer() {
 		return correctAnswer;
 	}
 
-	/**
-	 * @param correctanswer
-	 * @return true if the correct answer was changed or false if not
-	 */
 	public boolean setCorrectAnswer(String correctanswer) {
 		if (this.getExercise().isDone()){
 			return false;
@@ -37,10 +30,6 @@ public class SimpleChoice extends QuestionChoice{
 		return false;
 	}
 	
-	/**
-	 * @param noMorePossibleAnswer
-	 * @return true if the possible answer was remover or false if not
-	 */
 	public boolean removePossibleAnswer(String noMorePossibleAnswer){
 		if (this.getExercise().isDone()){
 			return false;
@@ -55,11 +44,6 @@ public class SimpleChoice extends QuestionChoice{
 		return false;
 	}
 	
-	/**
-	 * @param student
-	 * @param answer
-	 * @return an object AnswerQuestion if the question was solved or null if not
-	 */
 	public AnswerQuestion solveQuestion(Student student, String answer){
 		double mark;
 		if (this.getPossibleAnswers().contains(answer) == false){ /*The answer isn't a possible answer*/

@@ -43,16 +43,10 @@ public class QuestionOption {
 		return multChoices;
 	}
 
-	/**
-	 * @param multChoices
-	 */
 	public void setMultChoices(List<String> multChoices) {
 		this.multChoices = multChoices;
 	}
 
-	/**
-	 * @return false if the question is a SimpleChoice question true if it's a MultipleChoice question
-	 */
 	public boolean isMultiple() {
 		return multiple;
 	}

@@ -38,7 +38,7 @@ public class TextAnswer extends Question {
 	/**
 	 * @param student
 	 * @param answer
-	 * @return an object AnswerQuestion if the question has been solved or null if not
+	 * @return an object AnswerQuestion if the question has been solved or null if not*/
 	 */
 	public AnswerQuestion solveQuestion(Student student, String answer){
 		double mark;

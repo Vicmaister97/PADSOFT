@@ -43,7 +43,7 @@ public class MultipleChoice extends QuestionChoice {
 	
 	/**
 	 * @param noMoreCorrectAnswer
-	 * @return true if the correct answer was removed or false not
+	 * @return true if the correct answer was removed or not
 	 */
 	public boolean removeCorrectAnswer(String noMoreCorrectAnswer){
 		if (this.getExercise().isDone()){
@@ -56,10 +56,6 @@ public class MultipleChoice extends QuestionChoice {
 		return false;
 	}
 	
-	/**
-	 * @param noMorePossibleAnswer
-	 * @return true if the possible answer was removed or false if not
-	 */
 	public boolean removePossibleAnswer(String noMorePossibleAnswer){
 		if (this.getExercise().isDone()){
 			return false;

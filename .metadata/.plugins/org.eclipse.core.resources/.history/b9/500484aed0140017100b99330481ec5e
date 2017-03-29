@@ -126,9 +126,6 @@ public abstract class Question {
 		return numDidntAnswer;
 	}
 	
-	/**
-	 * @return the exercise where the question is
-	 */
 	public Exercise getExercise() {
 		return exercise;
 	}

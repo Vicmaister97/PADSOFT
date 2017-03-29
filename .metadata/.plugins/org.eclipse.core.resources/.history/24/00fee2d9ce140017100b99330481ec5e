@@ -15,7 +15,7 @@ public class SimpleChoice extends QuestionChoice{
 	}
 
 	/**
-	 * @return the correct Answer of the question
+	 * @return the correct Answer of the exercise
 	 */
 	public String getCorrectAnswer() {
 		return correctAnswer;

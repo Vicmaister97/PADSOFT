@@ -29,30 +29,18 @@ public class AnswerQuestion {
 		return false;
 	}
 
-	/**
-	 * @return the question of the answer
-	 */
 	public Question getQuestion() {
 		return question;
 	}
 
-	/**
-	 * @return the student that have answered this
-	 */
 	public Student getStudent() {
 		return student;
 	}
 
-	/**
-	 * @return the answer that the student "wrote"
-	 */
 	public QuestionOption getAnswer() {
 		return answer;
 	}
 
-	/**
-	 * @return the mark of the answer of the question
-	 */
 	public double getMark() {
 		return mark;
 	}

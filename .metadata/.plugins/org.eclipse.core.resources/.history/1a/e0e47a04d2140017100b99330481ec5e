@@ -51,17 +51,10 @@ public class AnswerExercise {
 		return answers;
 	}
 
-	/**
-	 * @return the mark of the exercise
-	 */
 	public double getMark() {
 		return mark;
 	}
 
-	/**
-	 * @return the mark of the exercise. It calculates it based on the list of AnswerQuestion in
-	 * the exercise from the given student
-	 */
 	public double calculateMark(){
 		double exerciseMark = 0;
 		
