@@ -13,7 +13,7 @@ public abstract class Question {
 	private int numIncorrect;
 	private Exercise exercise;
 	
-	public Question (Exercise exercise, double weight, String questionText){
+	protected Question (Exercise exercise, double weight, String questionText){
 		this.weight = weight;
 		this.questionText = questionText;
 		this.answers = new ArrayList<AnswerQuestion>();
@@ -22,25 +22,28 @@ public abstract class Question {
 		this.numCorrect = 0;
 		this.numIncorrect = 0;
 		this.exercise = exercise;
+		exercise.addQuestion(this);
 	}
 	public double getWeight() {
 		return weight;
 	}
-	public void setWeight(double weight) {
+	public boolean setWeight(double weight) {
 		if (this.exercise.isDone()){
-			return;
+			return false;
 		}
 		this.weight = weight;
+		return true;
 	}
 	
 	public String getQuestionText() {
 		return questionText;
 	}
-	public void setQuestionText(String questionText) {
+	public boolean setQuestionText(String questionText) {
 		if (this.exercise.isDone()){
-			return;
+			return false;
 		}
 		this.questionText = questionText;
+		return true;
 	}
 	
 	public List<AnswerQuestion> getAnswers() {

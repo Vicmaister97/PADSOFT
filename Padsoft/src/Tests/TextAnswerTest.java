@@ -45,5 +45,14 @@ public class TextAnswerTest {
 		assertEquals(question1.getAnswer(), "Goya"); /*The correct answer has been changed*/
 		assertFalse(question2.setAnswer("Goya")); /*Must fail because question2 is a question of an exercise that has been already solved*/
 	}
+	
+	@Test
+	public void testSolveQuestion(){
+		assertEquals(question1.solveQuestion(student, "Leonardo da Vinci"), question1.getAnswers().get(0)); /*The answer was stored in the list of QuestionAnswers of the exercise*/
+		assertTrue(question1.getAnswers().get(0).isCorrect()); /*Must be correct*/
+		assertEquals(question1.solveQuestion(student2, "Goya"), question1.getAnswers().get(1)); /*The answer was stored in the list of QuestionAnswers of the exercise*/
+		assertFalse(question1.getAnswers().get(1).isCorrect()); /*Must be incorrect*/
+		assertEquals(question1.solveQuestion(student3, "Leonardo da Vinci"), null); /*Student3 isn't in the course, so he can't answer*/
+	}
 
 }

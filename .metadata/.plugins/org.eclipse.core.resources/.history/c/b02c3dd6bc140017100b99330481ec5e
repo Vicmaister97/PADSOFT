@@ -1,0 +1,75 @@
+package Tests;
+
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
+import CourseElements.Course;
+import CourseElements.Exercise;
+import Exercises.AnswerQuestion;
+import Exercises.QuestionOption;
+import Exercises.SimpleChoice;
+import Users.Student;
+
+import java.time.LocalDate;
+
+import org.junit.Before;
+
+public class QuestionTest {
+
+	private Course course;
+	private Student student;
+	private Student student2;
+	private Exercise exerciseNotDone;
+	private Exercise exerciseDone;
+	private SimpleChoice question1;
+	private SimpleChoice question2;
+	private QuestionOption opt1;
+	private QuestionOption opt2;
+	private AnswerQuestion ans1;
+	private AnswerQuestion ans2;
+	
+	@Before
+	public void setUp() throws Exception{
+		course = new Course ("Historia del Arte", "Paco", true);
+		student = new Student ("Platanito", "nerd68", "Carlos", "Isasa", "1", "platanito@gmail.com");
+		student2 = new Student ("Victor", "nerd69", "Victor", "Garcia", "2", "boss@gmail.com");
+		course.addStudent(student);
+		course.addStudent(student2);
+		exerciseNotDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 100, 0);
+		question1 = new SimpleChoice (exerciseNotDone, 4, "Who painted Mona Lisa?", false, "Leonardo da Vinci");
+		question1.addPossibleAnswer("Leonardo da Vinci");
+		question1.addPossibleAnswer("Goya");
+		question1.addPossibleAnswer("Velazquez");
+		exerciseDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 100, 0);
+		question2 = new SimpleChoice (exerciseDone, 4, "Who painted Mona Lisa?", false, "Leonardo da Vinci");
+		question2.addPossibleAnswer("Leonardo da Vinci");
+		question2.addPossibleAnswer("Goya");
+		question2.addPossibleAnswer("Velazquez");
+		exerciseDone.solveExercise(student);
+		
+	}
+	@Test
+	public void testSetWeight() {
+		assertTrue(question1.setWeight(5));
+		assertTrue(question1.getWeight() == 5); /*The weight of the question must have changed*/
+		assertFalse(question2.setWeight(5)); /*Must fail because question2 is a question of an exercise that has been already solved*/
+	}
+	
+	@Test
+	public void testSetQuestionText(){
+		assertTrue(question1.setQuestionText("Changed correctly"));
+		assertEquals(question1.getQuestionText(), "Changed correctly"); /*The question text of the question must have changed*/
+		assertFalse(question2.setQuestionText("Doesn't change")); /*Must fail because question2 is a question of an exercise that has been already solved*/
+	}
+	
+	@Test
+	public void testAddAnswer(){
+		assertEquals(question1.solveQuestion(student, "Leonardo da Vinci"), question1.getAnswers().get(0)); /*The answer was stored in the list of QuestionAnswers of the exercise*/
+		assertTrue(question1.getAnswers().get(0).isCorrect()); /*Must be correct*/
+		assertEquals(question1.solveQuestion(student2, "Goya"), question1.getAnswers().get(1)); /*The answer was stored in the list of QuestionAnswers of the exercise*/
+		assertFalse(question1.getAnswers().get(1).isCorrect()); /*Must be incorrect*/
+		assertEquals(question1.solveQuestion(student3, "Goya"), null); /*Student3 isn't in the course, so he can't answer*/
+	}
+
+}

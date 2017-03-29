@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ExerciseTest" project="Padsoft" tests="7" started="7" failures="0" errors="0" ignored="0">
+  <testsuite name="Tests.ExerciseTest" time="0.073">
+    <testcase name="testSetWeightE" classname="Tests.ExerciseTest" time="0.07"/>
+    <testcase name="testSetIniDate" classname="Tests.ExerciseTest" time="0.001"/>
+    <testcase name="testSetRandomOrder" classname="Tests.ExerciseTest" time="0.0"/>
+    <testcase name="testRemoveQuestion" classname="Tests.ExerciseTest" time="0.0"/>
+    <testcase name="testSetPenalisation" classname="Tests.ExerciseTest" time="0.001"/>
+    <testcase name="testSetEndDate" classname="Tests.ExerciseTest" time="0.0"/>
+    <testcase name="testAddQuestion" classname="Tests.ExerciseTest" time="0.001"/>
+  </testsuite>
+</testrun>

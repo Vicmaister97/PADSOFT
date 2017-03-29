@@ -21,11 +21,12 @@ public abstract class QuestionChoice extends Question{
 		return randomOrder;
 	}
 
-	public void changeOrder(boolean randomOrder) {
+	public boolean changeOrder(boolean randomOrder) {
 		if (this.getExercise().isDone()){
-			return;
+			return false;
 		}
 		this.randomOrder = randomOrder;
+		return true;
 	}
 	
 	public boolean addPossibleAnswer(String possibleAnswer){

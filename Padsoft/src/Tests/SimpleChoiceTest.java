@@ -67,7 +67,7 @@ public class SimpleChoiceTest {
 	public void testRemovePossibleAnswer(){
 		assertFalse(question1.removePossibleAnswer("Emilio")); /*It's not a possible answer of the question*/
 		assertTrue(question1.removePossibleAnswer("Goya"));
-		assertFalse(question1.getPossibleAnswers().contains("Goya")); /*Velazquez has been removed as a possible answer*/
+		assertFalse(question1.getPossibleAnswers().contains("Goya")); /*Goya has been removed as a possible answer*/
 		assertTrue(question1.removePossibleAnswer("Leonardo da Vinci"));
 		assertEquals(question1.getCorrectAnswer(), null); /*We have removed the answer of the question*/
 		assertFalse(question2.removePossibleAnswer("Van Gogh")); /*Must fail because question2 is a question of an exercise that has been already solved and Van Gogh isn't a possible answer*/
