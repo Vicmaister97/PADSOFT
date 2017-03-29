@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import es.uam.eps.padsof.emailconnection.*;
+
 
 public class Course extends VisibleElement {
 	private String name;
@@ -15,6 +17,20 @@ public class Course extends VisibleElement {
 		this.students = new ArrayList<Student>();
 		this.expelled = new ArrayList<Student>();
 		this.elements = new ArrayList<CourseElement>();
+	}
+	
+	public boolean setSmthVisible(VisibleElement e){
+		e.setVisible(true);
+		for (int i=0; i<this.getStudents().size(); i++){
+			try{
+				EmailSystem.send(this.getStudents().get(i).getEmail(), "New element in course " + this.getName(), "You have unchecked elements");
+			}
+			catch(Exception FailedInternetConectionException){
+				return false;
+			}
+			finally{}
+		}
+		return true;
 	}
 	/**
 	 * Adds a student to the course
