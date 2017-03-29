@@ -2,8 +2,6 @@ package CourseElements;
 import Users.Student;
 import java.util.ArrayList;
 import java.util.List;
-
-import Exercises.AnswerExercise;
 import es.uam.eps.padsof.emailconnection.*;
 
 
@@ -24,12 +22,15 @@ public class Course extends VisibleElement {
 	}
 	
 	public boolean setSmthVisible(VisibleElement e){
+		if (this.getElements().contains(e)==false){
+			return false;
+		}
 		e.setVisible(true);
 		for (int i=0; i<this.getStudents().size(); i++){
 			try{
-				EmailSystem.send(this.getStudents().get(i).getEmail(), "New element in course " + this.getName(), "You have unchecked elements");
+				EmailSystem.send(this.getStudents().get(i).getEmail(), "New element in course " + this.getName(), "You have unchecked elements", true);
 			}
-			catch(Exception FailedInternetConectionException){
+			catch(FailedInternetConnectionException|InvalidEmailAddressException  ex){
 				return false;
 			}
 			finally{}
@@ -74,7 +75,7 @@ public class Course extends VisibleElement {
 	}
 	
 	public boolean deleteExercise(Exercise e){
-		if (this.getElements().contains(e)){
+		if (this.getElements().contains(e) && e.isDone()==false){
 			this.getElements().remove(e);
 			return true;
 		}
@@ -181,20 +182,5 @@ public class Course extends VisibleElement {
 	 */
 	public void setExpelled(List<Student> expelled) {
 		this.expelled = expelled;
-	}
-	
-	public double globalMark(Student student){
-		double globalMark = 0;
-		for (CourseElement elem: this.elements){
-			if (elem instanceof Exercise){ /*We access the exercises of that course*/
-				for (AnswerExercise ans : ((Exercise) elem).getAnswers()){
-					if (ans.getStudent().equals(student)){ /*We find the answer of the student for that exercise*/
-						globalMark += ans.getMark() * ( ((Exercise) elem).getWeightE() / 100);
-						break;
-					}
-				}
-			}
-		}
-		return globalMark;
 	}
 }

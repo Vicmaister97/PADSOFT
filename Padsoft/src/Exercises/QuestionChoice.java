@@ -7,7 +7,7 @@ public abstract class QuestionChoice extends Question{
 	private List<String> possibleAnswers;
 	private boolean randomOrder;
 	
-	public QuestionChoice(Exercise exe, double weight, String QText, boolean randOrder){
+	protected QuestionChoice(Exercise exe, double weight, String QText, boolean randOrder){
 		super(exe, weight, QText);
 		this.possibleAnswers = new ArrayList<String>();
 		this.randomOrder = randOrder;

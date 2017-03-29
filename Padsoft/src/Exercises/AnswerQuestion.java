@@ -6,7 +6,7 @@ public class AnswerQuestion {
 	private QuestionOption answer;
 	private double mark; /*0 if the answer of the question is wrong*/
 	
-	public AnswerQuestion(Question question, Student student, QuestionOption answer, double mark){
+	protected AnswerQuestion(Question question, Student student, QuestionOption answer, double mark){
 		this.question = question;
 		this.student = student;
 		this.answer = answer;

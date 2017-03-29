@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.Period;
 import Exercises.*;
-import Users.Student;
 
 
 public class Exercise extends CourseElement {
@@ -33,7 +32,6 @@ public class Exercise extends CourseElement {
 		this.answers = new ArrayList<AnswerExercise>();
 		this.penalisation = penalisation;
 		this.Done = false; /*When we create the exercise, no one has done it yet*/
-		this.course.addExercise(this);
 	}
 
 	public boolean isRandomOrder() {
@@ -50,7 +48,10 @@ public class Exercise extends CourseElement {
 	public LocalDate getIniDate() {
 		return iniDate;
 	}
-
+	
+	public void setDone(boolean done){
+		this.Done = done;
+	}
 	public void setIniDate(LocalDate iniDate) {
 		if (this.isDone() == false){ /*No one has answered the exercise yet*/
 			this.iniDate = iniDate;
@@ -162,14 +163,6 @@ public class Exercise extends CourseElement {
 		return course;
 	}
 
-	public AnswerExercise solveExercise(Student student){
-		for (AnswerExercise ans: this.answers){
-			if (ans.getStudent().equals(student)){ /*The student has already answered this exercise*/
-				return null;
-			}
-		}
-		AnswerExercise finalAns = new AnswerExercise(this, student);
-		return finalAns;
-	}
+	
 	
 }

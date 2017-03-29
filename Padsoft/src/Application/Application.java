@@ -12,7 +12,7 @@ public class Application {
 	/**
 	 * Accepts the application and adds the student to the course
 	 */
-	void admitStudent(){
+	public void admitStudent(){
 		this.getCourse().addStudent(this.getStudent());
 	}
 	/**
