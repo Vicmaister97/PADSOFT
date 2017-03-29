@@ -11,14 +11,36 @@ public class Unit extends CourseElement{
 		this.elements = new ArrayList<CourseElement>();
 	}
 	
-	public void addSubunit(String name, boolean visibility){
-		Unit u = new Unit(name, visibility);
+	public void addSubunit(Unit u){
 		this.getElements().add(u);
 	}
 	
-	public void addNote(String text, boolean visibility){
-		Note e = new Note(name, visibility);
+	public void addNote(Note n){
+		this.getElements().add(n);
+	}
+	
+	public boolean deleteNote(Note n){
+		if (this.getElements().contains(n)){
+			this.getElements().remove(n);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public void addExercise(Exercise e){
 		this.getElements().add(e);
+	}
+	
+	public boolean deleteExercise(Exercise e){
+		if (this.getElements().contains(e)){
+			this.getElements().remove(e);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 	/**
 	 * @return the name
