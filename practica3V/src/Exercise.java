@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.Period;
 
-public class Exercise {
+public class Exercise extends CourseElement {
 	private boolean randomOrder;
 	private LocalDate iniDate;
 	private LocalDate endDate;
@@ -12,7 +12,8 @@ public class Exercise {
 	private List<AnswerExercise> answers;
 	private double penalisation;
 	
-	public Exercise (boolean random, LocalDate ini, LocalDate end, double weight, List<Question> questions, double penalisation){
+	public Exercise (boolean random, LocalDate ini, LocalDate end, double weight, List<Question> questions, double penalisation, boolean visibility){
+		super(visibility);
 		this.randomOrder = random;
 		this.setIniDate(ini);
 		this.setEndDate(end);
