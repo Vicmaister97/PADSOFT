@@ -196,14 +196,9 @@ public class Course extends VisibleElement {
 			if (ele instanceof Exercise){ /*If it's an exercise*/
 				exe = (Exercise) ele;
 				for (AnswerExercise ansexe : exe.getAnswers()){ /*We look for the answer of the student to that exercise*/
-					if (ansexe.getStudent().equals(student)){
-						globalMark += (ansexe.getMark() * (exe.getWeightE() / 100));
-						break;
-					}
+					
 				}
 			}
 		}
-		return globalMark;		
 	}
-	
 }

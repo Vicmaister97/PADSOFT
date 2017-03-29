@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="ApplicationTest" project="Padsoft" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="Tests.ApplicationTest" time="0.0">
+    <testcase name="testAdmit" classname="Tests.ApplicationTest" time="0.0"/>
+  </testsuite>
+</testrun>

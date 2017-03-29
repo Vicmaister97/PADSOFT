@@ -14,13 +14,12 @@ public class TextAnswer extends Question {
 		return answer;
 	}
 	
-	public boolean setAnswer(String answer) {
+	public void setAnswer(String answer) {
 		if (this.getExercise().isDone()){
-			return false;
+			return;
 		}
 		
 		this.answer = answer;
-		return true;
 	}
 	
 	public AnswerQuestion solveQuestion(Student student, String answer){

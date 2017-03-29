@@ -3,7 +3,6 @@ import Users.Student;
 import java.util.ArrayList;
 import java.util.List;
 import es.uam.eps.padsof.emailconnection.*;
-import Exercises.*;
 
 
 public class Course extends VisibleElement {
@@ -184,26 +183,4 @@ public class Course extends VisibleElement {
 	public void setExpelled(List<Student> expelled) {
 		this.expelled = expelled;
 	}
-	
-	public double getGlobalMark(Student student){
-		double globalMark = 0;
-		Exercise exe;
-		
-		if (this.students.contains(student) == false){ /*The student is not a member of this course*/
-			return 0;
-		}
-		for (CourseElement ele : this.elements){
-			if (ele instanceof Exercise){ /*If it's an exercise*/
-				exe = (Exercise) ele;
-				for (AnswerExercise ansexe : exe.getAnswers()){ /*We look for the answer of the student to that exercise*/
-					if (ansexe.getStudent().equals(student)){
-						globalMark += (ansexe.getMark() * (exe.getWeightE() / 100));
-						break;
-					}
-				}
-			}
-		}
-		return globalMark;		
-	}
-	
 }
