@@ -11,11 +11,12 @@ public abstract class Question {
 	private int numIncorrect;
 	private Exercise exercise;
 	
-	protected Question (Exercise exercise, double weight, String questionText){
+	public Question (Exercise exercise, double weight, String questionText){
 		this.weight = weight;
 		this.questionText = questionText;
 		this.answers = new ArrayList<AnswerQuestion>();
 		this.numAnswered = 0;
+		this.numDidntAnswer = exercise.getCourse().getStudents().size();
 		this.numCorrect = 0;
 		this.numIncorrect = 0;
 		this.exercise = exercise;
@@ -24,6 +25,9 @@ public abstract class Question {
 		return weight;
 	}
 	public void setWeight(double weight) {
+		if (this.exercise.isDone()){
+			return;
+		}
 		this.weight = weight;
 	}
 	
@@ -31,12 +35,16 @@ public abstract class Question {
 		return questionText;
 	}
 	public void setQuestionText(String questionText) {
+		if (this.exercise.isDone()){
+			return;
+		}
 		this.questionText = questionText;
 	}
 	
 	public List<AnswerQuestion> getAnswers() {
 		return answers;
 	}
+	
 	public boolean addAnswer(AnswerQuestion answer) {
 		for (AnswerQuestion ans: this.answers){
 			if (ans.getStudent().equals(answer.getStudent())){ /*The student has already answered that question*/
@@ -46,7 +54,7 @@ public abstract class Question {
 		
 		if (this.answers.add(answer)){
 			this.numAnswered++;
-			this.numDidntAnswer = (this.getExercise().getCourse().getStudents().size())-(this.numAnswered);	
+			this.numDidntAnswer--;	
 			if (answer.isCorrect()){
 				this.numCorrect++;
 			}
@@ -57,6 +65,7 @@ public abstract class Question {
 		}
 		return false;
 	}
+	
 	public int getNumAnswered() {
 		return numAnswered;
 	}

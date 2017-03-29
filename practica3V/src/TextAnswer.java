@@ -2,8 +2,8 @@
 public class TextAnswer extends Question {
 	private String answer;
 	
-	protected TextAnswer(double weight, String QText, String answer) {
-		super(weight, QText);
+	protected TextAnswer(Exercise exe, double weight, String QText, String answer) {
+		super(exe, weight, QText);
 		this.answer = answer;
 
 	}
@@ -13,6 +13,10 @@ public class TextAnswer extends Question {
 	}
 	
 	public void setAnswer(String answer) {
+		if (this.getExercise().isDone()){
+			return;
+		}
+		
 		this.answer = answer;
 	}
 	

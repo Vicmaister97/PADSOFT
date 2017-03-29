@@ -2,8 +2,8 @@
 public class SimpleChoice extends QuestionChoice{
 	private String correctAnswer;
 	
-	protected SimpleChoice (double weight, String QText, boolean randOrd, String correct){
-		super(weight, QText, randOrd);
+	protected SimpleChoice (Exercise exe, double weight, String QText, boolean randOrd, String correct){
+		super(exe, weight, QText, randOrd);
 		this.correctAnswer = correct;
 	}
 
@@ -12,6 +12,10 @@ public class SimpleChoice extends QuestionChoice{
 	}
 
 	public boolean setCorrectAnswer(String correctanswer) {
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
 		if(this.getPossibleAnswers().contains(correctanswer)){ /*Our answer is one of the possible answers of the question*/
 			this.correctAnswer = correctanswer;
 			return true;
@@ -20,6 +24,10 @@ public class SimpleChoice extends QuestionChoice{
 	}
 	
 	public boolean addPossibleAnswer(String possibleAnswer){
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
 		if (this.getPossibleAnswers().contains(possibleAnswer)){ /*That possible answer already exists*/
 			return false;
 		}
@@ -28,6 +36,10 @@ public class SimpleChoice extends QuestionChoice{
 	}
 	
 	public boolean removePossibleAnswer(String noMorePossibleAnswer){
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
 		if (this.getPossibleAnswers().remove(noMorePossibleAnswer)){ /*The possible answer was in the list and it was removed correctly*/
 			if (this.getCorrectAnswer().equals(noMorePossibleAnswer)){ /*The possible answer that was removed was the correct answer of the question*/
 				this.correctAnswer = null; /*The teacher must be the one that chooses after this the new correct answer*/

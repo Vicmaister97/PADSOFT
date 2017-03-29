@@ -4,8 +4,8 @@ import java.util.List;
 public class MultipleChoice extends QuestionChoice {
 	private List<String> correctAnswers;
 	
-	protected MultipleChoice (double weight, String QText, boolean randOrd, List<String> answers){
-		super(weight, QText, randOrd);
+	protected MultipleChoice (Exercise exe, double weight, String QText, boolean randOrd, List<String> answers){
+		super(exe, weight, QText, randOrd);
 		this.correctAnswers = new ArrayList<>(answers);
 	}
 
@@ -13,11 +13,12 @@ public class MultipleChoice extends QuestionChoice {
 		return correctAnswers;
 	}
 	
-	/*public String getACorrectAnswer(String answer){
-		
-	}*/
 
 	public boolean addCorrectAnswer(String correctanswer) {
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
 		if(this.getPossibleAnswers().contains(correctanswer)){ /*Our answer is one of the possible answers of the question*/
 			this.correctAnswers.add(correctanswer);
 			return true;
@@ -26,6 +27,10 @@ public class MultipleChoice extends QuestionChoice {
 	}
 	
 	public boolean removeCorrectAnswer(String noMoreCorrectAnswer){
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
 		if (this.correctAnswers.remove(noMoreCorrectAnswer)){
 			return true;
 		}
@@ -33,6 +38,10 @@ public class MultipleChoice extends QuestionChoice {
 	}
 	
 	public boolean addPossibleAnswer(String possibleAnswer){
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
 		if (this.getPossibleAnswers().contains(possibleAnswer)){ /*That possible answer already exists*/
 			return false;
 		}
@@ -41,6 +50,10 @@ public class MultipleChoice extends QuestionChoice {
 	}
 	
 	public boolean removePossibleAnswer(String noMorePossibleAnswer){
+		if (this.getExercise().isDone()){
+			return false;
+		}
+		
 		if (this.getPossibleAnswers().remove(noMorePossibleAnswer)){ /*The possible answer was in the list and it was removed correctly*/
 			this.correctAnswers.remove(noMorePossibleAnswer);
 			return true;
