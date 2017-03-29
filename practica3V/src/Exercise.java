@@ -5,6 +5,7 @@ import java.time.Period;
 
 public class Exercise extends CourseElement {
 	private boolean randomOrder;
+	private Course course;
 	private LocalDate iniDate;
 	private LocalDate endDate;
 	private double weightE; /*It's going to be the percentage of the exercise on the global mark*/
@@ -15,8 +16,9 @@ public class Exercise extends CourseElement {
 	private double penalisation;
 	private boolean Done; /*This attribute shows whether an exercise has been done or not yet*/
 	
-	public Exercise (boolean visibility, boolean random, LocalDate ini, LocalDate end, String name, double weight, double penalisation){
+	public Exercise (Course course, boolean visibility, boolean random, LocalDate ini, LocalDate end, String name, double weight, double penalisation){
 		super(visibility);
+		this.course = course;
 		this.randomOrder = random;
 		this.setIniDate(ini);
 		this.setEndDate(end);
@@ -150,6 +152,11 @@ public class Exercise extends CourseElement {
 			this.visible = visible;
 		}
 	}
+
+	public Course getCourse() {
+		return course;
+	}
+
 	
 	
 }

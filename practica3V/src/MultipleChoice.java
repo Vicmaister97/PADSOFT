@@ -68,6 +68,7 @@ public class MultipleChoice extends QuestionChoice {
 			mark = 0;
 		}
 		finalAnswer = new AnswerQuestion(this, student, choice, mark);
+		this.addAnswer(finalAnswer);
 		return finalAnswer;
 	}
 	

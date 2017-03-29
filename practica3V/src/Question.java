@@ -5,11 +5,20 @@ public abstract class Question {
 	private double weight;
 	private String questionText;
 	private List<AnswerQuestion> answers;
+	private int numAnswered;
+	private int numDidntAnswer;
+	private int numCorrect;
+	private int numIncorrect;
+	private Exercise exercise;
 	
-	protected Question (double weight, String questionText){
+	protected Question (Exercise exercise, double weight, String questionText){
 		this.weight = weight;
 		this.questionText = questionText;
 		this.answers = new ArrayList<AnswerQuestion>();
+		this.numAnswered = 0;
+		this.numCorrect = 0;
+		this.numIncorrect = 0;
+		this.exercise = exercise;
 	}
 	public double getWeight() {
 		return weight;
@@ -36,11 +45,37 @@ public abstract class Question {
 		}
 		
 		if (this.answers.add(answer)){
+			this.numAnswered++;
+			this.numDidntAnswer = (this.getExercise().getCourse().getStudents().size())-(this.numAnswered);	
+			if (answer.isCorrect()){
+				this.numCorrect++;
+			}
+			else{
+				this.numIncorrect++;
+			}
 			return true;
 		}
 		return false;
 	}
+	public int getNumAnswered() {
+		return numAnswered;
+	}
+
+	public int getNumCorrect() {
+		return numCorrect;
+	}
 	
+	public int getNumIncorrect() {
+		return numIncorrect;
+	}
+	
+	public int getNumDidntAnswer(){
+		return numDidntAnswer;
+	}
+	
+	public Exercise getExercise() {
+		return exercise;
+	}
 	
 	
 }

@@ -28,6 +28,7 @@ public class TextAnswer extends Question {
 			mark = 0;
 		}
 		finalAnswer = new AnswerQuestion(this, student, choice, mark);
+		this.addAnswer(finalAnswer);
 		return finalAnswer;
 	}
 
