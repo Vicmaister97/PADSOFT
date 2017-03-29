@@ -4,7 +4,7 @@ import Users.Student;
 public class SimpleChoice extends QuestionChoice{
 	private String correctAnswer;
 	
-	protected SimpleChoice (Exercise exe, double weight, String QText, boolean randOrd, String correct){
+	public SimpleChoice (Exercise exe, double weight, String QText, boolean randOrd, String correct){
 		super(exe, weight, QText, randOrd);
 		this.correctAnswer = correct;
 	}

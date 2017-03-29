@@ -2,6 +2,8 @@ package CourseElements;
 import Users.Student;
 import java.util.ArrayList;
 import java.util.List;
+
+import Exercises.AnswerExercise;
 import es.uam.eps.padsof.emailconnection.*;
 
 
@@ -179,5 +181,20 @@ public class Course extends VisibleElement {
 	 */
 	public void setExpelled(List<Student> expelled) {
 		this.expelled = expelled;
+	}
+	
+	public double globalMark(Student student){
+		double globalMark = 0;
+		for (CourseElement elem: this.elements){
+			if (elem instanceof Exercise){ /*We access the exercises of that course*/
+				for (AnswerExercise ans : ((Exercise) elem).getAnswers()){
+					if (ans.getStudent().equals(student)){ /*We find the answer of the student for that exercise*/
+						globalMark += ans.getMark() * ( ((Exercise) elem).getWeightE() / 100);
+						break;
+					}
+				}
+			}
+		}
+		return globalMark;
 	}
 }

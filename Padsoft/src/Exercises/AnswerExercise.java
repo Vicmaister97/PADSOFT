@@ -10,7 +10,7 @@ public class AnswerExercise {
 	private List<AnswerQuestion> answers; /*We store the answers of the questions of the student on that exercise*/
 	private double mark; /*The mark of an exercise is always a number between 0 and 10*/
 	
-	protected AnswerExercise (Exercise exercise, Student student){
+	public AnswerExercise (Exercise exercise, Student student){
 		this.exercise = exercise;
 		this.student = student;
 		this.answers = new ArrayList<AnswerQuestion>();

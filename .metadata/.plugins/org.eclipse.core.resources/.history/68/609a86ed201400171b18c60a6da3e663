@@ -1,0 +1,44 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class Question {
+	private double weight;
+	private String questionText;
+	private List<AnswerQuestion> answers;
+	
+	protected Question (double weight, String questionText){
+		this.weight = weight;
+		this.questionText = questionText;
+		this.answers = new ArrayList<AnswerQuestion>();
+	}
+	public double getWeight() {
+		return weight;
+	}
+	public void setWeight(double weight) {
+		this.weight = weight;
+	}
+	
+	public String getQuestionText() {
+		return questionText;
+	}
+	public void setQuestionText(String questionText) {
+		this.questionText = questionText;
+	}
+	
+	public List<AnswerQuestion> getAnswers() {
+		return answers;
+	}
+	public boolean addAnswer(AnswerQuestion answer) {
+		for (AnswerQuestion ans: this.answers){
+			if (ans.getStudent().equals(answer.getStudent())){ /*The student has already answered that question*/
+				return false;
+			}
+		}
+		
+		this.answers.add(answer);
+		return true;
+	}
+	
+	
+	
+}

@@ -1,0 +1,54 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class MultipleChoice extends QuestionChoice {
+	private List<String> correctAnswers;
+	
+	protected MultipleChoice (double weight, String QText, boolean randOrd, List<String> answers){
+		super(weight, QText, randOrd);
+		this.correctAnswers = new ArrayList<>(answers);
+	}
+
+	public List<String> getCorrectAnswers() {
+		return correctAnswers;
+	}
+
+	public void setCorrectAnswers(List<String> correctAnswers) {
+		this.correctAnswers = correctAnswers;
+	}
+	
+	public void addAnswer(String newAnswer){
+		this.correctAnswers.add(newAnswer);
+	}
+	
+	public boolean removeAnswer(String noMoreAnswer){
+		if (this.correctAnswers.remove(noMoreAnswer) == true){ /*The answer was in the list and it was removed correctly*/
+			return true;
+		}
+		return false;
+	}
+	
+	public AnswerQuestion solveQuestion(Student student, List<String> answer){
+		double mark = 0;
+		QuestionOption choice = new QuestionOption(answer);
+		AnswerQuestion finalAnswer;
+		
+		if (this.getCorrectAnswers().size() == answer.size()){ /*The same number of answers*/
+			for (String correct: this.getCorrectAnswers()){
+				if (answer.contains(correct) == false){ /*There is a correct answer of the question missing*/
+					mark = 0;
+					break;
+				}
+				mark = this.getWeight();
+			}
+			
+		}
+		else{ /*The question is incorrect, different number of answers*/
+			mark = 0;
+		}
+		finalAnswer = new AnswerQuestion(this, student, choice, mark);
+		return finalAnswer;
+	}
+	
+	
+}

@@ -7,7 +7,7 @@ import java.util.List;
 public class MultipleChoice extends QuestionChoice {
 	private List<String> correctAnswers;
 	
-	protected MultipleChoice (Exercise exe, double weight, String QText, boolean randOrd, List<String> answers){
+	public MultipleChoice (Exercise exe, double weight, String QText, boolean randOrd, List<String> answers){
 		super(exe, weight, QText, randOrd);
 		this.correctAnswers = new ArrayList<>(answers);
 	}

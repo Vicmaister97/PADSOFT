@@ -1,0 +1,12 @@
+
+public class StatisticsQuestion {
+	private int numAnswered;
+	private int numDidntAnswer;
+	private int numCorrect;
+	private int numIncorrect;
+	
+	public StatisticsQuestion (){
+		this.numAnswered = 0;
+		this.numDidntAnswer = 
+	}
+}

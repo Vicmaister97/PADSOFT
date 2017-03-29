@@ -13,7 +13,7 @@ public abstract class Question {
 	private int numIncorrect;
 	private Exercise exercise;
 	
-	public Question (Exercise exercise, double weight, String questionText){
+	protected Question (Exercise exercise, double weight, String questionText){
 		this.weight = weight;
 		this.questionText = questionText;
 		this.answers = new ArrayList<AnswerQuestion>();
@@ -22,6 +22,7 @@ public abstract class Question {
 		this.numCorrect = 0;
 		this.numIncorrect = 0;
 		this.exercise = exercise;
+		this.exercise.addQuestion(this);
 	}
 	public double getWeight() {
 		return weight;
@@ -50,7 +51,14 @@ public abstract class Question {
 	public boolean addAnswer(AnswerQuestion answer) {
 		for (AnswerQuestion ans: this.answers){
 			if (ans.getStudent().equals(answer.getStudent())){ /*The student has already answered that question*/
-				return false;
+				for (AnswerExercise exe: this.exercise.getAnswers()){
+					if (exe.getStudent().equals(answer.getStudent())){ /*The student has already finished the exercise*/
+						return false;
+					}
+				}
+				this.answers.remove(ans); /*We remove the old answer*/
+				this.answers.add(answer);
+				return true;
 			}
 		}
 		
