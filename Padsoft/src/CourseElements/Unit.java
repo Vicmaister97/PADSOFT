@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.uam.eps.padsof.emailconnection.EmailSystem;
+import es.uam.eps.padsof.emailconnection.FailedInternetConnectionException;
+import es.uam.eps.padsof.emailconnection.InvalidEmailAddressException;
 
 public class Unit extends CourseElement{
 	private String name;
@@ -17,12 +19,15 @@ public class Unit extends CourseElement{
 	}
 	
 	public boolean setSmthVisible(VisibleElement e){
+		if (this.getElements().contains(e)==false){
+			return false;
+		}
 		e.setVisible(true);
 		for (int i=0; i<this.getCourse().getStudents().size(); i++){
 			try{
-				EmailSystem.send(this.getCourse().getStudents().get(i).getEmail(), "New element in course " + this.getName(), "You have unchecked elements");
+				EmailSystem.send(this.getCourse().getStudents().get(i).getEmail(), "New element in course " + this.getName(), "You have unchecked elements", true);
 			}
-			catch(Exception FailedInternetConectionException){
+			catch(FailedInternetConnectionException|InvalidEmailAddressException  ex){
 				return false;
 			}
 			finally{}
@@ -53,7 +58,7 @@ public class Unit extends CourseElement{
 	}
 	
 	public boolean deleteExercise(Exercise e){
-		if (this.getElements().contains(e)){
+		if (this.getElements().contains(e)&&e.isDone()==false){
 			this.getElements().remove(e);
 			return true;
 		}

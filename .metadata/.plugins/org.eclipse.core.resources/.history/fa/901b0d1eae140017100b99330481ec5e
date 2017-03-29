@@ -3,7 +3,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.Period;
-import Users.Student;
 import Exercises.*;
 
 
@@ -50,6 +49,9 @@ public class Exercise extends CourseElement {
 		return iniDate;
 	}
 	
+	public void setDone(boolean done){
+		this.Done = done;
+	}
 	public void setIniDate(LocalDate iniDate) {
 		if (this.isDone() == false){ /*No one has answered the exercise yet*/
 			this.iniDate = iniDate;
@@ -165,6 +167,7 @@ public class Exercise extends CourseElement {
 		return course;
 	}
 
+<<<<<<< HEAD
 	public AnswerExercise solveExercise(Student student){
 		for (AnswerExercise ans: this.answers){
 			if (ans.getStudent().equals(student)){ /*The student has already answered this exercise*/
@@ -175,5 +178,8 @@ public class Exercise extends CourseElement {
 		this.addAnswer(finalAns);
 		return finalAns;
 	}
+=======
+	
+>>>>>>> 353ebc54d493dc17f2e7729ad3306e327bcce239
 	
 }

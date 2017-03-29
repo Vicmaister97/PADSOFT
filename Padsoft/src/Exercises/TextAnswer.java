@@ -4,7 +4,7 @@ import Users.Student;
 public class TextAnswer extends Question {
 	private String answer;
 	
-	public TextAnswer(Exercise exe, double weight, String QText, String answer) {
+	protected TextAnswer(Exercise exe, double weight, String QText, String answer) {
 		super(exe, weight, QText);
 		this.answer = answer;
 
