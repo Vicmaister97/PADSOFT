@@ -5,7 +5,6 @@ import java.util.StringTokenizer;
 import java.io.*;
 import courseElements.*;
 import users.*;
-
 public class Coorse implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<User> users;
