@@ -66,11 +66,11 @@ public class Demonstrator {
 		/*STUDENT REQUIREMENTS*/
 		
 		/*1. Login with credentials*/
-		Student s1 = (Student) c.login("Luis.Gallego@esdu.es", "s.ll");
+		Student s1 = (Student) c.login("Luis.Gallego@coor.es", "s.ll");
 		if (s1==null){
 			System.out.println("Login Error");
 		}
-		Student s2 = (Student) c.login("Jorge.Alcazar@esdu.es", "JoA");
+		Student s2 = (Student) c.login("Jorge.Alcazar@coor.es", "JoA");
 		if (s1==null){
 			System.out.println("Login Error");
 		}

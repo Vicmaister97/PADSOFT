@@ -2,6 +2,7 @@ package tests;
 import coorse.*;
 import users.*;
 import java.io.*;
+import courseElements.*;
 public class prueba {
 	public static void main(String[] args){
 		ObjectInputStream ois;
@@ -29,6 +30,9 @@ public class prueba {
 		Coorse c = (Coorse) obj;
 		for (User userex: c.getUsers()){
 			System.out.println(userex);
+		}
+		for (Course courseex: c.getCourses()){
+			System.out.println(courseex);
 		}
 		try {
 			ois.close();
