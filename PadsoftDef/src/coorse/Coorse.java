@@ -1,11 +1,22 @@
 package coorse;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.io.*;
-import courseElements.*;
-import users.*;
+
+import courseElements.Course;
+import users.Professor;
+import users.Student;
+import users.User;
 public class Coorse implements java.io.Serializable {
+	public static final Coorse coorse = new Coorse();
 	private static final long serialVersionUID = 1L;
 	private List<User> users;
 	private List<Course> courses;
@@ -67,6 +78,15 @@ public class Coorse implements java.io.Serializable {
 		return;
 	}
 	
+	public void load(String fname) throws IOException, ClassNotFoundException {
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fname));
+		Object obj = ois.readObject();
+		Coorse c = (Coorse) obj;
+		this.setCourses(c.getCoursesL());
+		this.setUsers(c.getUsersL());
+		ois.close();
+	}
+	
 	
 	public void readFromFile(String fname){ 
 		try {
@@ -91,28 +111,34 @@ public class Coorse implements java.io.Serializable {
 
 		}
 	}
+	private List<User> getUsersL(){
+		return users;
+	}
 	/**
 	 * @return the users
 	 */
 	public List<User> getUsers() {
-		return users;
+		return Collections.unmodifiableList(users);
 	}
 	/**
 	 * @param users the users to set
 	 */
-	public void setUsers(List<User> users) {
+	private void setUsers(List<User> users) {
 		this.users = users;
+	}
+	private List<Course> getCoursesL(){
+		return courses;
 	}
 	/**
 	 * @return the courses
 	 */
 	public List<Course> getCourses() {
-		return courses;
+		return Collections.unmodifiableList(courses);
 	}
 	/**
 	 * @param courses the courses to set
 	 */
-	public void setCourses(List<Course> courses) {
+	private void setCourses(List<Course> courses) {
 		this.courses = courses;
 	}
 	

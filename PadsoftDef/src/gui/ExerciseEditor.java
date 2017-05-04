@@ -1,21 +1,20 @@
 package gui;
 
-import javax.swing.*;
-import coorse.*;
-import courseElements.Course;
-import courseElements.Exercise;
-import users.*;
-
-import java.awt.*;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.awt.Container;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
+
+import coorse.Coorse;
+import courseElements.Course;
+import courseElements.Exercise;
 
 public class ExerciseEditor extends Container{
 	/**

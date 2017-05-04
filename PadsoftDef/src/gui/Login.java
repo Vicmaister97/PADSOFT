@@ -1,22 +1,30 @@
 package gui;
 
-import javax.swing.*;
-import coorse.*;
-import users.*;
-
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Login extends Container{
-	private static int frames = 40;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
+
+import coorse.Coorse;
+import users.Student;
+import users.User;
+
+public class Login extends JPanel{
+	private static int frames = 60;
 	private static int frames2 = 10;
 	public Login(Coorse c){
 		SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
 		this.setBackground(Color.CYAN);
 		JLabel etiqueta = new JLabel("Username");
-		final JTextField campo = new JTextField(30);
+		final JTextField campo = new JTextField(20);
 		JLabel etiqueta2 = new JLabel ("Password");
 		final JPasswordField campo2 = new JPasswordField(10);
 		JButton boton   = new JButton("Login");

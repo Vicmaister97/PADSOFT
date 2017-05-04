@@ -6,7 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import coorse.Coorse;
-import users.*;
+import users.Student;
+import users.User;
 
 
 public class CoorseTest {

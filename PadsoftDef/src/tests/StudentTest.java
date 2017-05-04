@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import application.Application;
 import courseElements.Course;
 import users.Student;
-import application.Application;
 
 public class StudentTest {
 	private Student s;
