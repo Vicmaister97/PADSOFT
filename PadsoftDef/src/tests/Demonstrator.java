@@ -1,11 +1,20 @@
 package tests;
 import java.time.LocalDateTime;
-import java.util.*;
-import application.*;
-import coorse.*;
-import courseElements.*;
-import exercises.*;
-import users.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import application.Application;
+import coorse.Coorse;
+import courseElements.Course;
+import courseElements.Exercise;
+import courseElements.Note;
+import courseElements.Unit;
+import exercises.MultipleChoice;
+import exercises.SimpleChoice;
+import exercises.TextAnswer;
+import users.Professor;
+import users.Student;
+import users.User;
 
 
 public class Demonstrator {

@@ -1,10 +1,13 @@
 package courseElements;
-import users.Student;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import es.uam.eps.padsof.emailconnection.*;
-import exercises.*;
+
+import es.uam.eps.padsof.emailconnection.EmailSystem;
+import es.uam.eps.padsof.emailconnection.FailedInternetConnectionException;
+import es.uam.eps.padsof.emailconnection.InvalidEmailAddressException;
+import exercises.AnswerExercise;
+import users.Student;
 
 
 public class Course extends VisibleElement {

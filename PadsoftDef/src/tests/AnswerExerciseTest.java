@@ -2,16 +2,15 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import courseElements.Course;
 import courseElements.Exercise;
 import exercises.SimpleChoice;
 import users.Student;
-
-import java.time.LocalDateTime;
-
-import org.junit.Before;
 
 public class AnswerExerciseTest {
 

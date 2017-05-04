@@ -1,6 +1,10 @@
 package users;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import application.Application;
-import courseElements.*;
+import courseElements.Course;
 public class Student extends User{
 
 	private static final long serialVersionUID = 5956689220406391382L;
@@ -8,8 +12,10 @@ public class Student extends User{
 	public String lastname;
 	public String id;
 	public String email;
+	private List<Course> courses;
 	public Student(String username, String password, String firstname, String lastname, String id, String email) {
 		super(username, password);
+		this.courses = new ArrayList<Course>();
 		this.firstname = firstname;
 		this.lastname = lastname;
 		this.id = id;
@@ -63,5 +69,17 @@ public class Student extends User{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	/**
+	 * @return the courses
+	 */
+	public List<Course> getCourses() {
+		return Collections.unmodifiableList(courses);
+	}
+	
+	public void addCourse(Course c){
+		this.courses.add(c);
+	}
+
+	
 	
 }

@@ -6,7 +6,10 @@ import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
-import courseElements.*;
+
+import courseElements.Course;
+import courseElements.Exercise;
+import courseElements.Note;
 import users.Student;
 
 public class CourseTest {

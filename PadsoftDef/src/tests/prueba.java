@@ -1,8 +1,11 @@
 package tests;
-import coorse.*;
-import users.*;
-import java.io.*;
-import courseElements.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
+import coorse.Coorse;
+import courseElements.Course;
+import users.User;
 public class prueba {
 	public static void main(String[] args){
 		ObjectInputStream ois;

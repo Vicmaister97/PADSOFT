@@ -4,10 +4,11 @@
  */
 
 package exercises;
-import users.Student;
-import courseElements.Exercise;
 import java.util.ArrayList;
 import java.util.List;
+
+import courseElements.Exercise;
+import users.Student;
 
 public class AnswerExercise implements java.io.Serializable{
 
