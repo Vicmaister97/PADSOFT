@@ -195,6 +195,12 @@ public class Exercise extends CourseElement {
 	public void setDone(boolean done) {
 		this.done = done;
 	}
+	
+	public void setVisible(boolean visible){
+		if (this.isDone() == false){ /* No one has answered the exercise yet*/
+		this.visible = visible;
+		}
+	}
 
 	public Course getCourse() {
 		return course;

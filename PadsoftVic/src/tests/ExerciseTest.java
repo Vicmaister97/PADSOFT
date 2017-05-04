@@ -114,7 +114,7 @@ public class ExerciseTest {
 		exerciseNotDone.setVisible(false);
 		assertTrue(exerciseNotDone.isVisible() == false); /*The visibility of the exercise must have changed*/
 		exerciseDone.setVisible(false); 
-		assertTrue(exerciseDone.isVisible() == false);
+		assertFalse(exerciseDone.isVisible() == false); /*Must fail because the exercise has been already solved*/
 	}
 	
 	@Test

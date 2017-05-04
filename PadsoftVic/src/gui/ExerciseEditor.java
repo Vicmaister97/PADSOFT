@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class ExerciseEditor extends Container{
+public class ExerciseEditor extends JPanel{
 	/**
 	 * 
 	 */
@@ -30,16 +30,17 @@ public class ExerciseEditor extends Container{
 		this.setLayout(layout);
 		//this.setBackground(Color.cyan);
 		JLabel etiquetaTit = new JLabel("~~ EXERCISE CREATOR ~~");
+		etiquetaTit.setFont(new Font("Serif", Font.PLAIN, 16));
 		JLabel etiquetaName = new JLabel("Name of the exercise: ");
-		final JTextField campoName = new JTextField(20);
+		final JTextField campoName = new JTextField(10);
 		JLabel etiquetaRele = new JLabel("Relevance on the global mark (percentage from 0 to 100): ");
-		final JTextField campoRele = new JTextField(6);
+		final JTextField campoRele = new JTextField(4);
 		JLabel etiquetaStart = new JLabel("Start day and time (dd-MM-yyyy HH:mm): ");
-		final JTextField campoStart = new JTextField(30);
+		final JTextField campoStart = new JTextField(13);
 		JLabel etiquetaEnd = new JLabel("Expiration day and time (dd-MM-yyyy HH:mm): ");
-		final JTextField campoEnd = new JTextField(30);
+		final JTextField campoEnd = new JTextField(13);
 		JLabel etiquetaPen = new JLabel("Penalty for answering incorrectly the questions: ");
-		final JTextField campoPen = new JTextField(5);
+		final JTextField campoPen = new JTextField(4);
 		JCheckBox randQuesOr = new JCheckBox("Random Order of the questions");
 		
 		JButton Create = new JButton("Create");
@@ -72,7 +73,7 @@ public class ExerciseEditor extends Container{
 							LocalDateTime end = LocalDateTime.parse(campoEnd.getText(), formatter);
 							double perc = Double.parseDouble(campoRele.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
 							double penal = Double.parseDouble(campoPen.getText().replace(",","."));
-							Exercise exe = new Exercise(course, true, random, ini, end, campoName.getText(), perc, penal);
+							Exercise exe = new Exercise(course, false, random, ini, end, campoName.getText(), perc, penal);
 							JOptionPane.showMessageDialog(null, "Exercise with name " + exe.getName() + ", relevance: " + exe.getWeightE()
 									+ ", ini " + exe.getIniDate() + ", end " + exe.getEndDate() + ", penalty: " + exe.getPenalisation() + " and randomOrder: " + exe.isRandomOrder());
 						}

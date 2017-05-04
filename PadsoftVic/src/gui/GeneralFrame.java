@@ -21,6 +21,7 @@ public class GeneralFrame extends JFrame{
 		super("Coorse");
 		this.setContentPane(c);
 		/*this.setBackground(Color.CYAN);	AQUI FUNCIONA*/
+		//this.setOpacity(0.4F);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		//this.setUndecorated(true);
@@ -64,8 +65,9 @@ public class GeneralFrame extends JFrame{
 				e.printStackTrace();
 			}
 			//Login l = new Login(c);
-			Course course = new Course("PADSOF", "Juan de Lara", true);
-			ExerciseEditor l = new ExerciseEditor(c, course);
+			//Course course = new Course("PADSOF", "Juan de Lara", true);
+			//ExerciseEditor l = new ExerciseEditor(c, course);
+			QuestionCreator l = new QuestionCreator();
 			new GeneralFrame(l);
 			}
 		};
