@@ -186,5 +186,8 @@ public class Course extends VisibleElement {
 		}
 		return globalMark;		
 	}
-	
+	@Override
+	public String toString(){
+		return this.name;
+	}
 }

@@ -2,7 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class UnitTest {
 		u = new Unit("uname", true, c);
 		s = new Student("uname", "pass", "fname", "lname", "1", "sample.email@example.com");
 		n = new Note("test", false);
-		e = new Exercise (c, true, true, LocalDate.MIN, LocalDate.MAX, "name", 5.5, 1.0);
+		e = new Exercise (c, true, true, LocalDateTime.MIN, LocalDateTime.MAX, "name", 5.5, 1.0);
 		u.addElement(n);
 		c.addStudent(s);
 		u.addElement(e);

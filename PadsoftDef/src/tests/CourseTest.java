@@ -2,7 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ public class CourseTest {
 		c = new Course("cname", "tname", true);
 		s = new Student("uname", "pass", "fname", "lname", "1", "sample.email@example.com");
 		n = new Note("test", false);
-		e = new Exercise (c, true, true, LocalDate.MIN, LocalDate.MAX, "name", 5.5, 1.0);
+		e = new Exercise (c, true, true, LocalDateTime.MIN, LocalDateTime.MAX, "name", 5.5, 1.0);
 		c.addElement(n);
 		c.addStudent(s);
 		c.addElement(e);

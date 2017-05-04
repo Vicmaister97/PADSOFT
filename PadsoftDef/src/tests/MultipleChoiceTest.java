@@ -9,7 +9,7 @@ import courseElements.Exercise;
 import exercises.MultipleChoice;
 import users.Student;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +46,7 @@ public class MultipleChoiceTest {
 		course.addStudent(student2);
 		course.addStudent(student3);
 		course.addStudent(student4);
-		exerciseNotDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 100, 0);
+		exerciseNotDone = new Exercise (course, true, false, LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Exercise1", 80, 0);
 		answersCorrect = new ArrayList<String>();
 		answersMixed = new ArrayList<String>();
 		answersNotEnough = new ArrayList<String>();
@@ -66,7 +66,7 @@ public class MultipleChoiceTest {
 		question1.addPossibleAnswer("Paco");
 		question1.addPossibleAnswer("Alberto");
 		question1.addPossibleAnswer("Marta");
-		exerciseDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 100, 0);
+		exerciseDone = new Exercise (course, true, false, LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Exercise2", 20, 0);
 		question2 = new MultipleChoice (exerciseDone, 4, "Which are male names?", false, answersCorrect);
 		question2.addPossibleAnswer("Paco");
 		question2.addPossibleAnswer("Alberto");

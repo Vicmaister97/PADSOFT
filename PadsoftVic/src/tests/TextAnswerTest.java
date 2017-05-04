@@ -9,7 +9,7 @@ import courseElements.Exercise;
 import exercises.TextAnswer;
 import users.Student;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 
@@ -32,9 +32,9 @@ public class TextAnswerTest {
 		student3 = new Student ("Paco", "nerd70", "Paco", "Martinez", "3", "noboss@gmail.com");
 		course.addStudent(student);
 		course.addStudent(student2);
-		exerciseNotDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 100, 0);
+		exerciseNotDone = new Exercise (course, true, false, LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Exercise1", 70, 0);
 		question1 = new TextAnswer (exerciseNotDone, 4, "Who painted Mona Lisa?", "Leonardo da Vinci");
-		exerciseDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 100, 0);
+		exerciseDone = new Exercise (course, true, false, LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Exercise2", 30, 0);
 		question2 = new TextAnswer (exerciseDone, 4, "Who painted Mona Lisa?", "Leonardo da Vinci");
 		exerciseDone.solveExercise(student);
 		

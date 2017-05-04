@@ -9,7 +9,7 @@ import courseElements.Exercise;
 import exercises.SimpleChoice;
 import users.Student;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 
@@ -32,12 +32,12 @@ public class SimpleChoiceTest {
 		student3 = new Student ("Paco", "nerd70", "Paco", "Martinez", "3", "noboss@gmail.com");
 		course.addStudent(student);
 		course.addStudent(student2);
-		exerciseNotDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 100, 0);
+		exerciseNotDone = new Exercise (course, true, false, LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Exercise1", 20, 0);
 		question1 = new SimpleChoice (exerciseNotDone, 4, "Who painted Mona Lisa?", false, "Leonardo da Vinci");
 		question1.addPossibleAnswer("Leonardo da Vinci");
 		question1.addPossibleAnswer("Goya");
 		question1.addPossibleAnswer("Velazquez");
-		exerciseDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 100, 0);
+		exerciseDone = new Exercise (course, true, false, LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Exercise2", 80, 0);
 		question2 = new SimpleChoice (exerciseDone, 4, "Who painted Mona Lisa?", false, "Leonardo da Vinci");
 		question2.addPossibleAnswer("Leonardo da Vinci");
 		question2.addPossibleAnswer("Goya");

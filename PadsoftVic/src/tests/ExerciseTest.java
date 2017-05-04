@@ -9,7 +9,7 @@ import courseElements.Exercise;
 import exercises.SimpleChoice;
 import users.Student;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.Before;
 
@@ -31,12 +31,12 @@ public class ExerciseTest {
 		student2 = new Student ("Victor", "nerd69", "Victor", "Garcia", "2", "boss@gmail.com");
 		course.addStudent(student);
 		course.addStudent(student2);
-		exerciseNotDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 60, 0);
+		exerciseNotDone = new Exercise (course, true, false, LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Exercise1", 60, 0);
 		question1 = new SimpleChoice (exerciseNotDone, 4, "Who painted Mona Lisa?", false, "Leonardo da Vinci");
 		question1.addPossibleAnswer("Leonardo da Vinci");
 		question1.addPossibleAnswer("Goya");
 		question1.addPossibleAnswer("Velazquez");
-		exerciseDone = new Exercise (course, true, false, LocalDate.now(), LocalDate.now().plusDays(10), "Exercise1", 40, 0);
+		exerciseDone = new Exercise (course, true, false, LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Exercise2", 40, 0);
 		question2 = new SimpleChoice (exerciseNotDone, 6, "Who painted Guernica?", false, "Picasso");
 		question2.addPossibleAnswer("Picasso");
 		question2.addPossibleAnswer("Goya");
@@ -54,18 +54,18 @@ public class ExerciseTest {
 	
 	@Test
 	public void testSetIniDate() {
-		assertTrue(exerciseNotDone.setIniDate(LocalDate.now().plusDays(4)));
-		assertEquals(exerciseNotDone.getIniDate(), LocalDate.now().plusDays(4)); /*The initial date must have changed*/
-		assertFalse(exerciseDone.setIniDate(LocalDate.now().plusDays(4))); /*Must fail because the exercise has been already solved*/
+		assertTrue(exerciseNotDone.setIniDate(LocalDateTime.now().plusDays(4)));
+		assertEquals(exerciseNotDone.getIniDate(), LocalDateTime.now().plusDays(4)); /*The initial date must have changed*/
+		assertFalse(exerciseDone.setIniDate(LocalDateTime.now().plusDays(4))); /*Must fail because the exercise has been already solved*/
 	}
 	
 	@Test
 	public void testSetEndDate() {
-		assertTrue(exerciseNotDone.setEndDate(LocalDate.now().plusDays(4)));
-		assertEquals(exerciseNotDone.getEndDate(), LocalDate.now().plusDays(4)); /*The end date must have changed*/
-		assertFalse(exerciseNotDone.setEndDate(LocalDate.now().minusDays(4)));
-		assertTrue(exerciseDone.setEndDate(LocalDate.now().plusDays(4)));
-		assertFalse(exerciseDone.setEndDate(LocalDate.now().minusDays(4)));
+		assertTrue(exerciseNotDone.setEndDate(LocalDateTime.now().plusDays(4)));
+		assertEquals(exerciseNotDone.getEndDate(), LocalDateTime.now().plusDays(4)); /*The end date must have changed*/
+		assertFalse(exerciseNotDone.setEndDate(LocalDateTime.now().minusDays(4)));
+		assertTrue(exerciseDone.setEndDate(LocalDateTime.now().plusDays(4)));
+		assertFalse(exerciseDone.setEndDate(LocalDateTime.now().minusDays(4)));
 
 	}
 	
@@ -114,7 +114,7 @@ public class ExerciseTest {
 		exerciseNotDone.setVisible(false);
 		assertTrue(exerciseNotDone.isVisible() == false); /*The visibility of the exercise must have changed*/
 		exerciseDone.setVisible(false); 
-		assertFalse(exerciseDone.isVisible() == false); /*Must fail because the exercise has been already solved*/
+		assertTrue(exerciseDone.isVisible() == false);
 	}
 	
 	@Test

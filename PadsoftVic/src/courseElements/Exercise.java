@@ -1,5 +1,5 @@
 package courseElements;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import users.Student;
@@ -11,8 +11,8 @@ public class Exercise extends CourseElement {
 	private static final long serialVersionUID = -9194791072727488665L;
 	private boolean randomOrder;
 	private Course course;
-	private LocalDate iniDate;
-	private LocalDate endDate;
+	private LocalDateTime iniDate;
+	private LocalDateTime endDate;
 	private double weightE; /*It's going to be the percentage of the exercise on the global mark*/
 	private double score; /*Here we store the total amount of points of an exercise, depending on the weight of the questions*/
 	private String name;
@@ -21,19 +21,27 @@ public class Exercise extends CourseElement {
 	private double penalisation;
 	private boolean done; /*This attribute shows whether an exercise has been done or not yet*/
 	
-	public Exercise (Course course, boolean visibility, boolean random, LocalDate ini, LocalDate end, String name, double weight, double penalisation){
+	public Exercise (Course course, boolean visibility, boolean random, LocalDateTime ini, LocalDateTime end, String name, double weight, double penalisation) throws NullPointerException{
 		super(visibility);
+		this.done = false; /*When we create the exercise, no one has done it yet*/
 		this.course = course;
 		this.randomOrder = random;
-		this.setIniDate(ini);
-		this.setEndDate(end);
-		this.name = name;
-		this.weightE = weight;
+		if (this.setIniDate(ini) == false){
+			throw new NullPointerException("Problem with the Initial Date and Time");
+		}
+		if (this.setEndDate(end) == false){
+			throw new NullPointerException("Problem with the Expiration Date and Time");
+		}
+		if(this.setName(name) == false){
+			throw new NullPointerException("Problem with the Name of the exercise");
+		}
+		if (this.setWeightE(weight) == false){
+			throw new NullPointerException("Problem with the Weight (%) of the exercise");
+		}
 		this.score = 0;
 		this.questions = new ArrayList<Question>();
 		this.answers = new ArrayList<AnswerExercise>();
-		this.penalisation = penalisation;
-		this.done = false; /*When we create the exercise, no one has done it yet*/
+		this.setPenalisation(penalisation);
 		course.addElement(this);
 	}
 
@@ -49,11 +57,11 @@ public class Exercise extends CourseElement {
 		return true;
 	}
 
-	public LocalDate getIniDate() {
+	public LocalDateTime getIniDate() {
 		return iniDate;
 	}
 	
-	public boolean setIniDate(LocalDate iniDate) {
+	public boolean setIniDate(LocalDateTime iniDate) {
 		if (this.isDone() == false){ /*No one has answered the exercise yet*/
 			this.iniDate = iniDate;
 			return true;
@@ -61,11 +69,11 @@ public class Exercise extends CourseElement {
 		return false;
 	}
 
-	public LocalDate getEndDate() {
+	public LocalDateTime getEndDate() {
 		return endDate;
 	}
 
-	public boolean setEndDate(LocalDate endDate) {
+	public boolean setEndDate(LocalDateTime endDate) {
 		if (this.iniDate.isBefore(endDate)){
 			this.endDate = endDate;
 			return true;
@@ -79,6 +87,21 @@ public class Exercise extends CourseElement {
 
 	public boolean setWeightE(double weightE) {
 		if (this.isDone() == false){ /*No one has answered the exercise yet*/
+			if (weightE < 0 || weightE > 100){
+				return false;
+			}
+			double totalWeight = 0.0;
+			for (CourseElement ce: this.course.getElements()){
+				if (ce instanceof Exercise){ /*We calculate the actual total percentage of the exercises in the course*/
+					Exercise exe = (Exercise)ce;
+					if((this.equals(exe)) == false){ /*As we may use this function for editing an existing exercise, we don't care about his weight in this calculus*/
+						totalWeight += exe.getWeightE();
+					}
+				}
+			}
+			if ((totalWeight+weightE) > 100){ /*With the new percentage, if the total percentage is more than 100%*/
+				return false;
+			}
 			this.weightE = weightE;
 			return true;
 		}
@@ -118,7 +141,7 @@ public class Exercise extends CourseElement {
 		return penalisation;
 	}
 
-	public boolean setPenalisation(double penalisation) { /*The penalisation for a wrong answer is a positive number or 0*/
+	public boolean setPenalisation(double penalisation) { /*The penalty for a wrong answer is a positive number or 0*/
 		if (this.isDone()){ /*Someone has already answered the exercise*/
 			return false;
 		}
@@ -152,9 +175,15 @@ public class Exercise extends CourseElement {
 	}
 
 	public boolean setName(String name) {
-		if (this.isDone()){ /*Someone has already answered the exercise*/
-			return false;
+		for (CourseElement ce: this.course.getElements()){
+			if (ce instanceof Exercise){
+				Exercise exe = (Exercise)ce;
+				if(exe.getName().equalsIgnoreCase(name)){ /*It already exists an exercise with that name (case insensitive)*/
+					return false;
+				}
+			}
 		}
+		
 		this.name = name;
 		return true;
 	}
@@ -165,12 +194,6 @@ public class Exercise extends CourseElement {
 	
 	public void setDone(boolean done) {
 		this.done = done;
-	}
-
-	public void setVisible(boolean visible){
-		if (this.isDone() == false){ /* No one has answered the exercise yet*/
-			this.visible = visible;
-		}
 	}
 
 	public Course getCourse() {
@@ -186,7 +209,7 @@ public class Exercise extends CourseElement {
 			return null;
 		}
 		
-		if((LocalDate.now().isBefore(this.iniDate)) || (LocalDate.now().isAfter(this.endDate))){
+		if((LocalDateTime.now().isBefore(this.iniDate)) || (LocalDateTime.now().isAfter(this.endDate))){
 			return null; /*We can't solve an Exercise before the iniDate or after the endDate*/
 		}
 		

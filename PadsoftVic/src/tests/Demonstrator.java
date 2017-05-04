@@ -1,5 +1,5 @@
 package tests;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import application.*;
 import coorse.*;
@@ -29,13 +29,13 @@ public class Demonstrator {
 		/*2. Creating Units, Notes, Exercises*/
 		Unit u = new Unit("uname", true, course);
 		course.addElement(u);
-		Exercise e1 = new Exercise(course, true, true, LocalDate.MIN, LocalDate.MAX, "ename1", 50.0, 0.0);
+		Exercise e1 = new Exercise(course, true, true, LocalDateTime.MIN, LocalDateTime.MAX, "ename1", 50.0, 0.0);
 		Note n1 = new Note("example", true);
 		course.addElement(n1);
 		
 		/*3. Creating Subunits, Notes, Exercises in Units*/
 		u.addSubunit("uname");
-		Exercise e2 = new Exercise(course, true, true, LocalDate.MIN, LocalDate.MAX, "ename2", 50.0, 0.0);
+		Exercise e2 = new Exercise(course, true, true, LocalDateTime.MIN, LocalDateTime.MAX, "ename2", 50.0, 0.0);
 		u.addElement(e2);
 		Note n2 =  new Note("example", true);
 		u.addElement(n2);
