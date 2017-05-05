@@ -11,7 +11,7 @@ Juan;Valle;Juan.Valle@coor.es;2546;ualle@esd;
 Miguel;Quevedo;Miguel.Quevedo@coor.es;2525;Miguueved;
 Antonio;Ortega;Antonio.Ortega@coor.es;4424;onni;
 Esther;Garrido;Esther.Garrido@coor.es;4461;theGarr;
-Estrella;Palma ;Estrella.Palma @coor.es;4483;Est.P;
+Estrella;Palma ;Estrella.Palma@coor.es;4483;Est.P;
 Javier;Carrera;Javier.Carrera@coor.es;4442;er.Carrera@ar;
 Roberto;Paz;Roberto.Paz@coor.es;5766;Rerto;
 Carlos;Redondo;Carlos.Redondo@coor.es;8411;a.Redond;

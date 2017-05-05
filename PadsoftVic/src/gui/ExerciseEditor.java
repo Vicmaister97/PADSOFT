@@ -1,21 +1,23 @@
 package gui;
 
-import javax.swing.*;
-import coorse.*;
-import courseElements.Course;
-import courseElements.Exercise;
-import users.*;
-
-import java.awt.*;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.awt.Container;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import javax.swing.*;
+import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
+
+import coorse.Coorse;
+import courseElements.Course;
+import courseElements.Exercise;
 
 public class ExerciseEditor extends JPanel{
 	/**
@@ -25,10 +27,10 @@ public class ExerciseEditor extends JPanel{
 	private static int frames = 40;
 	private static int frames2 = 10;
 	
-	public ExerciseEditor(Coorse c, Course course){
+	public ExerciseEditor(Course course){
 		SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
-		//this.setBackground(Color.cyan);
+		//this.setBackground(Color.LIGHT_GRAY);
 		JLabel etiquetaTit = new JLabel("~~ EXERCISE CREATOR ~~");
 		etiquetaTit.setFont(new Font("Serif", Font.PLAIN, 16));
 		JLabel etiquetaName = new JLabel("Name of the exercise: ");

@@ -4,9 +4,10 @@
  */
 
 package exercises;
-import courseElements.Exercise;
+
 import java.util.ArrayList;
 import java.util.List;
+import courseElements.Exercise;
 
 public abstract class QuestionChoice extends Question{
 

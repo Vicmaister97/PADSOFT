@@ -2,8 +2,10 @@ package courseElements;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import exercises.AnswerExercise;
+import exercises.Question;
 import users.Student;
-import exercises.*;
 
 
 public class Exercise extends CourseElement {

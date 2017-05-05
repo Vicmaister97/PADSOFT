@@ -4,10 +4,11 @@
  */
 
 package exercises;
-import courseElements.Exercise;
-import users.Student;
+
 import java.util.ArrayList;
 import java.util.List;
+import courseElements.Exercise;
+import users.Student;
 
 public class MultipleChoice extends QuestionChoice {
 

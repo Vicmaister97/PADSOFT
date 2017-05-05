@@ -19,10 +19,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 public class QuestionCreator extends JPanel{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	// Cards panel declaration
 	private JPanel cards; 
 	final static String TEXTPANEL = "Text Answer"; 
@@ -48,12 +44,12 @@ public class QuestionCreator extends JPanel{
 		JLabel etiquetaWeight = new JLabel("Weight of the question: ");
 		final JTextField campoWeight = new JTextField(5);
 		
-		this.add(etiquetaState);
-		this.add(campoState);
-		this.add(etiquetaAnswer);
-		this.add(campoAnswer);
-		this.add(etiquetaWeight);
-		this.add(campoWeight);
+		this.card1.add(etiquetaState);
+		this.card1.add(campoState);
+		this.card1.add(etiquetaAnswer);
+		this.card1.add(campoAnswer);
+		this.card1.add(etiquetaWeight);
+		this.card1.add(campoWeight);
 		
 		layout.putConstraint(SpringLayout.WEST, etiquetaState, frames, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, etiquetaState, frames, SpringLayout.NORTH, this);
@@ -67,6 +63,7 @@ public class QuestionCreator extends JPanel{
 		layout.putConstraint(SpringLayout.NORTH, etiquetaWeight, frames, SpringLayout.SOUTH, etiquetaAnswer);
 		layout.putConstraint(SpringLayout.WEST, campoWeight, frames2, SpringLayout.EAST, etiquetaWeight);
 		layout.putConstraint(SpringLayout.NORTH, campoWeight, frames, SpringLayout.SOUTH, etiquetaAnswer);
+		
 	}
 		
 	public void buildPanel2() {
@@ -81,14 +78,14 @@ public class QuestionCreator extends JPanel{
 		final JTextField campoNumAns = new JTextField(2);
 		JButton confirm = new JButton("Create possible answers");
 		
-		this.add(etiquetaState);
-		this.add(campoState);
-		this.add(etiquetaWeight);
-		this.add(campoWeight);
-		this.add(randAnsOr);
-		this.add(etiquetaNumAns);
-		this.add(campoNumAns);
-		this.add(confirm);
+		this.card2.add(etiquetaState);
+		this.card2.add(campoState);
+		this.card2.add(etiquetaWeight);
+		this.card2.add(campoWeight);
+		this.card2.add(randAnsOr);
+		this.card2.add(etiquetaNumAns);
+		this.card2.add(campoNumAns);
+		this.card2.add(confirm);
 		
 		confirm.addActionListener( //Añadir que si ya le habías dado antes, te borre las que había
 				e ->{
@@ -104,12 +101,12 @@ public class QuestionCreator extends JPanel{
 							JTextField[] posAns = new JTextField[numAns];
 							int i = 0;
 							posAns[i] = new JTextField(15); /*First JTextField, at least this one*/
-							this.add(posAns[i]);
+							this.card2.add(posAns[i]);
 							layout.putConstraint(SpringLayout.WEST, posAns[i], frames, SpringLayout.WEST, this);
 							layout.putConstraint(SpringLayout.NORTH, posAns[i], frames, SpringLayout.SOUTH, confirm);
 							for(i=1; i<numAns; i++){
 								posAns[i] = new JTextField(15);
-								this.add(posAns[i]);
+								this.card2.add(posAns[i]);
 								layout.putConstraint(SpringLayout.WEST, posAns[i], frames, SpringLayout.WEST, this);
 								layout.putConstraint(SpringLayout.NORTH, posAns[i], frames, SpringLayout.SOUTH, posAns[i-1]);
 							}
@@ -117,8 +114,8 @@ public class QuestionCreator extends JPanel{
 							JLabel etiquetaCorrect = new JLabel("Correct answer (from 1 to numPossibleAnswers): ");
 							final JTextField campoCorrect = new JTextField(2);
 							
-							this.add(etiquetaCorrect);
-							this.add(campoCorrect);
+							this.card2.add(etiquetaCorrect);
+							this.card2.add(campoCorrect);
 							
 							layout.putConstraint(SpringLayout.WEST, etiquetaCorrect, frames, SpringLayout.WEST, this);
 							layout.putConstraint(SpringLayout.NORTH, etiquetaCorrect, frames, SpringLayout.SOUTH, posAns[i-1]);
@@ -151,9 +148,11 @@ public class QuestionCreator extends JPanel{
 		layout.putConstraint(SpringLayout.NORTH, campoNumAns, frames, SpringLayout.SOUTH, randAnsOr);
 		layout.putConstraint(SpringLayout.WEST, confirm, frames2, SpringLayout.EAST, campoNumAns);
 		layout.putConstraint(SpringLayout.NORTH, confirm, frames, SpringLayout.SOUTH, randAnsOr);
+		
 	}
 		
 	public QuestionCreator() { //AQUI METEMOS COMO PARAM DE ENTRADA EXE
+		
 		// Create the panel that contains the cards
 		cards = new JPanel(new CardLayout()); 
 		cards.add(card1, TEXTPANEL); 
@@ -162,7 +161,7 @@ public class QuestionCreator extends JPanel{
 		this.buildPanel1(); //AQUI METEMOS COMO PARAM DE ENTRADA EXE
 		this.buildPanel2(); //AQUI METEMOS COMO PARAM DE ENTRADA EXE
 			
-		JPanel comboBoxPane = new JPanel(new SpringLayout()); //FlowLayout is used by default
+		JPanel comboBoxPane = new JPanel(); //FlowLayout is used by default
 		String comboBoxItems[] = { TEXTPANEL, SIMPLEPANEL }; 
 
 		JComboBox<String> cb = new JComboBox<String>(comboBoxItems);   // Controls which card is shown
@@ -182,9 +181,10 @@ public class QuestionCreator extends JPanel{
 		pane.setLayout(new BorderLayout());
 		pane.add(comboBoxPane, BorderLayout.NORTH);    // Show the combo box
 		pane.add(cards, BorderLayout.CENTER); 	       // Show cards panel
-
+		
 		//this.setSize(350,240);
-		//this.setVisible(true);
+		this.add(pane);
+		this.setVisible(true);
 	}
 
 }

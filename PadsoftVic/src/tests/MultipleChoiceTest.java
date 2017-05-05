@@ -2,18 +2,17 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import courseElements.Course;
 import courseElements.Exercise;
 import exercises.MultipleChoice;
 import users.Student;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
 
 public class MultipleChoiceTest {
 
