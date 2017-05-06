@@ -28,7 +28,8 @@ public class LoginController implements ActionListener{
     	}
     	else{
     		Student s = (Student) u;
-    		MainScreenStudent m = new MainScreenStudent(s);
+    		GeneralFrame.GFrame.setStudent(s);
+    		MainScreenStudent m = new MainScreenStudent();
     		GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
     		GeneralFrame.GFrame.setContentPane(m);
     		GeneralFrame.GFrame.validate();

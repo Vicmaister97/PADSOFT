@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import javax.swing.UIManager;
+
 import application.Application;
 import courseElements.*;
 import exercises.*;
@@ -17,6 +19,8 @@ public class Run {
 			e.printStackTrace();
 			return;
 		}
+		UIManager.put("OptionPane.yesButtonText", "Yes");
+		UIManager.put("OptionPane.noButtonText", "No");
 		Login l = new Login();
 		GeneralFrame.GFrame.setContentPane(l);
 	}

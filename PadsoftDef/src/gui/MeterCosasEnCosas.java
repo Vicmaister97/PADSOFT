@@ -9,14 +9,9 @@ import courseElements.*;
 
 public class MeterCosasEnCosas {
 	public static void main(String[] args) {
-		try {
-			Coorse.coorse.load("app.data");
-		} catch (ClassNotFoundException | IOException e) {
-			e.printStackTrace();
-			return;
-		}
-		Course c1 = new Course("cname2", "tname", true);
-		Course c2 = new Course("cname3", "tname", true);
+		Coorse.coorse.readFromFile("StudentData.txt");
+		Course c1 = new Course("cname1", "tname", true);
+		Course c2 = new Course("cname2", "tname", true);
 		Coorse.coorse.addCourse(c1);
 		Coorse.coorse.addCourse(c2);
 		Student s = (Student) Coorse.coorse.login("a@a.es", "a");
@@ -24,6 +19,16 @@ public class MeterCosasEnCosas {
 		a1.admitStudent();
 		Application a2 = s.sendApplication(c2);
 		a2.admitStudent();
+		Course c3 = new Course("cname3", "tname", true);
+		Course c4 = new Course("cname4", "tname", false);
+		Coorse.coorse.addCourse(c3);
+		Coorse.coorse.addCourse(c4);
+		for (User u: Coorse.coorse.getUsers()){
+			System.out.println(u);
+		}
+		for(Course c: Coorse.coorse.getCourses()){
+			System.out.println(c);
+		}
 		Coorse.coorse.save("app.data");
 	}
 }
