@@ -22,7 +22,6 @@ public abstract class Question implements java.io.Serializable{
 	private Exercise exercise;
 	
 	protected Question (Exercise exercise, double weight, String questionText){
-		this.setWeight(weight);
 		this.questionText = questionText;
 		this.answers = new ArrayList<AnswerQuestion>();
 		this.numAnswered = 0;
@@ -30,6 +29,7 @@ public abstract class Question implements java.io.Serializable{
 		this.numCorrect = 0;
 		this.numIncorrect = 0;
 		this.exercise = exercise;
+		this.setWeight(weight);
 		exercise.addQuestion(this);
 	}
 	/**

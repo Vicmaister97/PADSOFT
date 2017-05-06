@@ -1,7 +1,4 @@
-/application/
-/coorse/
-/courseElements/
-/exercises/
+/controllers/
 /gui/
-/tests/
-/users/
+/coorse/
+/exercises/

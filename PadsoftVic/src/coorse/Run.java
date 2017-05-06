@@ -21,9 +21,9 @@ public class Run {
 		}
 		//Login l = new Login(c);
 		Course course = new Course("PADSOF", "Juan de Lara", true);
-		ExerciseEditor l = new ExerciseEditor(course);
-		//Exercise e1 = new Exercise(course, true, true, LocalDateTime.MIN, LocalDateTime.MAX, "ename1", 50.0, 0.0);
-		//QuestionCreator l = new QuestionCreator(e1);
+		//ExerciseCreator l = new ExerciseCreator(course);
+		Exercise e1 = new Exercise(course, true, true, LocalDateTime.MIN, LocalDateTime.MAX, "ename1", 50.0, 0.0);
+		QuestionCreator l = new QuestionCreator(e1);
 		GeneralFrame.GFrame.setContentPane(l);
 	}
 }

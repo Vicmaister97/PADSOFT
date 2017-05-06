@@ -234,5 +234,15 @@ public class Exercise extends CourseElement {
 		setDone(true);
 		return finalAns;
 	}
+	public Student[] whoHasDoneIt(){
+		int maxStudents = course.getStudents().size();
+		Student[]students = new Student[maxStudents];
+		int i = 0;
+		for(AnswerExercise ans: this.answers){
+			students[i] = ans.getStudent();
+			i++;
+		}
+		return students;
+	}
 	
 }

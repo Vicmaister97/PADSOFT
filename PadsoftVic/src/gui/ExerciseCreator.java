@@ -19,7 +19,7 @@ import coorse.Coorse;
 import courseElements.Course;
 import courseElements.Exercise;
 
-public class ExerciseEditor extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN SIMPLE Y MULTIPLE
+public class ExerciseCreator extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN SIMPLE Y MULTIPLE
 	/**
 	 * 
 	 */
@@ -27,7 +27,7 @@ public class ExerciseEditor extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN 
 	private static int frames = 40;
 	private static int frames2 = 10;
 	
-	public ExerciseEditor(Course course){
+	public ExerciseCreator(Course course){
 		SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
 		//this.setBackground(Color.LIGHT_GRAY);
@@ -89,12 +89,13 @@ public class ExerciseEditor extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN 
 							randQuesOr.setSelected(false);
 							
 							QuestionCreator quesCreat = new QuestionCreator(exe);
+							quesCreat.setPreferredSize(new Dimension(350, 650));
 							this.add(quesCreat);
 							
 							layout.putConstraint(SpringLayout.EAST, quesCreat, -frames*2, SpringLayout.EAST, this);
 							layout.putConstraint(SpringLayout.NORTH, quesCreat, frames*2, SpringLayout.NORTH, this);
-							layout.putConstraint(SpringLayout.SOUTH, quesCreat, -frames, SpringLayout.SOUTH, this);
-							layout.putConstraint(SpringLayout.WEST, quesCreat, frames*3, SpringLayout.EAST, campoEnd);
+							//layout.putConstraint(SpringLayout.SOUTH, quesCreat, -frames, SpringLayout.SOUTH, this);
+							//layout.putConstraint(SpringLayout.WEST, quesCreat, frames*3, SpringLayout.EAST, campoEnd);
 							this.validate();
 							//this.repaint();
 							
