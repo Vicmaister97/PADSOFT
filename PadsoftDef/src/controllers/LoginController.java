@@ -2,6 +2,7 @@ package controllers;
 import gui.*;
 import users.Student;
 import users.User;
+import coorse.Coorse;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +19,7 @@ public class LoginController implements ActionListener{
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		User u = c.login(campo.getText(), new String(campo2.getPassword()));
+		User u = Coorse.coorse.login(username.getText(), new String(password.getPassword()));
     	if (u==null){
     		JOptionPane.showMessageDialog(null, "login incorrecto");
     	}
@@ -27,7 +28,11 @@ public class LoginController implements ActionListener{
     	}
     	else{
     		Student s = (Student) u;
-    		JOptionPane.showMessageDialog(null, "Loggeado como " + s.getFirstName());
+    		GeneralFrame.GFrame.setStudent(s);
+    		MainScreenStudent m = new MainScreenStudent();
+    		GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
+    		GeneralFrame.GFrame.setContentPane(m);
+    		GeneralFrame.GFrame.validate();
     	}
 	}
 	

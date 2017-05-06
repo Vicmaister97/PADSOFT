@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
+import javax.swing.UIManager;
+
 import application.Application;
 import courseElements.*;
 import exercises.*;
@@ -11,14 +13,15 @@ import gui.*;
 import users.*;
 public class Run {
 	public static void main(String[] args) {
-		Coorse c = new Coorse();
 		try {
-			c.load("app.data");
+			Coorse.coorse.load("app.data");
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 			return;
 		}
-		Login l = new Login(c);
+		UIManager.put("OptionPane.yesButtonText", "Yes");
+		UIManager.put("OptionPane.noButtonText", "No");
+		Login l = new Login();
 		GeneralFrame.GFrame.setContentPane(l);
 	}
 }
