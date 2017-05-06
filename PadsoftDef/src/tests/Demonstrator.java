@@ -19,10 +19,9 @@ import users.User;
 
 public class Demonstrator {
 	public static void main(String[] args){
-		Coorse c = new Coorse();
 		/*First of all, we load the database*/
-		c.readFromFile("StudentData.txt");
-		for (User userex: c.getUsers()){
+		Coorse.coorse.readFromFile("StudentData.txt");
+		for (User userex: Coorse.coorse.getUsers()){
 			System.out.println(userex);
 		}
 		Course course = new Course("cname", "tname", true);
@@ -30,7 +29,7 @@ public class Demonstrator {
 		/*PROFESSOR REQUIREMENTS*/
 		
 		/*1.Login as professor*/
-		Professor p = (Professor) c.login("admin", "12345");
+		Professor p = (Professor) Coorse.coorse.login("admin", "12345");
 		if(p == null){
 			System.out.println("Login error");
 		}
@@ -75,17 +74,17 @@ public class Demonstrator {
 		/*STUDENT REQUIREMENTS*/
 		
 		/*1. Login with credentials*/
-		Student s1 = (Student) c.login("Luis.Gallego@coor.es", "s.ll");
+		Student s1 = (Student) Coorse.coorse.login("Luis.Gallego@coor.es", "s.ll");
 		if (s1==null){
 			System.out.println("Login Error");
 		}
-		Student s2 = (Student) c.login("Jorge.Alcazar@coor.es", "JoA");
+		Student s2 = (Student) Coorse.coorse.login("Jorge.Alcazar@coor.es", "JoA");
 		if (s1==null){
 			System.out.println("Login Error");
 		}
 		
 		/*2. Applying to course*/
-		c.addCourse(course);
+		Coorse.coorse.addCourse(course);
 		Application a1 = s1.sendApplication(course); /*let's see the trace*/
 		Application a2= s2.sendApplication(course);
 		a1.admitStudent();
@@ -123,7 +122,7 @@ public class Demonstrator {
 		System.out.println(q1.getNumCorrect());/*number of correct responses to q1 (2/2)*/
 		System.out.println(q2.getNumIncorrect());/*number of incorrect responses to q2 (1/2)*/
 		
-		c.save("app.data");
+		Coorse.coorse.save("app.data");
 		
 		
 	}

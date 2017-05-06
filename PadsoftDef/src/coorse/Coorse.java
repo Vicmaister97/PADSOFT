@@ -43,11 +43,11 @@ public class Coorse implements java.io.Serializable {
 	}
 	
 	public void addUser(User u){
-		this.getUsers().add(u);
+		this.users.add(u);
 	}
 	
 	public void addCourse(Course c){
-		this.getCourses().add(c);
+		this.courses.add(c);
 	}
 	
 	public void save(String fname){

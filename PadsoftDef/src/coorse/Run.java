@@ -11,14 +11,13 @@ import gui.*;
 import users.*;
 public class Run {
 	public static void main(String[] args) {
-		Coorse c = new Coorse();
 		try {
-			c.load("app.data");
+			Coorse.coorse.load("app.data");
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 			return;
 		}
-		Login l = new Login(c);
+		Login l = new Login();
 		GeneralFrame.GFrame.setContentPane(l);
 	}
 }
