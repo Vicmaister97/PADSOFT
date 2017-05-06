@@ -50,7 +50,7 @@ public class TextAnswer extends Question {
 		QuestionOption choice = new QuestionOption(answer);
 		AnswerQuestion finalAnswer;
 		
-		if (this.answer.equals(answer) == true){ /*The answer is correct*/
+		if (this.answer.equalsIgnoreCase(answer) == true){ /*The answer is correct*/
 			mark = this.getWeight();
 		}
 		else{

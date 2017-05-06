@@ -151,7 +151,10 @@ public class Exercise extends CourseElement {
 		if (penalisation < 0){
 			this.penalisation = penalisation*(-1);
 		}
-		this.penalisation = penalisation;
+		else{
+			this.penalisation = penalisation;
+		}
+
 		return true;
 	}
 
@@ -177,6 +180,9 @@ public class Exercise extends CourseElement {
 	}
 
 	public boolean setName(String name) {
+		if (this.isDone() == true){
+			return false;
+		}
 		for (CourseElement ce: this.course.getElements()){
 			if (ce instanceof Exercise){
 				Exercise exe = (Exercise)ce;

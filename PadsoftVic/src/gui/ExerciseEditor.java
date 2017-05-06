@@ -19,7 +19,7 @@ import coorse.Coorse;
 import courseElements.Course;
 import courseElements.Exercise;
 
-public class ExerciseEditor extends JPanel{
+public class ExerciseEditor extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN SIMPLE Y MULTIPLE
 	/**
 	 * 
 	 */
@@ -45,8 +45,9 @@ public class ExerciseEditor extends JPanel{
 		final JTextField campoPen = new JTextField(4);
 		JCheckBox randQuesOr = new JCheckBox("Random Order of the questions");
 		
-		JButton Create = new JButton("Create");
+		JButton Create = new JButton("Create Exercise");
 		//JButton Cancel = new JButton("Cancel");
+		//SAVE EXERCISE
 		Create.addActionListener(
 				e ->{
 					if (campoName.getText().trim().isEmpty()){
@@ -76,15 +77,35 @@ public class ExerciseEditor extends JPanel{
 							double perc = Double.parseDouble(campoRele.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
 							double penal = Double.parseDouble(campoPen.getText().replace(",","."));
 							Exercise exe = new Exercise(course, false, random, ini, end, campoName.getText(), perc, penal);
-							JOptionPane.showMessageDialog(null, "Exercise with name " + exe.getName() + ", relevance: " + exe.getWeightE()
+							JOptionPane.showMessageDialog(null, "Exercise SUCCESFULLY CREATED with name " + exe.getName() + ", relevance: " + exe.getWeightE()
 									+ ", ini " + exe.getIniDate() + ", end " + exe.getEndDate() + ", penalty: " + exe.getPenalisation() + " and randomOrder: " + exe.isRandomOrder());
+							
+							/*We clean the JTextFields*/
+							campoName.setText("");
+							campoRele.setText("");
+							campoStart.setText("");
+							campoEnd.setText("");
+							campoPen.setText("");
+							randQuesOr.setSelected(false);
+							
+							QuestionCreator quesCreat = new QuestionCreator(exe);
+							this.add(quesCreat);
+							
+							layout.putConstraint(SpringLayout.EAST, quesCreat, -frames*2, SpringLayout.EAST, this);
+							layout.putConstraint(SpringLayout.NORTH, quesCreat, frames*2, SpringLayout.NORTH, this);
+							layout.putConstraint(SpringLayout.SOUTH, quesCreat, -frames, SpringLayout.SOUTH, this);
+							layout.putConstraint(SpringLayout.WEST, quesCreat, frames*3, SpringLayout.EAST, campoEnd);
+							this.validate();
+							//this.repaint();
+							
 						}
-						catch (DateTimeParseException timeerr){
+						catch (DateTimeParseException timeErr){
 							JOptionPane.showMessageDialog(null, "The format of Date and Time is incorrect");
 						}
 						catch (NullPointerException exeErr){
 							JOptionPane.showMessageDialog(null, exeErr.getMessage());
 						}
+						
 					}
 				}
 					

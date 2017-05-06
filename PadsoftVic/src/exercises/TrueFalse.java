@@ -60,7 +60,7 @@ public class TrueFalse extends QuestionChoice{
 		QuestionOption choice = new QuestionOption(answer);
 		AnswerQuestion finalAnswer;
 		
-		if (this.correctAnswer.equals(answer)){ /*The answer is correct*/
+		if (this.correctAnswer.equalsIgnoreCase(answer)){ /*The answer is correct*/
 			mark = this.getWeight();
 		}
 		else{
