@@ -1,0 +1,47 @@
+package controllers;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import courseElements.Unit;
+import gui.CourseScreenStudent;
+import gui.GeneralFrame;
+import gui.*;
+public class UnitClickingController implements MouseListener {
+	private Unit u;
+	public UnitClickingController(Unit u){
+		this.u=u;
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		/*UnitScreenStudent m = new CourseScreenStudent(u);
+		GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
+		GeneralFrame.GFrame.setContentPane(m);
+		GeneralFrame.GFrame.validate();*/
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

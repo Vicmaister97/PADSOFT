@@ -1,6 +1,7 @@
 package gui;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import application.Application;
 import coorse.Coorse;
@@ -19,6 +20,10 @@ public class MeterCosasEnCosas {
 		a1.admitStudent();
 		Application a2 = s.sendApplication(c2);
 		a2.admitStudent();
+		c1.addUnit("u1", true);
+		c1.addElement(new Note("jaja xd", true));
+		c1.addElement(new Note("jaja xd 2", false));
+		new Exercise(c1, true, true, LocalDateTime.now(), LocalDateTime.now(), "jaja xd lol", 2.0, 1.0);
 		Course c3 = new Course("cname3", "tname", true);
 		Course c4 = new Course("cname4", "tname", false);
 		Coorse.coorse.addCourse(c3);
