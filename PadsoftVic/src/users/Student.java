@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import application.Application;
+import coorse.Coorse;
 import courseElements.Course;
 public class Student extends User{
 
@@ -27,6 +28,9 @@ public class Student extends User{
 	 */
 	public Application sendApplication(Course course){
 		Application a = new Application(this, course);
+		if(!Coorse.coorse.getPending().contains(a)){
+			Coorse.coorse.addApplication(a);
+		}
 		return a;
 	}
 	

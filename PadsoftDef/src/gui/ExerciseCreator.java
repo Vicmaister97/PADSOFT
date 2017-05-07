@@ -26,7 +26,6 @@ public class ExerciseCreator extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN
 	private static final long serialVersionUID = 1L;
 	private static int frames = 40;
 	private static int frames2 = 10;
-	Exercise exe;
 	
 	public ExerciseCreator(Course course){
 		SpringLayout layout = new SpringLayout();
@@ -47,7 +46,7 @@ public class ExerciseCreator extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN
 		JCheckBox randQuesOr = new JCheckBox("Random Order of the questions");
 		
 		JButton Create = new JButton("Create Exercise");
-		JButton Finish = new JButton("Finish");
+		JButton Save = new JButton("Save Exercise");
 		//JButton Cancel = new JButton("Cancel");
 		//SAVE EXERCISE
 		Create.addActionListener(
@@ -78,7 +77,7 @@ public class ExerciseCreator extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN
 							LocalDateTime end = LocalDateTime.parse(campoEnd.getText(), formatter);
 							double perc = Double.parseDouble(campoRele.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
 							double penal = Double.parseDouble(campoPen.getText().replace(",","."));
-							exe = new Exercise(course, false, random, ini, end, campoName.getText(), perc, penal);
+							Exercise exe = new Exercise(course, false, random, ini, end, campoName.getText(), perc, penal);
 							JOptionPane.showMessageDialog(null, "Exercise SUCCESFULLY CREATED with name " + exe.getName() + ", relevance: " + exe.getWeightE()
 									+ ", ini " + exe.getIniDate() + ", end " + exe.getEndDate() + ", penalty: " + exe.getPenalisation() + " and randomOrder: " + exe.isRandomOrder());
 							
@@ -92,14 +91,17 @@ public class ExerciseCreator extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN
 							
 							QuestionCreator quesCreat = new QuestionCreator(exe);
 							
+							this.add(Save);
 							this.add(quesCreat);
 							
 							layout.putConstraint(SpringLayout.EAST, quesCreat, -frames*2, SpringLayout.EAST, this);
-							layout.putConstraint(SpringLayout.NORTH, quesCreat, frames-18, SpringLayout.NORTH, this);
+							layout.putConstraint(SpringLayout.NORTH, quesCreat, frames*2, SpringLayout.NORTH, this);
 							layout.putConstraint(SpringLayout.SOUTH, quesCreat, -frames, SpringLayout.SOUTH, this);
 							layout.putConstraint(SpringLayout.WEST, quesCreat, frames*3, SpringLayout.EAST, campoEnd);
-														
+							layout.putConstraint(SpringLayout.WEST, Save, frames, SpringLayout.WEST, this);
+							layout.putConstraint(SpringLayout.NORTH, quesCreat, frames, SpringLayout.SOUTH, randQuesOr);
 							this.validate();
+							//this.repaint();
 							
 						}
 						catch (DateTimeParseException timeErr){
@@ -115,19 +117,9 @@ public class ExerciseCreator extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN
 				
 				);
 		
-		Finish.addActionListener(
+		Save.addActionListener(
 				f ->{
-					if(exe == null){ /*We have created an exercise*/
-						JOptionPane.showMessageDialog(null, "Going back to " + course.getName() + "\nNo exercise created");
-					}
-					else{
-						JOptionPane.showMessageDialog(null, "Going back to " + course.getName() + "\nExercise " + exe.getName() + " saved");
-					}
 					
-					CourseScreenStudent backCourse = new CourseScreenStudent(course);
-					GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
-		    		GeneralFrame.GFrame.setContentPane(backCourse);
-		    		GeneralFrame.GFrame.validate();
 				}
 				
 				);
@@ -145,7 +137,6 @@ public class ExerciseCreator extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN
 		this.add(campoPen);
 		this.add(randQuesOr);
 		this.add(Create);
-		this.add(Finish);
 		
 		layout.putConstraint(SpringLayout.WEST, etiquetaTit, frames, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, etiquetaTit, frames*2, SpringLayout.NORTH, this);
@@ -172,9 +163,7 @@ public class ExerciseCreator extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN
 		layout.putConstraint(SpringLayout.WEST, randQuesOr, frames, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, randQuesOr, frames, SpringLayout.SOUTH, etiquetaPen);
 		layout.putConstraint(SpringLayout.WEST, Create, frames, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, Create, frames, SpringLayout.SOUTH, randQuesOr);
-		layout.putConstraint(SpringLayout.WEST, Finish, frames, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, Finish, frames*2, SpringLayout.SOUTH, Create);
+		layout.putConstraint(SpringLayout.NORTH, Create, frames*2, SpringLayout.SOUTH, randQuesOr);
 		
 		
 		this.setVisible(true);

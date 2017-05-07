@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import application.Application;
 import courseElements.Course;
 import users.Professor;
 import users.Student;
@@ -20,12 +21,13 @@ public class Coorse implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private List<User> users;
 	private List<Course> courses;
-	
+	private List<Application> pending;
 	public Coorse(){
 		this.users = new ArrayList<User>();
 		Professor p = new Professor("admin", "12345");
 		this.users.add(p);
 		this.courses = new ArrayList<Course>();
+		this.pending = new ArrayList<Application>();
 	}
 	
 	public User login (String uname, String pass){
@@ -43,13 +45,20 @@ public class Coorse implements java.io.Serializable {
 	}
 	
 	public void addUser(User u){
-		this.getUsers().add(u);
+		this.users.add(u);
 	}
 	
 	public void addCourse(Course c){
-		this.getCourses().add(c);
+		this.courses.add(c);
 	}
-	
+	public Course searchCourseByName(String cname){
+		for(Course c: this.getCourses()){
+			if (c.getName().equals(cname)){
+				return c;
+			}
+		}
+		return null;
+	}
 	public void save(String fname){
 		ObjectOutputStream oos;
 		try {
@@ -84,6 +93,7 @@ public class Coorse implements java.io.Serializable {
 		Coorse c = (Coorse) obj;
 		this.setCourses(c.getCoursesL());
 		this.setUsers(c.getUsersL());
+		this.setPending(c.getPendingL());
 		ois.close();
 	}
 	
@@ -140,6 +150,31 @@ public class Coorse implements java.io.Serializable {
 	 */
 	private void setCourses(List<Course> courses) {
 		this.courses = courses;
+	}
+
+	/**
+	 * @return the pending
+	 */
+	public List<Application> getPending() {
+		return Collections.unmodifiableList(pending);
+	}
+	
+	private List<Application> getPendingL(){
+		return pending;
+	}
+	/**
+	 * @param pending the pending to set
+	 */
+	private void setPending(List<Application> pending) {
+		this.pending = pending;
+	}
+	
+	public void addApplication(Application a){
+		this.pending.add(a);
+	}
+	
+	public void removeApplication(Application a){
+		this.pending.remove(a);
 	}
 	
 }

@@ -1,4 +1,5 @@
 package application;
+import coorse.Coorse;
 import courseElements.Course;
 import users.Student;
 public class Application {
@@ -15,6 +16,7 @@ public class Application {
 	public void admitStudent(){
 		this.getCourse().addStudent(this.getStudent());
 		this.getStudent().addCourse(this.getCourse());
+		Coorse.coorse.removeApplication(this);
 	}
 	/**
 	 * @return the student
@@ -39,5 +41,9 @@ public class Application {
 	 */
 	public void setCourse(Course course) {
 		this.course = course;
+	}
+	 
+	public boolean equals(Application a){
+		return a.getCourse() == this.course && a.getStudent()==this.student;
 	}
 }
