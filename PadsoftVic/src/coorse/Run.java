@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.time.LocalDateTime;
 
 import javax.swing.UIManager;
 
@@ -23,7 +24,9 @@ public class Run {
 		UIManager.put("OptionPane.noButtonText", "No");
 		//Login l = new Login();
 		Course course = new Course("PADSOF", "Juan de Lara", true);
-		ExerciseCreator l = new ExerciseCreator(course);
+		Exercise e1 = new Exercise(course, true, true, LocalDateTime.MIN, LocalDateTime.MAX, "ename1", 50.0, 0.0);
+		//ExerciseCreator l = new ExerciseCreator(course);
+		QuestionCreator l = new QuestionCreator(e1);
 		GeneralFrame.GFrame.setContentPane(l);
 	}
 }

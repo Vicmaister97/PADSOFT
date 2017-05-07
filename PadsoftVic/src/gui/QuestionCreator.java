@@ -65,15 +65,22 @@ public class QuestionCreator extends JPanel{
 					}
 					
 					else{
-						double weight = Double.parseDouble(campoWeight.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
-						TextAnswer ques = new TextAnswer(exe, weight, campoState.getText(), campoAnswer.getText());
-						JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
-								+ ques.getQuestionText() + " Question answer: " + ques.getAnswer());
+						try{
+							double weight = Double.parseDouble(campoWeight.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
+							TextAnswer ques = new TextAnswer(exe, weight, campoState.getText(), campoAnswer.getText());
+							JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
+									+ ques.getQuestionText() + " Question answer: " + ques.getAnswer());
+							
+							/*We clean the JTextFields*/
+							campoState.setText("");
+							campoAnswer.setText("");
+							campoWeight.setText("");
+							
+						}
+						catch (NumberFormatException errNum){
+							JOptionPane.showMessageDialog(null, errNum);
+				 		}
 						
-						/*We clean the JTextFields*/
-						campoState.setText("");
-						campoAnswer.setText("");
-						campoWeight.setText("");
 					}
 				}
 				
@@ -88,9 +95,9 @@ public class QuestionCreator extends JPanel{
 		this.card1.add(create);
 		
 		layout.putConstraint(SpringLayout.WEST, etiquetaState, frames, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, etiquetaState, frames, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.NORTH, etiquetaState, frames*4, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, campoState, frames2, SpringLayout.EAST, etiquetaState);
-		layout.putConstraint(SpringLayout.NORTH, campoState, frames, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.NORTH, campoState, frames*4, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, etiquetaAnswer, frames, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, etiquetaAnswer, frames, SpringLayout.SOUTH, etiquetaState);
 		layout.putConstraint(SpringLayout.WEST, campoAnswer, frames2, SpringLayout.EAST, etiquetaAnswer);
@@ -205,15 +212,37 @@ public class QuestionCreator extends JPanel{
 						}
 						
 						try{
+							boolean noEmpty = true;
 							double weight = Double.parseDouble(campoWeight.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
 							Integer correct = Integer.parseInt(campoCorrect.getText());
 							correct -= 1;
 							String statement = campoState.getText();
 							String answer = posAns[correct].getText();
-							if (answer.equals("") == false){
+							
+							ArrayList<String> posAnswers = new ArrayList<String>();
+							int t=0;
+							int numAns = Integer.parseInt(campoNumAns.getText());
+							while (t<numAns){
+								String ans = posAns[t].getText();
+								if (ans.equals("")){
+									noEmpty = false;
+									break;
+								}
+								else{
+									posAnswers.add(ans);
+								}
+								t++;
+							}
+							
+							if ((answer.equals("") == false) && (noEmpty == true)){
 								SimpleChoice ques = new SimpleChoice(exe, weight, statement, random, answer);
+								for(String possible: posAnswers){
+									ques.addPossibleAnswer(possible);
+								}
+								
 								JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
-										+ ques.getQuestionText() + " Question answer: " + ques.getCorrectAnswer());
+										+ ques.getQuestionText() + " Question answer: " + ques.getCorrectAnswer() + "\nQuestion possible answers: "
+										+ ques.getPossibleAnswers());
 								
 								/*We clean the JTextFields*/
 								campoState.setText("");
@@ -227,7 +256,12 @@ public class QuestionCreator extends JPanel{
 								}
 							}
 							else{
-								JOptionPane.showMessageDialog(null, "The correct answer selected does not exists");
+								if ((answer.equals("") == false)){
+									JOptionPane.showMessageDialog(null, "The correct answer selected does not exists");
+								}
+								else{
+									JOptionPane.showMessageDialog(null, "Don't leave empty spaces in the possible answers text fields");
+								}
 							}
 							
 						}
@@ -301,21 +335,28 @@ public class QuestionCreator extends JPanel{
 						JOptionPane.showMessageDialog(null, "It's necessary to enter an answer for the question");
 					}
 					else if ((campoCorrect.getText().equalsIgnoreCase("true")) || (campoCorrect.getText().equalsIgnoreCase("false"))){ /*The answer must be true or false*/
-						boolean random = false;
-						if (randAnsOr.isSelected()){
-							random = true;
+						
+						try{
+							boolean random = false;
+							if (randAnsOr.isSelected()){
+								random = true;
+							}
+							
+							double weight = Double.parseDouble(campoWeight.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
+							TrueFalse ques = new TrueFalse(exe, weight, campoState.getText(), random, campoCorrect.getText());
+							JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
+									+ ques.getQuestionText() + " Question answer: " + ques.getCorrectAnswer());
+							
+							/*We clean the JTextFields*/
+							campoState.setText("");
+							campoWeight.setText("");
+							randAnsOr.setSelected(false);
+							campoCorrect.setText("");
+							
 						}
-						
-						double weight = Double.parseDouble(campoWeight.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
-						TrueFalse ques = new TrueFalse(exe, weight, campoState.getText(), random, campoCorrect.getText());
-						JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
-								+ ques.getQuestionText() + " Question answer: " + ques.getCorrectAnswer());
-						
-						/*We clean the JTextFields*/
-						campoState.setText("");
-						campoWeight.setText("");
-						randAnsOr.setSelected(false);
-						campoCorrect.setText("");
+						catch (NumberFormatException err){
+							JOptionPane.showMessageDialog(null, err);
+						}
 						
 					}
 					else{
@@ -337,9 +378,9 @@ public class QuestionCreator extends JPanel{
 		
 		
 		layout.putConstraint(SpringLayout.WEST, etiquetaState, frames, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, etiquetaState, frames, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.NORTH, etiquetaState, frames*4, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, campoState, frames2, SpringLayout.EAST, etiquetaState);
-		layout.putConstraint(SpringLayout.NORTH, campoState, frames, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.NORTH, campoState, frames*4, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, etiquetaWeight, frames, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, etiquetaWeight, frames, SpringLayout.SOUTH, etiquetaState);
 		layout.putConstraint(SpringLayout.WEST, campoWeight, frames2, SpringLayout.EAST, etiquetaWeight);
@@ -472,6 +513,7 @@ public class QuestionCreator extends JPanel{
 							}
 
 							else{
+								boolean noEmpty = false;
 								int max = Integer.parseInt(campoNumAns.getText());
 								if (max == answers.size()){
 							    	int allCorrect = JOptionPane.showConfirmDialog(null, "Do you really want a question with all the possible answers correct?", "Confirmation", JOptionPane.YES_NO_OPTION);
@@ -486,19 +528,40 @@ public class QuestionCreator extends JPanel{
 								}
 								double weight = Double.parseDouble(campoWeight.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
 								
-								MultipleChoice ques = new MultipleChoice(exe, weight, campoState.getText(), random, answers);
-								JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
-										+ ques.getQuestionText() + " Question answers: " + ques.getCorrectAnswers());
-								
-								/*We clean the JTextFields*/
-								campoState.setText("");
-								campoWeight.setText("");
-								randAnsOr.setSelected(false);
-								campoCorrect.setText("");
-								for (int j=0; j<10; j++){
-									if(posAns[j] != null){
-										posAns[j].setText("");
+								ArrayList<String> posAnswers = new ArrayList<String>();
+								int t=0;
+								int numAns = max;
+								while (t<numAns){
+									String answer = posAns[t].getText();
+									if (answer.equals("")){
+										noEmpty = false;
+										break;
 									}
+									else{
+										posAnswers.add(ans);
+									}
+									t++;
+								}
+								
+								if (noEmpty == true){
+									MultipleChoice ques = new MultipleChoice(exe, weight, campoState.getText(), random, answers);
+									JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
+											+ ques.getQuestionText() + " Question answers: " + ques.getCorrectAnswers() +"\nQuestion possible answers: "
+													+ ques.getPossibleAnswers());
+									
+									/*We clean the JTextFields*/
+									campoState.setText("");
+									campoWeight.setText("");
+									randAnsOr.setSelected(false);
+									campoCorrect.setText("");
+									for (int j=0; j<10; j++){
+										if(posAns[j] != null){
+											posAns[j].setText("");
+										}
+									}
+								}
+								else{
+									JOptionPane.showMessageDialog(null, "Don't leave empty spaces in the possible answers text fields");
 								}
 								
 							}
