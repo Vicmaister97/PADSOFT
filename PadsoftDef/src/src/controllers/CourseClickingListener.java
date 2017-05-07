@@ -20,9 +20,7 @@ public class CourseClickingListener implements MouseListener{
 	public void mouseClicked(MouseEvent arg0) {
 		Course c  = Coorse.coorse.searchCourseByName(course.getText());
 		CourseScreenStudent m = new CourseScreenStudent(c);
-		GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
-		GeneralFrame.GFrame.setContentPane(m);
-		GeneralFrame.GFrame.validate();
+		GeneralFrame.GFrame.changePanel(m);
 	}
 
 	@Override
