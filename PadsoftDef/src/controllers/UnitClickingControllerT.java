@@ -4,17 +4,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import courseElements.Unit;
-import gui.CourseScreenStudent;
 import gui.GeneralFrame;
-import gui.*;
-public class UnitClickingController implements MouseListener {
+import gui.UnitScreenStudent;
+import gui.UnitScreenTeacher;
+
+public class UnitClickingControllerT implements MouseListener {
 	private Unit u;
-	public UnitClickingController(Unit u){
+	public UnitClickingControllerT(Unit u){
 		this.u=u;
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		UnitScreenStudent m = new UnitScreenStudent(u);
+		UnitScreenTeacher m = new UnitScreenTeacher(u);
 		GeneralFrame.GFrame.changePanel(m, true);
 	}
 

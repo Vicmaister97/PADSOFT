@@ -3,14 +3,21 @@ package controllers;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import gui.GeneralFrame;
-import gui.MainScreenStudent;
+import javax.swing.JLabel;
 
-public class HomeClickingController implements MouseListener {
+import coorse.Coorse;
+import courseElements.Course;
+import gui.*;
 
+public class CourseTeacherController implements MouseListener {
+	private JLabel course;
+	public CourseTeacherController(JLabel course){
+		this.course=course;
+	}
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		MainScreenStudent m = new MainScreenStudent();
+		Course c  = Coorse.coorse.searchCourseByName(course.getText());
+		CourseScreenTeacher m = new CourseScreenTeacher(c);
 		GeneralFrame.GFrame.changePanel(m, true);
 	}
 

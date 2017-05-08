@@ -28,6 +28,7 @@ public class CourseScreenStudent extends JPanel{
 	public CourseScreenStudent(Course c){
 		SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
+		this.setBackground(new Color(153, 255, 255));
 		HomeButton home = new HomeButton();
 		BackArrow b = new BackArrow();
 		this.add(b);

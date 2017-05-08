@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import application.Application;
 import es.uam.eps.padsof.emailconnection.EmailSystem;
 import es.uam.eps.padsof.emailconnection.FailedInternetConnectionException;
 import es.uam.eps.padsof.emailconnection.InvalidEmailAddressException;
@@ -18,6 +19,7 @@ public class Course extends VisibleElement {
 	private List<Student> students;
 	private List<Student> expelled;
 	private List<CourseElement> elements;
+	private List<Application> pending;
 	
 	public Course (String name, String teachername, Boolean visibility){
 		super(visibility);
@@ -26,6 +28,8 @@ public class Course extends VisibleElement {
 		this.students = new ArrayList<Student>();
 		this.expelled = new ArrayList<Student>();
 		this.elements = new ArrayList<CourseElement>();
+		this.pending = new ArrayList<Application>();
+		
 	}
 	
 	public boolean setSmthVisible(VisibleElement e){
@@ -195,5 +199,21 @@ public class Course extends VisibleElement {
 	@Override
 	public String toString(){
 		return this.name;
+	}
+
+	/**
+	 * @return the pending
+	 */
+	public List<Application> getPending() {
+		return Collections.unmodifiableList(pending);
+	}
+
+
+	public void addApplication(Application a){
+		this.pending.add(a);
+	}
+	
+	public void removeApplication(Application a){
+		this.pending.remove(a);
 	}
 }

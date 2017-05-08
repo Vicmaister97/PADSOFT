@@ -28,8 +28,8 @@ public class Student extends User{
 	 */
 	public Application sendApplication(Course course){
 		Application a = new Application(this, course);
-		if(!Coorse.coorse.getPending().contains(a)){
-			Coorse.coorse.addApplication(a);
+		if(!course.getPending().contains(a)){
+			course.addApplication(a);
 		}
 		return a;
 	}

@@ -4,14 +4,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import gui.GeneralFrame;
-import gui.MainScreenStudent;
+import gui.MainScreenTeacher;
 
-public class HomeClickingController implements MouseListener {
+public class HomeClickingControllerT implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		MainScreenStudent m = new MainScreenStudent();
-		GeneralFrame.GFrame.changePanel(m, true);
+		// TODO Auto-generated method stub
+		GeneralFrame.GFrame.changePanel(new MainScreenTeacher(), true);
 	}
 
 	@Override

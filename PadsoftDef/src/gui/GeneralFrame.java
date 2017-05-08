@@ -26,7 +26,6 @@ public class GeneralFrame extends JFrame{
 		flagLogin = 0;
 		this.backtracking = new Stack <Container>();
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		this.setBackground(Color.CYAN);
 		this.addWindowListener(new ClosingController(this));
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		//this.setUndecorated(true);
@@ -34,27 +33,28 @@ public class GeneralFrame extends JFrame{
 
 	}
 	
-	public void changePanel(JPanel jp){
-		if(this.flagLogin!=0){
+	public void changePanel(JPanel jp, boolean add){
+		if(add){
 			this.backtracking.push(this.getContentPane());
 		}
+		else{
+			JScrollPane js = new JScrollPane(jp, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+			if(this.backtracking.contains(js)){
+				this.backtracking.remove(js);
+			}
+		}
 		this.remove(this.getContentPane());
-		JScrollPane frame = new JScrollPane(jp, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane frame = new JScrollPane(jp, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER){
+			public boolean equals(JScrollPane js){
+				return this.getComponents().equals(js.getComponents());
+			}
+		};
 		frame.getVerticalScrollBar().setUnitIncrement(10);
 		this.setContentPane(frame);
 		this.validate();
 		
 	}
 	
-	public void changePanel(JScrollPane jp){
-		if(this.flagLogin!=0){
-			this.backtracking.push(this.getContentPane());
-		}
-		this.remove(this.getContentPane());
-		this.setContentPane(jp);
-		this.validate();
-		
-	}
 	
 	
 	public Student getStudent(){
