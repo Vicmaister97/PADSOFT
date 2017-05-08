@@ -1,8 +1,10 @@
 package application;
+import java.io.Serializable;
+
 import coorse.Coorse;
 import courseElements.Course;
 import users.Student;
-public class Application {
+public class Application implements Serializable{
 	private Student student;
 	private Course course;
 	
@@ -42,8 +44,9 @@ public class Application {
 	public void setCourse(Course course) {
 		this.course = course;
 	}
-	 
-	public boolean equals(Application a){
+	@Override
+	public boolean equals(Object o){
+		Application a = (Application) o;
 		return a.getCourse() == this.course && a.getStudent()==this.student;
 	}
 }

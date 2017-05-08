@@ -26,6 +26,8 @@ public class MainScreenStudent extends JPanel{
 		this.setLayout(layout);
 		BackArrow b = new BackArrow();
 		this.add(b);
+		JLabel logo = new JLabel(new ImageIcon("logo.png"));
+		this.add(logo);
 		CourseList cl = new CourseList();
 		this.setBackground(new Color(153, 255, 255));
 		AllCoursesList c2 = new AllCoursesList();
@@ -33,10 +35,12 @@ public class MainScreenStudent extends JPanel{
 		this.add(c2);
 		layout.putConstraint(SpringLayout.NORTH, b, 17, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, b, 15, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, logo, 0, SpringLayout.HORIZONTAL_CENTER, this);
+		layout.putConstraint(SpringLayout.NORTH, logo, 100, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, cl, -GeneralFrame.GFrame.getWidth()/4, SpringLayout.HORIZONTAL_CENTER, this);
-		layout.putConstraint(SpringLayout.NORTH, cl, 200, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.NORTH, cl, 50, SpringLayout.SOUTH, logo);
 		layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, c2, 0, SpringLayout.HORIZONTAL_CENTER, this);
-		layout.putConstraint(SpringLayout.NORTH, c2, 200, SpringLayout.NORTH, this);
+		layout.putConstraint(SpringLayout.NORTH, c2, 500, SpringLayout.SOUTH, logo);
 		this.setPreferredSize(new Dimension((int)GeneralFrame.GFrame.getWidth(), (int)c2.getPreferredSize().getHeight()+200));
 	}
 }
@@ -47,6 +51,7 @@ class CourseList extends JPanel{
 		this.setLayout(layout);
 		JLabel title = new JLabel("Your Courses");
 		title.setFont(new Font("Comic Sans MS", Font.PLAIN, 40));
+		this.setBackground(new Color(153, 255, 255));
 		title.setAlignmentX(CENTER_ALIGNMENT);
 		this.add(title);
 		this.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -69,6 +74,7 @@ class AllCoursesList extends JPanel{
 	public AllCoursesList(){
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layout);
+		this.setBackground(new Color(153, 255, 255));
 		JLabel title = new JLabel("All Courses");
 		title.setFont(new Font("Comic Sans MS", Font.PLAIN, 40));
 		title.setAlignmentX(CENTER_ALIGNMENT);
@@ -83,7 +89,7 @@ class AllCoursesList extends JPanel{
 	
 	private void addCourse(Course c){
 		JLabel l = new JLabel(c.getName());
-		if(c.getStudents().contains(GeneralFrame.GFrame.getStudent())){
+		if(c.getStudents().contains(GeneralFrame.GFrame.getStudent())||c.getExpelled().contains(GeneralFrame.GFrame.getStudent())){
 			l.addMouseListener(new CourseClickingListener(l));
 			l.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
 			l.setForeground(Color.BLUE);

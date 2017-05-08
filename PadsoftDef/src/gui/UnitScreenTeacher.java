@@ -48,6 +48,7 @@ public class UnitScreenTeacher extends JPanel {
 
 class ElementsPanelUT extends JPanel{
 	public ElementsPanelUT(Unit u){
+		this.setBackground(new Color(153, 255, 255));
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layout);
 		JLabel title = new JLabel(u.getName());

@@ -19,8 +19,13 @@ public class CourseClickingListener implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		Course c  = Coorse.coorse.searchCourseByName(course.getText());
-		CourseScreenStudent m = new CourseScreenStudent(c);
-		GeneralFrame.GFrame.changePanel(m, true);
+		if(!c.getExpelled().contains(GeneralFrame.GFrame.getStudent())){
+			CourseScreenStudent m = new CourseScreenStudent(c);
+			GeneralFrame.GFrame.changePanel(m, true);
+		}
+		else{
+			JOptionPane.showMessageDialog(null, "You have been expelled from this course");
+		}
 	}
 
 	@Override

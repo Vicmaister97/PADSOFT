@@ -54,6 +54,7 @@ class ElementsPanel extends JPanel{
 	public ElementsPanel(Course c){
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layout);
+		this.setBackground(new Color(153, 255, 255));
 		JLabel title = new JLabel(c.getName());
 		title.setFont(new Font("Comic Sans MS", Font.PLAIN, 40));
 		title.setAlignmentX(LEFT_ALIGNMENT);
