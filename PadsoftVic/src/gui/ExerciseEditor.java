@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
 
@@ -16,7 +17,7 @@ import coorse.Coorse;
 import courseElements.Course;
 import courseElements.Exercise;
 
-public class ExerciseEditor extends Container{
+public class ExerciseEditor extends JPanel{
 	/**
 	 * 
 	 */

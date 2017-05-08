@@ -29,6 +29,10 @@ public class Run {
 		Course course = new Course("PADSOF", "Juan de Lara", true);
 		Exercise e1 = new Exercise(course, true, true, LocalDateTime.MIN, LocalDateTime.MAX, "Examen1", 50.0, 0.0);
 		//Exercise e2 = new Exercise(course, true, true, LocalDateTime.MIN, LocalDateTime.MAX, "Examen2", 40.0, 0.0);
+		Student s1 = (Student) Coorse.coorse.login("Luis.Gallego@coor.es", "s.ll");
+		Application a1 = s1.sendApplication(course); /*let's see the trace*/
+		a1.admitStudent();
+		
 		
 		SimpleChoice q1 = new SimpleChoice(e1, 5.0, "Which is the highest mountain in Spain?", true, "Teide");
 		q1.addPossibleAnswer("Teide");
@@ -49,6 +53,7 @@ public class Run {
 		
 		//Login l = new Login();
 		QuestionEditor l = new QuestionEditor(e1);
+		//ExerciseSolver l = new ExerciseSolver(e1,s1);
 		//TextEditor l = new TextEditor(q2);
 		//ExerciseCreator l = new ExerciseCreator(course);
 		//QuestionCreator l = new QuestionCreator(e1);
