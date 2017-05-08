@@ -38,8 +38,8 @@ public class Unit extends CourseElement{
 		return true;
 	}
 	
-	public void addSubunit(String uname){
-		Unit u = new Unit(uname, false, this.course);
+	public void addSubunit(String uname, boolean visibility){
+		Unit u = new Unit(uname, visibility, this.course);
 		this.elements.add(u);
 	}
 	

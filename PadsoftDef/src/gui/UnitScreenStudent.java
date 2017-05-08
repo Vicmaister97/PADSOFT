@@ -32,6 +32,7 @@ public class UnitScreenStudent extends JPanel{
 		this.add(home);
 		ElementsPanelU e = new ElementsPanelU(u);
 		this.add(e);
+		this.setBackground(new Color(153, 255, 255));
 		layout.putConstraint(SpringLayout.NORTH, b, 17, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, b, 15, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, home, 15, SpringLayout.NORTH, this);

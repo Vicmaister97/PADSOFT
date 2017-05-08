@@ -27,6 +27,7 @@ public class MainScreenStudent extends JPanel{
 		BackArrow b = new BackArrow();
 		this.add(b);
 		CourseList cl = new CourseList();
+		this.setBackground(new Color(153, 255, 255));
 		AllCoursesList c2 = new AllCoursesList();
 		this.add(cl);
 		this.add(c2);

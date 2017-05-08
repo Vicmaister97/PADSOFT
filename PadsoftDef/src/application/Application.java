@@ -16,7 +16,7 @@ public class Application {
 	public void admitStudent(){
 		this.getCourse().addStudent(this.getStudent());
 		this.getStudent().addCourse(this.getCourse());
-		Coorse.coorse.removeApplication(this);
+		this.course.removeApplication(this);
 	}
 	/**
 	 * @return the student

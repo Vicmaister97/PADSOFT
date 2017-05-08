@@ -24,15 +24,14 @@ public class LoginController implements ActionListener{
     		JOptionPane.showMessageDialog(null, "login incorrecto");
     	}
     	else if(u.getUsername().equals("admin")){
-    		GeneralFrame.GFrame.changePanel(new MainScreenTeacher());
-    		GeneralFrame.GFrame.flagLogin=1;
+    		GeneralFrame.GFrame.changePanel(new MainScreenTeacher(), false);
+
     	}
     	else{
     		Student s = (Student) u;
     		GeneralFrame.GFrame.setStudent(s);
     		MainScreenStudent m = new MainScreenStudent();
-    		GeneralFrame.GFrame.changePanel(m);
-    		GeneralFrame.GFrame.flagLogin=1;
+    		GeneralFrame.GFrame.changePanel(m, false);
     	}
     	
 	}

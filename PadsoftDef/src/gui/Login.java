@@ -22,7 +22,7 @@ public class Login extends JPanel{
 	public Login(){
 		SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
-		this.setBackground(Color.CYAN);
+		this.setBackground(new Color(153, 255, 255));
 		JLabel userlabel = new JLabel("Username");
 		final JTextField usertext = new JTextField(20);
 		JLabel passlabel = new JLabel ("Password");
