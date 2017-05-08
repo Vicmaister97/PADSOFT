@@ -3,6 +3,7 @@ package gui;
 import java.awt.Font;
 import java.awt.List;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -14,7 +15,7 @@ import javax.swing.SpringLayout;
 
 import exercises.*;
 
-public class SimpleEditor extends JPanel{
+public class MultiEditor extends JPanel{
 	
 	/**
 	 * 
@@ -23,7 +24,7 @@ public class SimpleEditor extends JPanel{
 	private static int frames = 30;
 	private static int frames2 = 10;
 
-	public SimpleEditor(SimpleChoice ques){
+	public MultiEditor(MultipleChoice ques){
 		SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
 		//this.setBackground(Color.LIGHT_GRAY);
@@ -31,7 +32,7 @@ public class SimpleEditor extends JPanel{
 		etiquetaWeight.setFont(new Font("Calibri", Font.PLAIN, 16));
 		JLabel etiquetaState = new JLabel("Statement: " + ques.getQuestionText());
 		etiquetaState.setFont(new Font("Calibri", Font.PLAIN, 16));
-		JLabel etiquetaAns = new JLabel("Answer: " + ques.getCorrectAnswer());
+		JLabel etiquetaAns = new JLabel("Answers: " + ques.getCorrectAnswers().toString());
 		etiquetaAns.setFont(new Font("Calibri", Font.BOLD, 16));
 		JLabel etiquetaRandOr = new JLabel("Random Order of the possible answers: " + ques.isRandomOrder());
 		etiquetaRandOr.setFont(new Font("Calibri", Font.PLAIN, 16));
@@ -42,13 +43,13 @@ public class SimpleEditor extends JPanel{
 		JTextField campoNWeight = new JTextField(4);
 		JLabel etiquetaNState = new JLabel("New question statement: ");
 		JTextField campoNState = new JTextField(30);
-		JLabel etiquetaNAns = new JLabel("New question answer (with the existing possible answers): ");
-		JTextField campoNAns = new JTextField(20);
 		JCheckBox randAnsOr = new JCheckBox("New random order of the possible answers");
 		JLabel etiquetaNumAns = new JLabel("Number of new possible answers: "); /*max 10*/
 		final JTextField campoNumAns = new JTextField(2);
-		JLabel etiquetaCorrect = new JLabel("Correct number of the new answer(the first one is number 1): ");
+		JLabel etiquetaCorrect = new JLabel("Correct number of the new answers(the first one is number 1): ");
 		final JTextField campoCorrect = new JTextField(2);
+		JLabel etiquetaExample = new JLabel("Example: 4 possible answers, correct ones are written on 2,3 and 7, write 2,3,7");
+		etiquetaExample.setFont(new Font("Serif", Font.PLAIN, 12));
 
 		JButton confirm = new JButton("Create new possible answers");
 		JButton create = new JButton("Save Changes");
@@ -87,11 +88,14 @@ public class SimpleEditor extends JPanel{
 				 						
 				 			this.add(etiquetaCorrect);
 				 			this.add(campoCorrect);
+				 			this.add(etiquetaExample);
 				 						
 				 			layout.putConstraint(SpringLayout.EAST, etiquetaCorrect, -frames2, SpringLayout.WEST, campoCorrect);
 				 			layout.putConstraint(SpringLayout.NORTH, etiquetaCorrect, frames, SpringLayout.SOUTH, posAns[i-1]);
 				 			layout.putConstraint(SpringLayout.EAST, campoCorrect, -frames*5, SpringLayout.EAST, this);
 				 			layout.putConstraint(SpringLayout.NORTH, campoCorrect, frames, SpringLayout.SOUTH, posAns[i-1]);
+				 			layout.putConstraint(SpringLayout.EAST, etiquetaExample, -frames*5, SpringLayout.EAST, this);
+				 			layout.putConstraint(SpringLayout.NORTH, etiquetaExample, frames, SpringLayout.SOUTH, campoCorrect);
 		
 				 			this.validate();
 						}
@@ -121,18 +125,7 @@ public class SimpleEditor extends JPanel{
 						}
 						
 					}
-					if (campoNAns.getText().trim().isEmpty() == false){
-						if ((ques.setCorrectAnswer(campoNAns.getText())) == false){
-							JOptionPane.showMessageDialog(null, "No accepted new answer");
-						}
-						else{
-							cont++;
-							JOptionPane.showMessageDialog(null, "ACCEPTED new answer: " + ques.getCorrectAnswer());
-							campoNAns.setText("");
-							etiquetaAns.setText("Answer: " + ques.getCorrectAnswer());
-						}
 					
-					}
 					if (campoNWeight.getText().trim().isEmpty() == false){
 						try{
 							double weight = Double.parseDouble(campoNWeight.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
@@ -168,79 +161,95 @@ public class SimpleEditor extends JPanel{
 					
 					if(campoNumAns.getText().equals("") == false){
 						try{
-							boolean noEmpty = true;
-							Integer correct = Integer.parseInt(campoCorrect.getText());
-							correct -= 1;
-							String answer = posAns[correct].getText();
-							
-							ArrayList<String> posAnswers = new ArrayList<String>();
-							int t=0;
-							int numAns = Integer.parseInt(campoNumAns.getText());
-							while (t<numAns){
-								String ans = posAns[t].getText();
-								if (ans.equals("")){
-									noEmpty = false;
-									break;
-								}
-								else{
-									posAnswers.add(ans);
-								}
-								t++;
+							boolean flag = true;
+							String ans = campoCorrect.getText();
+							StringTokenizer multiTokenizer = new StringTokenizer(ans, ", ");
+							ArrayList<String> answers = new ArrayList<String>();
+							while (multiTokenizer.hasMoreTokens()){
+								int pos = Integer.parseInt(multiTokenizer.nextToken());
+							    String answer = posAns[pos-1].getText();
+							    answers.add(answer);
+							    if (answer.equals("")){
+							    	flag = false;
+							    }
 							}
-							
-							if ((answer.equals("") == false) && (noEmpty == true)){
-								String oldCorrect = ques.getCorrectAnswer();
-								ques.setCorrectAnswer(""); /*In order to remove the already existing possible answers*/
-								
-								ArrayList<String>oldAns = ques.getPossibleAnswers();
-								int i=0;
-								while(i<ques.getPossibleAnswers().size()){
-									ques.removePossibleAnswer(oldAns.get(i));
-								}
-								
-								boolean nice = true;
-								for(String possible: posAnswers){
-									if(ques.addPossibleAnswer(possible) == false){
-										cont++;
-										nice = false;
-										break;
-									}
-								}
-								if(nice == true){
-									ques.setCorrectAnswer(answer);
-									cont++;
-									
-									etiquetaAns.setText("Answer: " + ques.getCorrectAnswer());
-									etiquetaPosAns.setText("Possible answers of the question: " + ques.getPossibleAnswers().toString());
-									JOptionPane.showMessageDialog(null, "ACCEPTED new possible answers and correct answer");
-
-									campoNumAns.setText("");
-									campoCorrect.setText("");
-									for (int j=0; j<10; j++){
-										if (posAns[j] != null){
-											posAns[j].setText("");
-										}
-									}
-								}
-								else{
-									ques.setCorrectAnswer(""); /*In order to remove the already existing possible answers*/
-									
-									ArrayList<String>badAns = ques.getPossibleAnswers();
-									int j=0;
-									while(j<ques.getPossibleAnswers().size()){
-										ques.removePossibleAnswer(badAns.remove(j));
-									}
-									for(String possible: oldAns){
-										ques.addPossibleAnswer(possible);
-									}
-									
-									ques.setCorrectAnswer(oldCorrect);									
-									JOptionPane.showMessageDialog(null, "Don't repeat possible answers");
-								}
+							if (flag == false){
+						    	JOptionPane.showMessageDialog(null, "One of the correct answers selected does not exists");
 							}
 							else{
-								if ((answer.equals("") == true)){
-									JOptionPane.showMessageDialog(null, "The new correct answer selected does not exists");
+								boolean noEmpty = true;
+								
+								ArrayList<String> posAnswers = new ArrayList<String>();
+								int t=0;
+								int numAns = Integer.parseInt(campoNumAns.getText());
+								while (t<numAns){
+									String anss = posAns[t].getText();
+									if (anss.equals("")){
+										noEmpty = false;
+										break;
+									}
+									else{
+										posAnswers.add(anss);
+									}
+									t++;
+								}
+								
+								if (noEmpty == true){
+									ArrayList<String> oldCorrect = ques.getCorrectAnswers();
+									int p=0;
+									while(p<oldCorrect.size()){
+										ques.removeCorrectAnswer(oldCorrect.get(p));
+									}
+									
+									//ques.setCorrectAnswer(""); /*In order to remove the already existing possible answers*/
+									
+									ArrayList<String>oldAns = ques.getPossibleAnswers();
+									int i=0;
+									while(i<ques.getPossibleAnswers().size()){
+										ques.removePossibleAnswer(oldAns.get(i));
+									}
+									
+									boolean nice = true;
+									for(String possible: posAnswers){
+										if(ques.addPossibleAnswer(possible) == false){
+											cont++;
+											nice = false;
+											break;
+										}
+									}
+									if(nice == true){
+										//ques.setCorrectAnswer(answer);
+										for (String newCorrect : answers){
+											cont++;
+											ques.addCorrectAnswer(newCorrect);
+										}
+										etiquetaAns.setText("Answers: " + ques.getCorrectAnswers().toString());
+										etiquetaPosAns.setText("Possible answers of the question: " + ques.getPossibleAnswers().toString());
+										JOptionPane.showMessageDialog(null, "ACCEPTED new possible answers and correct answer");
+										
+										campoNumAns.setText("");
+										campoCorrect.setText("");
+										for (int j=0; j<10; j++){
+											if (posAns[j] != null){
+												posAns[j].setText("");
+											}
+										}
+									}
+									else{									
+										ArrayList<String>badAns = ques.getPossibleAnswers();
+										int j=0;
+										while(j<ques.getPossibleAnswers().size()){
+											ques.removePossibleAnswer(badAns.remove(j));
+										}
+										for(String possible: oldAns){
+											ques.addPossibleAnswer(possible);
+										}
+										for(String correct : oldCorrect){
+											ques.addCorrectAnswer(correct);
+										}
+										
+										JOptionPane.showMessageDialog(null, "Don't repeat possible answers");
+									}
 								}
 								else{
 									JOptionPane.showMessageDialog(null, "Don't leave empty spaces in the new possible answers text fields");
@@ -275,8 +284,6 @@ public class SimpleEditor extends JPanel{
 		this.add(campoNWeight);
 		this.add(etiquetaNState);
 		this.add(campoNState);
-		this.add(etiquetaNAns);
-		this.add(campoNAns);
 		this.add(randAnsOr);
 		this.add(etiquetaNumAns);
 		this.add(campoNumAns);
@@ -301,17 +308,12 @@ public class SimpleEditor extends JPanel{
 		layout.putConstraint(SpringLayout.EAST, campoNState, -frames*4, SpringLayout.EAST, this);
 		layout.putConstraint(SpringLayout.NORTH, campoNState, frames*3, SpringLayout.NORTH, this);
 		
-		layout.putConstraint(SpringLayout.EAST, etiquetaNAns, -frames2, SpringLayout.WEST, campoNAns);
-		layout.putConstraint(SpringLayout.NORTH, etiquetaNAns, frames, SpringLayout.SOUTH, etiquetaNState);
-		layout.putConstraint(SpringLayout.EAST, campoNAns, -frames*4, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.NORTH, campoNAns, frames, SpringLayout.SOUTH, etiquetaNState);
-		
 		layout.putConstraint(SpringLayout.EAST, etiquetaNWeight, -frames2, SpringLayout.WEST, campoNWeight);
-		layout.putConstraint(SpringLayout.NORTH, etiquetaNWeight, frames, SpringLayout.SOUTH, etiquetaNAns);
+		layout.putConstraint(SpringLayout.NORTH, etiquetaNWeight, frames, SpringLayout.SOUTH, etiquetaNState);
 		layout.putConstraint(SpringLayout.EAST, campoNWeight, -frames*2, SpringLayout.WEST, randAnsOr);
-		layout.putConstraint(SpringLayout.NORTH, campoNWeight, frames, SpringLayout.SOUTH, etiquetaNAns);
+		layout.putConstraint(SpringLayout.NORTH, campoNWeight, frames, SpringLayout.SOUTH, etiquetaNState);
 		layout.putConstraint(SpringLayout.EAST, randAnsOr, -frames*4, SpringLayout.EAST, this);
-		layout.putConstraint(SpringLayout.NORTH, randAnsOr, frames, SpringLayout.SOUTH, etiquetaNAns);
+		layout.putConstraint(SpringLayout.NORTH, randAnsOr, frames, SpringLayout.SOUTH, etiquetaNState);
 		
 		layout.putConstraint(SpringLayout.EAST, etiquetaNumAns, -frames2, SpringLayout.WEST, campoNumAns);
 		layout.putConstraint(SpringLayout.NORTH, etiquetaNumAns, frames, SpringLayout.SOUTH, randAnsOr);

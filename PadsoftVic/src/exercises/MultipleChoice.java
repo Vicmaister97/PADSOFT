@@ -13,9 +13,9 @@ import users.Student;
 public class MultipleChoice extends QuestionChoice {
 
 	private static final long serialVersionUID = -8778703654936718413L;
-	private List<String> correctAnswers;
+	private ArrayList<String> correctAnswers;
 	
-	public MultipleChoice (Exercise exe, double weight, String QText, boolean randOrd, List<String> answers){
+	public MultipleChoice (Exercise exe, double weight, String QText, boolean randOrd, ArrayList<String> answers){
 		super(exe, weight, QText, randOrd);
 		this.correctAnswers = new ArrayList<>(answers);
 	}
@@ -23,7 +23,7 @@ public class MultipleChoice extends QuestionChoice {
 	/**
 	 * @return the correct answers of the question
 	 */
-	public List<String> getCorrectAnswers() {
+	public ArrayList<String> getCorrectAnswers() {
 		return correctAnswers;
 	}
 	

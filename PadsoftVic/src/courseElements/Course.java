@@ -168,7 +168,10 @@ public class Course extends VisibleElement {
 	public void setExpelled(List<Student> expelled) {
 		this.expelled = expelled;
 	}
-	
+	public void addUnit(String uname, boolean visibility){
+		Unit u = new Unit(uname, visibility, this);
+		this.addElement(u);
+	}
 	public double getGlobalMark(Student student){
 		double globalMark = 0;
 		Exercise exe;

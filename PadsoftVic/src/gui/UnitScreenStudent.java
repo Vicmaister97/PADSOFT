@@ -1,64 +1,59 @@
 package gui;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneConstants;
-
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 import coorse.Coorse;
-import courseElements.*;
-
+import courseElements.Course;
+import courseElements.CourseElement;
+import courseElements.Exercise;
+import courseElements.Note;
+import courseElements.Unit;
 import controllers.*;
 
-public class CourseScreenStudent extends JPanel{
-	public CourseScreenStudent(Course c){
+public class UnitScreenStudent extends JPanel{
+	public UnitScreenStudent(Unit u){
 		SpringLayout layout = new SpringLayout();
 		this.setLayout(layout);
 		HomeButton home = new HomeButton();
 		BackArrow b = new BackArrow();
 		this.add(b);
+		JLabel cname = new JLabel(u.getCourse().getName());
+		cname.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
+		this.add(cname);
 		this.add(home);
-		JLabel pname = new JLabel("Professor " + c.getTeachername());
-		pname.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
-		this.add(pname);
-		ElementsPanel e = new ElementsPanel(c);
+		ElementsPanelU e = new ElementsPanelU(u);
 		this.add(e);
 		layout.putConstraint(SpringLayout.NORTH, b, 17, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, b, 15, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, home, 15, SpringLayout.NORTH, this);
 		layout.putConstraint(SpringLayout.WEST, home, 15, SpringLayout.EAST, b);
-		layout.putConstraint(SpringLayout.NORTH, pname, 100, SpringLayout.NORTH, home);
-		layout.putConstraint(SpringLayout.WEST, pname, 200, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, e, 75, SpringLayout.NORTH, pname);
+		layout.putConstraint(SpringLayout.NORTH, cname, 100, SpringLayout.NORTH, home);
+		layout.putConstraint(SpringLayout.WEST, cname, 200, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, e, 75, SpringLayout.NORTH, cname);
 		layout.putConstraint(SpringLayout.WEST, e, 200, SpringLayout.WEST, this);
 	}
 	
 }
 
-class ElementsPanel extends JPanel{
-	public ElementsPanel(Course c){
+class ElementsPanelU extends JPanel{
+	public ElementsPanelU(Unit u){
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layout);
-		JLabel title = new JLabel(c.getName());
+		JLabel title = new JLabel(u.getName());
 		title.setFont(new Font("Comic Sans MS", Font.PLAIN, 40));
 		title.setAlignmentX(LEFT_ALIGNMENT);
 		this.add(title);
 		this.add(Box.createRigidArea(new Dimension(0, 30)));
-		for (CourseElement e: c.getElements()){
+		for (CourseElement e: u.getElements()){
 			if(e.isVisible()){
 				if (e instanceof Note){
 					this.addNote((Note)e);
@@ -104,4 +99,3 @@ class ElementsPanel extends JPanel{
 	}
 	
 }
-

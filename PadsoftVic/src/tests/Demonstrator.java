@@ -55,7 +55,7 @@ public class Demonstrator {
 		q1.addPossibleAnswer("Mulhacen");
 		q1.addPossibleAnswer("Moncano");
 		TextAnswer q2 = new TextAnswer (e1, 5.0, "1+1=", "2");
-		List<String> solutions = new ArrayList<String>();
+		ArrayList<String> solutions = new ArrayList<String>();
 		solutions.add("Goya");
 		solutions.add("Velazquez");
 		MultipleChoice q3 = new MultipleChoice(e2, 5.0, "Which ones of these were spanish painters?", true, solutions);

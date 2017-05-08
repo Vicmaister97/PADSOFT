@@ -48,8 +48,9 @@ public class ExerciseCreator extends JPanel{ //AÑADIR BOTON SAVE Y NUMPOSANS EN
 		
 		JButton Create = new JButton("Create Exercise");
 		JButton Finish = new JButton("Finish");
+		
 		//JButton Cancel = new JButton("Cancel");
-		//SAVE EXERCISE
+
 		Create.addActionListener(
 				e ->{
 					if (campoName.getText().trim().isEmpty()){

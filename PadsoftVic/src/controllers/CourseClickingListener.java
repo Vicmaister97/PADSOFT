@@ -19,11 +19,8 @@ public class CourseClickingListener implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		Course c  = Coorse.coorse.searchCourseByName(course.getText());
-		JOptionPane.showMessageDialog(null, "Has entrado al curso" + course.getText());
-		/*CourseScreenStudent m = new CourseScreenStudent(c);
-		GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
-		GeneralFrame.GFrame.setContentPane(m);
-		GeneralFrame.GFrame.validate();*/
+		CourseScreenStudent m = new CourseScreenStudent(c);
+		GeneralFrame.GFrame.changePanel(m);
 	}
 
 	@Override

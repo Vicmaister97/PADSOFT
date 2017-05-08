@@ -40,8 +40,8 @@ public class Student extends User{
 	/**
 	 * @return firstname
 	 */
-	public String getFirstName() {
-		return firstname;
+	public String getName() {
+		return firstname+" "+lastname;
 	}
 	/**
 	 * @param firstname the firstname to set

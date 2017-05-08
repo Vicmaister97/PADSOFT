@@ -50,7 +50,7 @@ public class SimpleChoice extends QuestionChoice{
 		
 		if (this.getPossibleAnswers().remove(noMorePossibleAnswer)){ /*The possible answer was in the list and it was removed correctly*/
 			if (this.getCorrectAnswer().equals(noMorePossibleAnswer)){ /*The possible answer that was removed was the correct answer of the question*/
-				this.correctAnswer = null; /*The teacher must be the one that chooses after this the new correct answer*/
+				this.correctAnswer = ""; /*The teacher must be the one that chooses after this the new correct answer*/
 			}
 			return true;
 		}

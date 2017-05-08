@@ -33,24 +33,23 @@ public class QuestionEditor extends JPanel{
 	private int numq = 0;
     private JComboBox<String> combo;
     private CardLayout panelLayout = new CardLayout();
-    private JPanel cardPanel;
+    private JPanel cards;
     private JPanel[] panels;
     				   
     				   
-    private void buildPanels(Exercise exe) {
+    private void buildPanels(Exercise exe, int numq) {
     	
     	ArrayList<Integer> nums = new ArrayList<Integer>();
     	
-    	for(int i=0; i<numq; i++){
+    	/*for(int i=0; i<numq; i++){
     		nums.add(i);
-    	}
+    	}*/
     	this.panels = new JPanel[numq];
-    	int randomNum;
+    	//int randomNum;
     	for (int i = 0; i<numq; i++) {
-    		Question q;
     		this.panels[i] = new JPanel(new BorderLayout());
     		
-    		if(exe.isRandomOrder() == true){
+    		/*if(exe.isRandomOrder() == true){
     			while(true){
     				randomNum = ThreadLocalRandom.current().nextInt(0, numq);
     				if (nums.get(randomNum) != -1){
@@ -59,20 +58,28 @@ public class QuestionEditor extends JPanel{
     					break;
     					}
     			}
-    		}
+    		}*/
     		
-    		q = exe.getQuestions().get(i);
+    		Question q = exe.getQuestions().get(i);
     		
     		if (q instanceof TextAnswer){
     			TextEditor textPane = new TextEditor((TextAnswer) q);
     			this.panels[i].add(textPane, BorderLayout.CENTER);
     		}
+    		else if (q instanceof TrueFalse){
+    			TFEditor tFPane = new TFEditor((TrueFalse) q);
+    			this.panels[i].add(tFPane, BorderLayout.CENTER);
+    		}
     		else if (q instanceof SimpleChoice){
-    			
+    			SimpleEditor sCPane = new SimpleEditor((SimpleChoice) q);
+    			this.panels[i].add(sCPane, BorderLayout.CENTER);
+    		}
+    		else if (q instanceof MultipleChoice){
+    			MultiEditor mCPane = new MultiEditor((MultipleChoice) q);
+    			this.panels[i].add(mCPane, BorderLayout.CENTER);
     		}
     		
-    		
-    		this.panels[i].add(new JLabel ("Question "+(i+1)), BorderLayout.NORTH);
+    		this.panels[i].add(new JLabel ("Question "+(i+1), JLabel.CENTER), BorderLayout.NORTH);
     	}
     }    
     
@@ -80,15 +87,16 @@ public class QuestionEditor extends JPanel{
     public QuestionEditor(Exercise exe) {
     	
     	numq = exe.getQuestions().size();
-    	cardPanel = new JPanel(panelLayout);
+    	cards = new JPanel(panelLayout);
+    	this.setLayout(new BorderLayout());
         
-        this.buildPanels(exe);
+        this.buildPanels(exe, numq);
         
         for (int i = 0; i<numq; i++){
-        	cardPanel.add(String.valueOf(i), panels[i]);
+        	cards.add(panels[i], String.valueOf(i+1));
         }
         
-        this.add (cardPanel, BorderLayout.CENTER);
+        this.add(cards, BorderLayout.CENTER);
         
         JButton first 	 = new JButton("First");
         JButton last 	 = new JButton("Last");
@@ -98,7 +106,7 @@ public class QuestionEditor extends JPanel{
         
         combo = new JComboBox<String>();
         
-        for (int i = 0; i<numq; i++)
+        for (int i = 1; i<numq+1; i++)
         	combo.addItem(String.valueOf(i));
         
         JPanel panel = new JPanel();
@@ -110,34 +118,36 @@ public class QuestionEditor extends JPanel{
         
         this.add(panel, BorderLayout.SOUTH);
         
-        first.addActionListener((ActionListener) this);
-        last.addActionListener((ActionListener) this);
-        next.addActionListener((ActionListener) this);
-        previous.addActionListener((ActionListener) this);
-        combo.addItemListener((ItemListener) this);
+        first.addActionListener(
+        		a ->{
+                    panelLayout.first (cards);
+        		}
+        		);
+        last.addActionListener(
+        		b ->{
+                    panelLayout.last (cards);
+        		}
+        		);
+        next.addActionListener(
+        		c ->{
+                    panelLayout.next (cards);
+        		}
+        		);
+        previous.addActionListener(
+        		d ->{
+                    panelLayout.previous (cards);
+        		}
+        		);
+        combo.addItemListener(
+        		e ->{
+        			String item = (String) e.getItem ();
+        		        
+        		    panelLayout.show (cards, item);        		
+        		    }
+        		);
         
         this.setVisible(true);
-        this.setSize(380, 300);
 
-}
-    
-    
-    
-    public void actionPerformed (ActionEvent e) {
-        String command = e.getActionCommand ();
-        if (command.equals ("First"))
-            panelLayout.first (cardPanel);
-        else if (command.equals ("Last"))
-            panelLayout.last (cardPanel);
-        else if (command.equals ("Previous"))
-            panelLayout.previous (cardPanel);
-        else if (command.equals ("Next"))
-            panelLayout.next (cardPanel);
     }
     
-    public void itemStateChanged (ItemEvent e) {
-        String item = (String) e.getItem ();
-        
-        panelLayout.show (cardPanel, item);
-    }
 }

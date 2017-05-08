@@ -14,10 +14,8 @@ public class UnitClickingController implements MouseListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		/*UnitScreenStudent m = new CourseScreenStudent(u);
-		GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
-		GeneralFrame.GFrame.setContentPane(m);
-		GeneralFrame.GFrame.validate();*/
+		UnitScreenStudent m = new UnitScreenStudent(u);
+		GeneralFrame.GFrame.changePanel(m);
 	}
 
 	@Override

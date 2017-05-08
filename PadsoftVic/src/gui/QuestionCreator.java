@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class QuestionCreator extends JPanel{
@@ -236,27 +237,36 @@ public class QuestionCreator extends JPanel{
 							
 							if ((answer.equals("") == false) && (noEmpty == true)){
 								SimpleChoice ques = new SimpleChoice(exe, weight, statement, random, answer);
+								boolean nice = true;
 								for(String possible: posAnswers){
-									ques.addPossibleAnswer(possible);
-								}
-								
-								JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
-										+ ques.getQuestionText() + " Question answer: " + ques.getCorrectAnswer() + "\nQuestion possible answers: "
-										+ ques.getPossibleAnswers());
-								
-								/*We clean the JTextFields*/
-								campoState.setText("");
-								campoWeight.setText("");
-								randAnsOr.setSelected(false);
-								campoCorrect.setText("");
-								for (int j=0; j<10; j++){
-									if (posAns[j] != null){
-										posAns[j].setText("");
+									if(ques.addPossibleAnswer(possible) == false){
+										nice = false;
+										break;
 									}
+								}
+								if(nice == true){
+									JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
+											+ ques.getQuestionText() + " Question answer: " + ques.getCorrectAnswer() + "\nQuestion possible answers: "
+											+ ques.getPossibleAnswers().toString());
+									
+									/*We clean the JTextFields*/
+									campoState.setText("");
+									campoWeight.setText("");
+									randAnsOr.setSelected(false);
+									campoCorrect.setText("");
+									for (int j=0; j<10; j++){
+										if (posAns[j] != null){
+											posAns[j].setText("");
+										}
+									}
+								}
+								else{
+									exe.removeQuestion(ques);
+									JOptionPane.showMessageDialog(null, "Don't repeat possible answers");
 								}
 							}
 							else{
-								if ((answer.equals("") == false)){
+								if ((answer.equals("") == true)){
 									JOptionPane.showMessageDialog(null, "The correct answer selected does not exists");
 								}
 								else{
@@ -513,7 +523,7 @@ public class QuestionCreator extends JPanel{
 							}
 
 							else{
-								boolean noEmpty = false;
+								boolean noEmpty = true;
 								int max = Integer.parseInt(campoNumAns.getText());
 								if (max == answers.size()){
 							    	int allCorrect = JOptionPane.showConfirmDialog(null, "Do you really want a question with all the possible answers correct?", "Confirmation", JOptionPane.YES_NO_OPTION);
@@ -538,27 +548,45 @@ public class QuestionCreator extends JPanel{
 										break;
 									}
 									else{
-										posAnswers.add(ans);
+										posAnswers.add(answer);
 									}
 									t++;
 								}
 								
 								if (noEmpty == true){
 									MultipleChoice ques = new MultipleChoice(exe, weight, campoState.getText(), random, answers);
-									JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
-											+ ques.getQuestionText() + " Question answers: " + ques.getCorrectAnswers() +"\nQuestion possible answers: "
-													+ ques.getPossibleAnswers());
 									
-									/*We clean the JTextFields*/
-									campoState.setText("");
-									campoWeight.setText("");
-									randAnsOr.setSelected(false);
-									campoCorrect.setText("");
-									for (int j=0; j<10; j++){
-										if(posAns[j] != null){
-											posAns[j].setText("");
+									boolean nice = true;
+									for(String possible: posAnswers){
+										if(ques.addPossibleAnswer(possible) == false){
+											nice = false;
+											break;
+										}
+										else{
+											
 										}
 									}
+									if(nice == true){
+										JOptionPane.showMessageDialog(null, "Question SUCCESFULLY created and stored in " + exe.getName() + "\nQuestion statement: "
+												+ ques.getQuestionText() + " Question answers: " + ques.getCorrectAnswers() +"\nQuestion possible answers: "
+														+ ques.getPossibleAnswers().toString());
+										
+										/*We clean the JTextFields*/
+										campoState.setText("");
+										campoWeight.setText("");
+										randAnsOr.setSelected(false);
+										campoCorrect.setText("");
+										for (int j=0; j<10; j++){
+											if(posAns[j] != null){
+												posAns[j].setText("");
+											}
+										}
+									}
+									else{
+										exe.removeQuestion(ques);
+										JOptionPane.showMessageDialog(null, "Don't repeat possible answers");
+									}
+									
 								}
 								else{
 									JOptionPane.showMessageDialog(null, "Don't leave empty spaces in the possible answers text fields");

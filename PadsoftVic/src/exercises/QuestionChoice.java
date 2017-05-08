@@ -12,7 +12,7 @@ import courseElements.Exercise;
 public abstract class QuestionChoice extends Question{
 
 	private static final long serialVersionUID = -298635877263262593L;
-	private List<String> possibleAnswers;
+	private ArrayList<String> possibleAnswers;
 	private boolean randomOrder;
 	
 	public QuestionChoice(Exercise exe, double weight, String QText, boolean randOrder){
@@ -24,7 +24,7 @@ public abstract class QuestionChoice extends Question{
 	/**
 	 * @return the possible answers of a question
 	 */
-	public List<String> getPossibleAnswers() {
+	public ArrayList<String> getPossibleAnswers() {
 		return possibleAnswers;
 	}
 

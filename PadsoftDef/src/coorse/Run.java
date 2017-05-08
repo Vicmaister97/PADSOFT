@@ -21,6 +21,7 @@ public class Run {
 		}
 		UIManager.put("OptionPane.yesButtonText", "Yes");
 		UIManager.put("OptionPane.noButtonText", "No");
+		UIManager.put("OptionPane.cancelButtonText", "Cancel");
 		Login l = new Login();
 		GeneralFrame.GFrame.setContentPane(l);
 	}
