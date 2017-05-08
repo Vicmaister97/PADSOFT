@@ -6,6 +6,7 @@ import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,50 +29,25 @@ public class MainScreenTeacher extends JPanel {
 			this.setLayout(layout);
 			BackArrow b = new BackArrow();
 			this.add(b);
+			JLabel logo = new JLabel(new ImageIcon("logo.png"));
+			this.add(logo);
 			this.setBackground(new Color(153, 255, 255));
-			StudentList sl = new StudentList();
-			this.add(sl);
 			AllCoursesListT c1 = new AllCoursesListT();
 			this.add(c1);
 			layout.putConstraint(SpringLayout.NORTH, b, 17, SpringLayout.NORTH, this);
 			layout.putConstraint(SpringLayout.WEST, b, 15, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, sl, -GeneralFrame.GFrame.getWidth()/4, SpringLayout.HORIZONTAL_CENTER, this);
-			layout.putConstraint(SpringLayout.NORTH, sl, 200, SpringLayout.NORTH, this);
+			layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, logo, 0, SpringLayout.HORIZONTAL_CENTER, this);
+			layout.putConstraint(SpringLayout.NORTH, logo, 100, SpringLayout.NORTH, this);
 			layout.putConstraint(SpringLayout.HORIZONTAL_CENTER, c1, 0, SpringLayout.HORIZONTAL_CENTER, this);
-			layout.putConstraint(SpringLayout.NORTH, c1, 200, SpringLayout.NORTH, this);
-			this.setPreferredSize(new Dimension((int) GeneralFrame.GFrame.getWidth(), (int)sl.getPreferredSize().getHeight()+200));
+			layout.putConstraint(SpringLayout.NORTH, c1, 50, SpringLayout.SOUTH, logo);
+			this.setPreferredSize(new Dimension((int) GeneralFrame.GFrame.getWidth(), (int)c1.getPreferredSize().getHeight()+400));
 		}
 }
 
-class StudentList extends JPanel{
-	public StudentList(){
-		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
-		this.setLayout(layout);
-		JLabel title = new JLabel("Students");
-		title.setFont(new Font("Comic Sans MS", Font.PLAIN, 40));
-		title.setAlignmentX(CENTER_ALIGNMENT);
-		this.add(title);
-		this.add(Box.createRigidArea(new Dimension(0, 10)));
-		for (User u: Coorse.coorse.getUsers()){
-			if(!u.getUsername().equals("admin")){
-				this.addStudent((Student) u);
-			}
-		}
-	}
-	
-	private void addStudent(Student s){
-		JLabel l = new JLabel(s.getName());
-		//l.addMouseListener(new CourseClickingListener(l));
-		l.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
-		l.setForeground(Color.BLUE);
-		l.setAlignmentX(CENTER_ALIGNMENT);
-		this.add(l);
-	}
-	
-}
 
 class AllCoursesListT extends JPanel{
 	public AllCoursesListT(){
+		this.setBackground(new Color(153, 255, 255));
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layout);
 		JLabel title = new JLabel("All Courses");

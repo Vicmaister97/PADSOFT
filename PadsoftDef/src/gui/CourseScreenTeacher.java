@@ -168,6 +168,7 @@ class EStudentLabel extends JPanel{
 }
 class ElementsPanelT extends JPanel{
 	public ElementsPanelT(Course c){
+		this.setBackground(new Color(153, 255, 255));
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layout);
 		JLabel title = new JLabel(c.getName());
@@ -205,6 +206,7 @@ class UnitLabel extends JPanel{
 	public UnitLabel(Unit u, VisibleElement c){
 		BoxLayout layout = new BoxLayout(this, BoxLayout.X_AXIS);
 		ImageIcon uicon = new ImageIcon("try1.png");
+		this.setBackground(new Color(153, 255, 255));
 		this.setLayout(layout);
 		JLabel l = new JLabel(u.getName(), uicon, JLabel.RIGHT);
 		l.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
@@ -232,6 +234,7 @@ class ExerciseLabel extends JPanel{
 	public ExerciseLabel(Exercise e, VisibleElement c){
 		BoxLayout layout = new BoxLayout(this, BoxLayout.X_AXIS);
 		ImageIcon eicon = new ImageIcon("try2.png");
+		this.setBackground(new Color(153, 255, 255));
 		this.setLayout(layout);
 		JLabel l = new JLabel(e.getName(), eicon, JLabel.RIGHT);
 		l.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
@@ -265,6 +268,7 @@ class NoteLabel extends JPanel{
 	public NoteLabel(Note n, VisibleElement c){
 		BoxLayout layout = new BoxLayout(this, BoxLayout.X_AXIS);
 		this.setLayout(layout);
+		this.setBackground(new Color(153, 255, 255));
 		JLabel l = new JLabel("<html><p style=\"width:300px\">"+n.getText()+"</p></html>");
 		l.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
 		l.setAlignmentY(CENTER_ALIGNMENT);
@@ -292,6 +296,7 @@ class NoteLabel extends JPanel{
 
 class TeacherButtons extends JPanel{
 	public TeacherButtons(VisibleElement c){
+		this.setBackground(new Color(153, 255, 255));
 		BoxLayout layout = new BoxLayout(this, BoxLayout.X_AXIS);
 		this.setLayout(layout);
 		JButton note = new JButton("Create Note");

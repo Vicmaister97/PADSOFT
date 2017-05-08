@@ -47,8 +47,10 @@ public class UnitScreenStudent extends JPanel{
 
 class ElementsPanelU extends JPanel{
 	public ElementsPanelU(Unit u){
+		this.setBackground(new Color(153, 255, 255));
 		BoxLayout layout = new BoxLayout(this, BoxLayout.Y_AXIS);
 		this.setLayout(layout);
+		this.setBackground(new Color(153, 255, 255));
 		JLabel title = new JLabel(u.getName());
 		title.setFont(new Font("Comic Sans MS", Font.PLAIN, 40));
 		title.setAlignmentX(LEFT_ALIGNMENT);
