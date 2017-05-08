@@ -52,8 +52,8 @@ public class Run {
 		//e1.setDone(true);
 		
 		//Login l = new Login();
-		QuestionEditor l = new QuestionEditor(e1);
-		//ExerciseSolver l = new ExerciseSolver(e1,s1);
+		//QuestionEditor l = new QuestionEditor(e1);
+		ExerciseSolver l = new ExerciseSolver(e1,s1);
 		//TextEditor l = new TextEditor(q2);
 		//ExerciseCreator l = new ExerciseCreator(course);
 		//QuestionCreator l = new QuestionCreator(e1);

@@ -44,7 +44,6 @@ public class Exercise extends CourseElement {
 		this.questions = new ArrayList<Question>();
 		this.answers = new ArrayList<AnswerExercise>();
 		this.setPenalisation(penalisation);
-		course.addElement(this);
 	}
 
 	public boolean isRandomOrder() {

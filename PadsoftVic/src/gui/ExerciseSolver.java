@@ -79,15 +79,15 @@ public class ExerciseSolver extends JPanel{
     			this.panels[i].add(textPane, BorderLayout.CENTER);
     		}
     		else if (q instanceof TrueFalse){
-    			TFEditor tFPane = new TFEditor((TrueFalse) q);
+    			TFView tFPane = new TFView((TrueFalse) q, student);
     			this.panels[i].add(tFPane, BorderLayout.CENTER);
     		}
     		else if (q instanceof SimpleChoice){
-    			SimpleEditor sCPane = new SimpleEditor((SimpleChoice) q);
+    			SCView sCPane = new SCView((SimpleChoice) q, student);
     			this.panels[i].add(sCPane, BorderLayout.CENTER);
     		}
     		else if (q instanceof MultipleChoice){
-    			MultiEditor mCPane = new MultiEditor((MultipleChoice) q);
+    			MCView mCPane = new MCView((MultipleChoice) q, student);
     			this.panels[i].add(mCPane, BorderLayout.CENTER);
     		}
     		
@@ -158,7 +158,7 @@ public class ExerciseSolver extends JPanel{
         finish.addActionListener( //CAMBIAAAAAAAAAAAAAAAAAAAAAAAAR
 				f ->{
 					
-					JOptionPane.showMessageDialog(null, "Going back to " + exe.getCourse().getName());
+					JOptionPane.showMessageDialog(null, "Saving the exercise answer");
 				
 					CourseScreenStudent backCourse = new CourseScreenStudent(exe.getCourse());
 					GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
@@ -261,7 +261,7 @@ class ExerciseView extends JPanel{
 								campoNAns.setText("");
 							}
 							else{
-								JOptionPane.showMessageDialog(null, "ijewFCIJUEFJR: " + ans);
+								JOptionPane.showMessageDialog(null, "Problem saving your answer" + ans);
 							}
 							
 						}
@@ -312,133 +312,309 @@ class ExerciseView extends JPanel{
 			JLabel etiquetaState = new JLabel("Statement: " + ques.getQuestionText());
 			etiquetaState.setFont(new Font("Serif", Font.PLAIN, 16));
 
+			ArrayList<String> posAns = ques.getPossibleAnswers();
+			int numq = posAns.size();
+			JRadioButton jrbs[] = new JRadioButton[numq];
 			
-			JLabel etiquetaNWeight = new JLabel("New question weight: ");
-			JTextField campoNWeight = new JTextField(4);
-			JLabel etiquetaNState = new JLabel("New question statement: ");
-			JTextField campoNState = new JTextField(30);
-			JLabel etiquetaNAns = new JLabel("New question answer (True or False): ");
-			JTextField campoNAns = new JTextField(20);
-			JCheckBox randAnsOr = new JCheckBox("New random order of the possible answers");
+			ArrayList<Integer> nums = new ArrayList<Integer>();
+	    	
+	    	for(int i=0; i<numq; i++){
+	    		nums.add(i);
+	    	}
+	    	
+	    	int randomNum;
+	    	String pos;
+	    	for (int j=0; j<numq; j++){
+	    		if(ques.isRandomOrder() == true){
+	    			while(true){
+	    				randomNum = ThreadLocalRandom.current().nextInt(0, numq);
+	    				if (nums.get(randomNum) != -1){
+	    					pos = posAns.get(randomNum);
+	    					nums.set(randomNum, -1);
+	    					break;
+	    					}
+	    			}
+	    		}
+	    		else{
+	    			pos = posAns.get(j);
+	    		}
+	    		
+	    		jrbs[j] = new JRadioButton(pos);
+			
+    		}
+			
+	    	ButtonGroup bg = new ButtonGroup();
+			
+			for (int i=0; i<numq; i++) {
+				bg.add(jrbs[i]);
+				this.add(jrbs[i]);
+				if (i==0){
+					layout.putConstraint(SpringLayout.WEST, jrbs[i], frames, SpringLayout.WEST, this);
+					layout.putConstraint(SpringLayout.NORTH, jrbs[i], frames, SpringLayout.SOUTH, etiquetaWeight);
+				}
+				else{
+					layout.putConstraint(SpringLayout.WEST, jrbs[i], frames, SpringLayout.WEST, this);
+					layout.putConstraint(SpringLayout.NORTH, jrbs[i], frames, SpringLayout.SOUTH, jrbs[i-1]);
+				}
+			}
 
 			JButton create = new JButton("Save Changes");
 			
 			create.addActionListener(
 					e ->{
-						int cont = 0;
-						if (campoNState.getText().trim().isEmpty() == false){
-							if ((ques.setQuestionText(campoNState.getText())) == false){
-								JOptionPane.showMessageDialog(null, "No accepted new statement");
+						String ans = "";
+						for (JRadioButton b : jrbs) {
+							if (b.isSelected()) {
+								ans = b.getText();
+							}
+						}
+						if (ans != ""){
+							answer = ques.solveQuestion(student, ans);
+							if (answer != null){
+								JOptionPane.showMessageDialog(null, "Question saved with answer: " + ans);
 							}
 							else{
-								cont++;
-								JOptionPane.showMessageDialog(null, "ACCEPTED new statement: " + ques.getQuestionText());
-								campoNState.setText("");
-								etiquetaState.setText("Statement: " + ques.getQuestionText());
+								JOptionPane.showMessageDialog(null, "Problem saving your answer" + ans);
 							}
-							
 						}
-						if (campoNAns.getText().trim().isEmpty() == false){
-							if ((ques.setCorrectAnswer(campoNAns.getText())) == false){
-								JOptionPane.showMessageDialog(null, "No accepted new answer");
-							}
-							else{
-								cont++;
-								JOptionPane.showMessageDialog(null, "ACCEPTED new answer: " + ques.getCorrectAnswer());
-								campoNAns.setText("");
-								etiquetaAns.setText("Answer: " + ques.getCorrectAnswer());
-							}
-						
+						else{
+							JOptionPane.showMessageDialog(null, "There is no selected answer for the question");
 						}
-						if (campoNWeight.getText().trim().isEmpty() == false){
-							try{
-								double weight = Double.parseDouble(campoNWeight.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
-								
-								if ((ques.setWeight(weight)) == false){
-									JOptionPane.showMessageDialog(null, "No accepted new weight");
-								}
-								else{
-									cont++;
-									JOptionPane.showMessageDialog(null, "ACCEPTED new weight: " + ques.getWeight());
-									campoNWeight.setText("");
-									etiquetaWeight.setText("Weight: " + ques.getWeight() + " points");
-								}
-															
-							}
-							catch (NumberFormatException errNum){
-								JOptionPane.showMessageDialog(null, errNum);
-					 		}
-												
-						}
-						
-						boolean rand = false;
-						if(randAnsOr.isSelected()){
-							rand = true;
-						}
-						
-						if(ques.isRandomOrder() != rand){
-							if (ques.changeOrder(rand) == false){
-								JOptionPane.showMessageDialog(null, "No accepted new random order");
-							}
-							else{
-								cont++;
-								JOptionPane.showMessageDialog(null, "Random Order of the possible answers: "+rand);
-								randAnsOr.setSelected(false);
-								etiquetaRandOr.setText("Random Order of the possible answers: " + ques.isRandomOrder());
-							}
-							
-						}					
-											
-						JOptionPane.showMessageDialog(null, "Question saved with "+cont+" changes");
-						this.validate();
-						
 					}
 					
 					);
 			
 			this.add(etiquetaWeight);
 			this.add(etiquetaState);
-			this.add(etiquetaAns);
-			this.add(etiquetaRandOr);
-			this.add(etiquetaNWeight);
-			this.add(campoNWeight);
-			this.add(etiquetaNState);
-			this.add(campoNState);
-			this.add(etiquetaNAns);
-			this.add(campoNAns);
-			this.add(randAnsOr);
 			this.add(create);
 
 			
 			layout.putConstraint(SpringLayout.WEST, etiquetaWeight, frames, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.NORTH, etiquetaWeight, frames, SpringLayout.SOUTH, etiquetaAns);
+			layout.putConstraint(SpringLayout.NORTH, etiquetaWeight, frames, SpringLayout.SOUTH, etiquetaState);
 			layout.putConstraint(SpringLayout.WEST, etiquetaState, frames, SpringLayout.WEST, this);
 			layout.putConstraint(SpringLayout.NORTH, etiquetaState, frames*3, SpringLayout.NORTH, this);
-			layout.putConstraint(SpringLayout.WEST, etiquetaAns, frames, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.NORTH, etiquetaAns, frames, SpringLayout.SOUTH, etiquetaState);
-			layout.putConstraint(SpringLayout.WEST, etiquetaRandOr, frames, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.NORTH, etiquetaRandOr, frames, SpringLayout.SOUTH, etiquetaWeight);
-			
-			layout.putConstraint(SpringLayout.WEST, etiquetaNState, frames, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.NORTH, etiquetaNState, frames*2, SpringLayout.SOUTH, etiquetaRandOr);
-			layout.putConstraint(SpringLayout.WEST, campoNState, frames2, SpringLayout.EAST, etiquetaNState);
-			layout.putConstraint(SpringLayout.NORTH, campoNState, frames*2, SpringLayout.SOUTH, etiquetaRandOr);
-			layout.putConstraint(SpringLayout.WEST, etiquetaNAns, frames, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.NORTH, etiquetaNAns, frames, SpringLayout.SOUTH, etiquetaNState);
-			layout.putConstraint(SpringLayout.WEST, campoNAns, frames2, SpringLayout.EAST, etiquetaNAns);
-			layout.putConstraint(SpringLayout.NORTH, campoNAns, frames, SpringLayout.SOUTH, etiquetaNState);
-			layout.putConstraint(SpringLayout.WEST, etiquetaNWeight, frames, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.NORTH, etiquetaNWeight, frames, SpringLayout.SOUTH, etiquetaNAns);
-			layout.putConstraint(SpringLayout.WEST, campoNWeight, frames2, SpringLayout.EAST, etiquetaNWeight);
-			layout.putConstraint(SpringLayout.NORTH, campoNWeight, frames, SpringLayout.SOUTH, etiquetaNAns);
-			layout.putConstraint(SpringLayout.WEST, randAnsOr, frames, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.NORTH, randAnsOr, frames, SpringLayout.SOUTH, etiquetaNWeight);
 			
 			layout.putConstraint(SpringLayout.WEST, create, frames, SpringLayout.WEST, this);
-			layout.putConstraint(SpringLayout.NORTH, create, frames*2, SpringLayout.SOUTH, randAnsOr);
+			layout.putConstraint(SpringLayout.SOUTH, create, -frames*3, SpringLayout.SOUTH, this);
 			
 			//this.setSize(500, 800);
 			this.setVisible(true);
 		}
 	}
+	
+	class SCView extends JPanel{
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			int frames = 30;
+			int frames2 = 10;
+			int framesB = 50;
+			public AnswerQuestion answer;
+
+			public SCView(SimpleChoice ques, Student student){
+				SpringLayout layout = new SpringLayout();
+				this.setLayout(layout);
+				//this.setBackground(Color.LIGHT_GRAY);
+				JLabel etiquetaWeight = new JLabel("Weight: " + ques.getWeight() + " points");
+				etiquetaWeight.setFont(new Font("Serif", Font.PLAIN, 16));
+				JLabel etiquetaState = new JLabel("Statement: " + ques.getQuestionText());
+				etiquetaState.setFont(new Font("Serif", Font.PLAIN, 16));
+
+				ArrayList<String> posAns = ques.getPossibleAnswers();
+				int numq = posAns.size();
+				JRadioButton jrbs[] = new JRadioButton[numq];
+				
+				ArrayList<Integer> nums = new ArrayList<Integer>();
+		    	
+		    	for(int i=0; i<numq; i++){
+		    		nums.add(i);
+		    	}
+		    	
+		    	int randomNum;
+		    	String pos;
+		    	for (int j=0; j<numq; j++){
+		    		if(ques.isRandomOrder() == true){
+		    			while(true){
+		    				randomNum = ThreadLocalRandom.current().nextInt(0, numq);
+		    				if (nums.get(randomNum) != -1){
+		    					pos = posAns.get(randomNum);
+		    					nums.set(randomNum, -1);
+		    					break;
+		    					}
+		    			}
+		    		}
+		    		else{
+		    			pos = posAns.get(j);
+		    		}
+		    		
+		    		jrbs[j] = new JRadioButton(pos);
+				
+	    		}
+				
+		    	ButtonGroup bg = new ButtonGroup();
+				
+				for (int i=0; i<numq; i++) {
+					bg.add(jrbs[i]);
+					this.add(jrbs[i]);
+					if (i==0){
+						layout.putConstraint(SpringLayout.WEST, jrbs[i], frames, SpringLayout.WEST, this);
+						layout.putConstraint(SpringLayout.NORTH, jrbs[i], frames, SpringLayout.SOUTH, etiquetaWeight);
+					}
+					else{
+						layout.putConstraint(SpringLayout.WEST, jrbs[i], frames, SpringLayout.WEST, this);
+						layout.putConstraint(SpringLayout.NORTH, jrbs[i], frames, SpringLayout.SOUTH, jrbs[i-1]);
+					}
+				}
+
+				JButton create = new JButton("Save Changes");
+				
+				create.addActionListener(
+						e ->{
+							String ans = "";
+							for (JRadioButton b : jrbs) {
+								if (b.isSelected()) {
+									ans = b.getText();
+								}
+							}							
+							if (ans != ""){
+								answer = ques.solveQuestion(student, ans);
+								if (answer != null){
+									JOptionPane.showMessageDialog(null, "Question saved with answer: " + ans);
+								}
+								else{
+									JOptionPane.showMessageDialog(null, "Problem saving your answer" + ans);
+								}
+							}
+							else{
+								JOptionPane.showMessageDialog(null, "There is no selected answer for the question");
+							}
+						}
+						
+						);
+				
+				this.add(etiquetaWeight);
+				this.add(etiquetaState);
+				this.add(create);
+
+				
+				layout.putConstraint(SpringLayout.WEST, etiquetaWeight, frames, SpringLayout.WEST, this);
+				layout.putConstraint(SpringLayout.NORTH, etiquetaWeight, frames, SpringLayout.SOUTH, etiquetaState);
+				layout.putConstraint(SpringLayout.WEST, etiquetaState, frames, SpringLayout.WEST, this);
+				layout.putConstraint(SpringLayout.NORTH, etiquetaState, frames*3, SpringLayout.NORTH, this);
+				
+				layout.putConstraint(SpringLayout.WEST, create, frames, SpringLayout.WEST, this);
+				layout.putConstraint(SpringLayout.SOUTH, create, -frames*3, SpringLayout.SOUTH, this);
+				
+				//this.setSize(500, 800);
+				this.setVisible(true);
+			}
+		}
+		
+	class MCView extends JPanel{
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		int frames = 30;
+		int frames2 = 10;
+		int framesB = 50;
+		public AnswerQuestion answer;
+
+		public MCView(MultipleChoice ques, Student student){
+			SpringLayout layout = new SpringLayout();
+			this.setLayout(layout);
+			//this.setBackground(Color.LIGHT_GRAY);
+			JLabel etiquetaWeight = new JLabel("Weight: " + ques.getWeight() + " points");
+			etiquetaWeight.setFont(new Font("Serif", Font.PLAIN, 16));
+			JLabel etiquetaState = new JLabel("Statement: " + ques.getQuestionText());
+			etiquetaState.setFont(new Font("Serif", Font.PLAIN, 16));
+
+			ArrayList<String> posAns = ques.getPossibleAnswers();
+			int numq = posAns.size();
+			JCheckBox jrbs[] = new JCheckBox[numq];
+			
+			ArrayList<Integer> nums = new ArrayList<Integer>();
+	    	
+	    	for(int i=0; i<numq; i++){
+	    		nums.add(i);
+	    	}
+	    	
+	    	int randomNum;
+	    	String pos;
+	    	for (int j=0; j<numq; j++){
+	    		if(ques.isRandomOrder() == true){
+	    			while(true){
+	    				randomNum = ThreadLocalRandom.current().nextInt(0, numq);
+	    				if (nums.get(randomNum) != -1){
+	    					pos = posAns.get(randomNum);
+	    					nums.set(randomNum, -1);
+	    					break;
+	    					}
+	    			}
+	    		}
+	    		else{
+	    			pos = posAns.get(j);
+	    		}
+	    		
+	    		jrbs[j] = new JCheckBox(pos);
+			
+    		}
+			
+	    	ButtonGroup bg = new ButtonGroup();
+	    	
+	    	JPanel checkbox = new JPanel(new GridLayout(5,1));
+	    	checkbox.add(new JLabel("It's possible that there is more than 1 correct answer"));
+	    	for (int t=0; t<numq; t++){
+	    		checkbox.add(jrbs[t]);
+	    	}
+
+			JButton create = new JButton("Save Changes");
+			
+			create.addActionListener(
+					e ->{
+						ArrayList<String> ans = new ArrayList<String>();
+						for (JCheckBox b : jrbs) {
+							if (b.isSelected()) {
+								ans.add(b.getText());
+							}
+						}							
+						if (ans.size() != 0){
+							answer = ques.solveQuestion(student, ans);
+							if (answer != null){
+								JOptionPane.showMessageDialog(null, "Question saved with answers: " + ans.toString());
+							}
+							else{
+								JOptionPane.showMessageDialog(null, "Problem saving your answers" + ans.toString());
+							}
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "There is no selected answer for the question");
+						}
+					}
+					
+					);
+			
+			this.add(etiquetaWeight);
+			this.add(etiquetaState);
+			this.add(create);
+			this.add(checkbox);
+
+			
+			layout.putConstraint(SpringLayout.WEST, etiquetaWeight, frames, SpringLayout.WEST, this);
+			layout.putConstraint(SpringLayout.NORTH, etiquetaWeight, frames, SpringLayout.SOUTH, etiquetaState);
+			layout.putConstraint(SpringLayout.WEST, etiquetaState, frames, SpringLayout.WEST, this);
+			layout.putConstraint(SpringLayout.NORTH, etiquetaState, frames*3, SpringLayout.NORTH, this);
+			layout.putConstraint(SpringLayout.WEST, checkbox, frames, SpringLayout.WEST, this);
+			layout.putConstraint(SpringLayout.NORTH, checkbox, framesB, SpringLayout.NORTH, etiquetaWeight);
+			
+			layout.putConstraint(SpringLayout.WEST, create, frames, SpringLayout.WEST, this);
+			layout.putConstraint(SpringLayout.SOUTH, create, -frames*3, SpringLayout.SOUTH, this);
+			
+			//this.setSize(500, 800);
+			this.setVisible(true);
+		}
+	}
+		
+	
 
