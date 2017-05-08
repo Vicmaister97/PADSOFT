@@ -83,7 +83,7 @@ class AllCoursesList extends JPanel{
 	
 	private void addCourse(Course c){
 		JLabel l = new JLabel(c.getName());
-		if(c.getStudents().contains(GeneralFrame.GFrame.getStudent())){
+		if(c.getStudents().contains(GeneralFrame.GFrame.getStudent())||c.getExpelled().contains(GeneralFrame.GFrame.getStudent())){
 			l.addMouseListener(new CourseClickingListener(l));
 			l.setFont(new Font("Comic Sans MS", Font.PLAIN, 30));
 			l.setForeground(Color.BLUE);

@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
+import java.util.List;
+
 import gui.*;
 
 import javax.swing.Box;
@@ -13,14 +16,24 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
+import application.Application;
 import controllers.CourseApplierController;
 import controllers.CourseClickingListener;
 import coorse.Coorse;
 import courseElements.Course;
+import users.Student;
 import users.User;
 public class prueba {
 	public static void main(String[] args){
-	//	JOptionPane.
+		Student s = new Student("A", "a", "a", "a", "a", "a");
+		Course c = new Course("cname", "tname", true);
+		Application a1 = new Application (s, c);
+		Application a2 = new Application (s, c);
+		List<Application> pending= new ArrayList<Application>();
+		pending.add(a1);
+		a1.equals(a2);
+		System.out.println(a1.equals(a2));
 	}
 }
 class AllCoursesList extends JPanel{
