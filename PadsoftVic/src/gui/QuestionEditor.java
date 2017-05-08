@@ -48,6 +48,10 @@ public class QuestionEditor extends JPanel{
 		this.panels[0] = new JPanel(new BorderLayout());
 		ExerciseEdit editPrincipal = new ExerciseEdit(exe);
 		this.panels[0].add(editPrincipal, BorderLayout.CENTER);
+		JLabel title = new JLabel ("Exercise Editor", JLabel.CENTER);
+		title.setFont(new Font("Serif", Font.ITALIC, 18));
+		this.panels[0].add(title, BorderLayout.NORTH);
+
 
     	//int randomNum;
     	for (int i = 1; i<(numq+1); i++) {
@@ -83,7 +87,9 @@ public class QuestionEditor extends JPanel{
     			this.panels[i].add(mCPane, BorderLayout.CENTER);
     		}
     		
-    		this.panels[i].add(new JLabel ("Question "+i, JLabel.CENTER), BorderLayout.NORTH);
+    		JLabel quest = new JLabel ("Question "+i, JLabel.CENTER);
+    		quest.setFont(new Font("Serif", Font.ITALIC, 18));
+    		this.panels[i].add(quest, BorderLayout.NORTH);
     	}
     }    
     
