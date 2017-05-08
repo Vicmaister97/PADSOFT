@@ -48,15 +48,25 @@ public class Run {
 		q3.addPossibleAnswer("Hopper");
 		q3.addPossibleAnswer("Turner");
 		q3.addPossibleAnswer("Velazquez");
-		TrueFalse q4 = new TrueFalse(e1, 5.0, "Do you love me?", true, "true");
+		TrueFalse q4 = new TrueFalse(e1, 5.0, "Do you love me?", true, "True");
 		//e1.setDone(true);
+		
+		q1.solveQuestion(s1, "Teide");/*correct*/
+		q2.solveQuestion(s1, "4");/*wrong*/
+		List<String> bad = new ArrayList<String>();
+		bad.add("Hopper");
+		q3.solveQuestion(s1, bad); /*bad*/
+		q4.solveQuestion(s1, "False"); /*wrong*/
+		
+		AnswerExercise ans = e1.solveExercise(s1);
 		
 		//Login l = new Login();
 		//QuestionEditor l = new QuestionEditor(e1);
-		ExerciseSolver l = new ExerciseSolver(e1,s1);
+		//ExerciseSolver l = new ExerciseSolver(e1,s1);
 		//TextEditor l = new TextEditor(q2);
 		//ExerciseCreator l = new ExerciseCreator(course);
 		//QuestionCreator l = new QuestionCreator(e1);
+		ExerciseCorrected l = new ExerciseCorrected(ans);
 		GeneralFrame.GFrame.setContentPane(l);
 	}
 }

@@ -155,7 +155,7 @@ public class ExerciseSolver extends JPanel{
         		}
         		);
         
-        finish.addActionListener( //CAMBIAAAAAAAAAAAAAAAAAAAAAAAAR
+        finish.addActionListener(
 				f ->{
 					if(exe.solveExercise(student) == null){
 						JOptionPane.showMessageDialog(null, "Problems saving the exercise anwswer");
