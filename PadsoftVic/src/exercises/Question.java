@@ -14,7 +14,7 @@ public abstract class Question implements java.io.Serializable{
 	private static final long serialVersionUID = -6568277018396498456L;
 	private double weight;
 	private String questionText;
-	private List<AnswerQuestion> answers;
+	private ArrayList<AnswerQuestion> answers;
 	private int numAnswered;
 	private int numDidntAnswer;
 	private int numCorrect;
@@ -76,7 +76,7 @@ public abstract class Question implements java.io.Serializable{
 	/**
 	 * @return a list of objects AnswerQuestion, the answers of the question
 	 */
-	public List<AnswerQuestion> getAnswers() {
+	public ArrayList<AnswerQuestion> getAnswers() {
 		return answers;
 	}
 	
@@ -104,6 +104,10 @@ public abstract class Question implements java.io.Serializable{
 			return true;
 		}
 		return false;
+	}
+	
+	public void removeAnswer(AnswerQuestion answer){
+		this.answers.remove(answer);
 	}
 	
 	/**

@@ -157,13 +157,17 @@ public class ExerciseSolver extends JPanel{
         
         finish.addActionListener( //CAMBIAAAAAAAAAAAAAAAAAAAAAAAAR
 				f ->{
-					
-					JOptionPane.showMessageDialog(null, "Saving the exercise answer");
-				
-					CourseScreenStudent backCourse = new CourseScreenStudent(exe.getCourse());
-					GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
-		    		GeneralFrame.GFrame.setContentPane(backCourse);
-		    		GeneralFrame.GFrame.validate();
+					if(exe.solveExercise(student) == null){
+						JOptionPane.showMessageDialog(null, "Problems saving the exercise anwswer");
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "Saving the exercise answer");
+						
+						CourseScreenStudent backCourse = new CourseScreenStudent(exe.getCourse());
+						GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
+			    		GeneralFrame.GFrame.setContentPane(backCourse);
+			    		GeneralFrame.GFrame.validate();
+					}
 				}
 				); 
         
@@ -236,6 +240,10 @@ class ExerciseView extends JPanel{
 		int frames2 = 10;
 		int framesB = 50;
 		public AnswerQuestion answer;
+		
+		public AnswerQuestion getAnswer() {
+			return answer;
+		}
 
 		public TextView(TextAnswer ques, Student student){
 			SpringLayout layout = new SpringLayout();
@@ -253,6 +261,10 @@ class ExerciseView extends JPanel{
 			
 			create.addActionListener(
 					e ->{
+						if (answer != null){ /*Already an answer to that question*/
+							ques.removeAnswer(answer);
+							JOptionPane.showMessageDialog(null, "Last answer was deleted");
+						}
 						if (campoNAns.getText().trim().isEmpty() == false){
 							String ans = campoNAns.getText();
 							answer = ques.solveQuestion(student, ans);
@@ -302,6 +314,10 @@ class ExerciseView extends JPanel{
 		int frames2 = 10;
 		int framesB = 50;
 		public AnswerQuestion answer;
+		
+		public AnswerQuestion getAnswer() {
+			return answer;
+		}
 
 		public TFView(TrueFalse ques, Student student){
 			SpringLayout layout = new SpringLayout();
@@ -362,6 +378,10 @@ class ExerciseView extends JPanel{
 			
 			create.addActionListener(
 					e ->{
+						if (answer != null){ /*Already an answer to that question*/
+							ques.removeAnswer(answer);
+							JOptionPane.showMessageDialog(null, "Last answer was deleted");
+						}
 						String ans = "";
 						for (JRadioButton b : jrbs) {
 							if (b.isSelected()) {
@@ -411,6 +431,10 @@ class ExerciseView extends JPanel{
 			int frames2 = 10;
 			int framesB = 50;
 			public AnswerQuestion answer;
+			
+			public AnswerQuestion getAnswer() {
+				return answer;
+			}
 
 			public SCView(SimpleChoice ques, Student student){
 				SpringLayout layout = new SpringLayout();
@@ -471,6 +495,10 @@ class ExerciseView extends JPanel{
 				
 				create.addActionListener(
 						e ->{
+							if (answer != null){ /*Already an answer to that question*/
+								ques.removeAnswer(answer);
+								JOptionPane.showMessageDialog(null, "Last answer was deleted");
+							}
 							String ans = "";
 							for (JRadioButton b : jrbs) {
 								if (b.isSelected()) {
@@ -521,6 +549,10 @@ class ExerciseView extends JPanel{
 		int framesB = 50;
 		public AnswerQuestion answer;
 
+		public AnswerQuestion getAnswer() {
+			return answer;
+		}
+
 		public MCView(MultipleChoice ques, Student student){
 			SpringLayout layout = new SpringLayout();
 			this.setLayout(layout);
@@ -560,9 +592,7 @@ class ExerciseView extends JPanel{
 	    		jrbs[j] = new JCheckBox(pos);
 			
     		}
-			
-	    	ButtonGroup bg = new ButtonGroup();
-	    	
+				    	
 	    	JPanel checkbox = new JPanel(new GridLayout(5,1));
 	    	checkbox.add(new JLabel("It's possible that there is more than 1 correct answer"));
 	    	for (int t=0; t<numq; t++){
@@ -573,6 +603,10 @@ class ExerciseView extends JPanel{
 			
 			create.addActionListener(
 					e ->{
+						if (answer != null){ /*Already an answer to that question*/
+							ques.removeAnswer(answer);
+							JOptionPane.showMessageDialog(null, "Last answer was deleted");
+						}
 						ArrayList<String> ans = new ArrayList<String>();
 						for (JCheckBox b : jrbs) {
 							if (b.isSelected()) {
