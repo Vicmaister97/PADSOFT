@@ -34,12 +34,11 @@ public class ExerciseEdit extends JPanel { // AÑADIR BOTON SAVE Y NUMPOSANS EN
 		this.setLayout(layout);
 
 		JLabel etiquetaName = new JLabel("Name of the exercise: " + exe.getName());
-		JLabel etiquetaRele = new JLabel(
-				"Relevance on the global mark (percentage from 0 to 100): " + exe.getWeightE());
+		JLabel etiquetaRele = new JLabel("Relevance on the global mark (percentage from 0 to 100): " + exe.getWeightE());
 		JLabel etiquetaStart = new JLabel("Start day and time (dd-MM-yyyy HH:mm): " + exe.getIniDate());
 		JLabel etiquetaEnd = new JLabel("Expiration day and time (dd-MM-yyyy HH:mm): " + exe.getEndDate());
 		JLabel etiquetaPen = new JLabel("Penalty for answering incorrectly the questions: " + exe.getPenalisation());
-		JCheckBox randQuesOr = new JCheckBox("Random Order of the questions" + exe.isRandomOrder());
+		JLabel randQuesOr = new JLabel("Random Order of the questions: " + exe.isRandomOrder());
 
 		JLabel etiquetaNName = new JLabel("New name of the exercise: ");
 		final JTextField campoName = new JTextField(10);
@@ -57,11 +56,133 @@ public class ExerciseEdit extends JPanel { // AÑADIR BOTON SAVE Y NUMPOSANS EN
 
 		// JButton Cancel = new JButton("Cancel");
 
-		create.addActionListener(e -> {
+		create.addActionListener(
+				e ->{
+					int cont = 0;
+					if (campoName.getText().trim().isEmpty() == false){
+						if ((exe.setName(campoName.getText())) == false){
+							JOptionPane.showMessageDialog(null, "No accepted new name");
+						}
+						else{
+							cont++;
+							JOptionPane.showMessageDialog(null, "ACCEPTED new name: " + exe.getName());
+							campoName.setText("");
+							etiquetaName.setText("Name of the exercise: " + exe.getName());
+						}
+						
+					}
+					
+					if (campoRele.getText().trim().isEmpty() == false){
+						try{
+							double weight = Double.parseDouble(campoRele.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
+							
+							if ((exe.setWeightE(weight)) == false){
+								JOptionPane.showMessageDialog(null, "No accepted new weight");
+							}
+							else{
+								cont++;
+								JOptionPane.showMessageDialog(null, "ACCEPTED new weight: " + exe.getWeightE());
+								campoRele.setText("");
+								etiquetaRele.setText("Relevance on the global mark (percentage from 0 to 100): " + exe.getWeightE());
+							}
+														
+						}
+						catch (NumberFormatException errNum){
+							JOptionPane.showMessageDialog(null, errNum);
+				 		}
+											
+					}
+					
+					if (campoStart.getText().trim().isEmpty() == false){
+						
+						try{
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+							LocalDateTime ini = LocalDateTime.parse(campoStart.getText(), formatter);
+							
+							if (exe.setIniDate(ini) == false){
+								JOptionPane.showMessageDialog(null, "No accepted new start date");
+							}
+							else{
+								cont++;
+								JOptionPane.showMessageDialog(null, "ACCEPTED new start date: " + exe.getIniDate());
+								campoStart.setText("");
+								etiquetaStart.setText("Start day and time (dd-MM-yyyy HH:mm): " + exe.getIniDate());
+							}
+						}
+						catch (DateTimeParseException timeErr){
+							JOptionPane.showMessageDialog(null, "The format of Date and Time is incorrect");
+						}
+						
+					}
+					
+					if (campoEnd.getText().trim().isEmpty() == false){
+						
+						try{
+							DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+							LocalDateTime end = LocalDateTime.parse(campoEnd.getText(), formatter);
+							
+							if (exe.setEndDate(end) == false){
+								JOptionPane.showMessageDialog(null, "No accepted new end date");
+							}
+							else{
+								cont++;
+								JOptionPane.showMessageDialog(null, "ACCEPTED new end date: " + exe.getEndDate());
+								campoEnd.setText("");
+								etiquetaEnd.setText("Expiration day and time (dd-MM-yyyy HH:mm): " + exe.getEndDate());
+							}
+						}
+						catch (DateTimeParseException timeErr){
+							JOptionPane.showMessageDialog(null, "The format of Date and Time is incorrect");
+						}
+						
+					}
+					
+					if (campoPen.getText().trim().isEmpty() == false){
+						try{
+							double weight = Double.parseDouble(campoPen.getText().replace(",",".")); /*If they write 30,5 instead of 30.5*/
+							
+							if ((exe.setPenalisation(weight)) == false){
+								JOptionPane.showMessageDialog(null, "No accepted new penalty");
+							}
+							else{
+								cont++;
+								JOptionPane.showMessageDialog(null, "ACCEPTED new penalty: " + exe.getPenalisation());
+								campoPen.setText("");
+								etiquetaPen.setText("Penalty for answering incorrectly the questions: " + exe.getPenalisation());
+							}
+														
+						}
+						catch (NumberFormatException errNum){
+							JOptionPane.showMessageDialog(null, errNum);
+				 		}
+											
+					}
+										
+					boolean rand = false;
+					if(randNQuesOr.isSelected()){
+						rand = true;
+					}
+					if (exe.isRandomOrder() != rand){ /*We are changing the random order value*/
+						cont++;
+						if (exe.setRandomOrder(rand) == false){
+							JOptionPane.showMessageDialog(null, "No accepted new random order value of the questions");
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "ACCEPTED new random order of the questions: " + exe.isRandomOrder());
+							randNQuesOr.setSelected(false);
+							randQuesOr.setText("Random Order of the questions: " + exe.isRandomOrder());
+						}
+						
 
-		}
-
-		);
+					}
+					
+					
+					JOptionPane.showMessageDialog(null, "Exercise saved with "+cont+" changes");
+					this.validate();
+				}
+				
+				);
+		
 
 		this.add(etiquetaName);
 		this.add(etiquetaRele);
@@ -98,7 +219,7 @@ public class ExerciseEdit extends JPanel { // AÑADIR BOTON SAVE Y NUMPOSANS EN
 		layout.putConstraint(SpringLayout.WEST, etiquetaNName, frames, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, etiquetaNName, frames*2, SpringLayout.SOUTH, randQuesOr);
 		layout.putConstraint(SpringLayout.WEST, campoName, frames2, SpringLayout.EAST, etiquetaNName);
-		layout.putConstraint(SpringLayout.NORTH, campoName, frames*2, SpringLayout.SOUTH, etiquetaNName);
+		layout.putConstraint(SpringLayout.NORTH, campoName, frames*2, SpringLayout.SOUTH, randQuesOr);
 		layout.putConstraint(SpringLayout.WEST, etiquetaNRele, frames, SpringLayout.WEST, this);
 		layout.putConstraint(SpringLayout.NORTH, etiquetaNRele, frames, SpringLayout.SOUTH, etiquetaNName);
 		layout.putConstraint(SpringLayout.WEST, campoRele, frames2, SpringLayout.EAST, etiquetaNRele);
@@ -108,13 +229,19 @@ public class ExerciseEdit extends JPanel { // AÑADIR BOTON SAVE Y NUMPOSANS EN
 		layout.putConstraint(SpringLayout.WEST, campoStart, frames2, SpringLayout.EAST, etiquetaNStart);
 		layout.putConstraint(SpringLayout.NORTH, campoStart, frames, SpringLayout.SOUTH, etiquetaNRele);
 		layout.putConstraint(SpringLayout.WEST, etiquetaNEnd, frames, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, etiquetaNEnd, frames, SpringLayout.SOUTH, etiquetaNRele);
-		layout.putConstraint(SpringLayout.WEST, campoStart, frames2, SpringLayout.EAST, etiquetaNStart);
-		layout.putConstraint(SpringLayout.NORTH, campoStart, frames, SpringLayout.SOUTH, etiquetaNRele);
+		layout.putConstraint(SpringLayout.NORTH, etiquetaNEnd, frames, SpringLayout.SOUTH, etiquetaNStart);
+		layout.putConstraint(SpringLayout.WEST, campoEnd, frames2, SpringLayout.EAST, etiquetaNEnd);
+		layout.putConstraint(SpringLayout.NORTH, campoEnd, frames, SpringLayout.SOUTH, etiquetaNStart);
+		layout.putConstraint(SpringLayout.WEST, etiquetaNPen, frames, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, etiquetaNPen, frames, SpringLayout.SOUTH, etiquetaNEnd);
+		layout.putConstraint(SpringLayout.WEST, campoPen, frames2, SpringLayout.EAST, etiquetaNPen);
+		layout.putConstraint(SpringLayout.NORTH, campoPen, frames, SpringLayout.SOUTH, etiquetaNEnd);
+		layout.putConstraint(SpringLayout.WEST, randNQuesOr, frames, SpringLayout.WEST, this);
+		layout.putConstraint(SpringLayout.NORTH, randNQuesOr, frames, SpringLayout.SOUTH, etiquetaNPen);
 		
 		
 		layout.putConstraint(SpringLayout.WEST, create, frames, SpringLayout.WEST, this);
-		layout.putConstraint(SpringLayout.NORTH, create, frames, SpringLayout.SOUTH, randQuesOr);
+		layout.putConstraint(SpringLayout.NORTH, create, frames, SpringLayout.SOUTH, randNQuesOr);
 
 		this.setVisible(true);
 	}

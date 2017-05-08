@@ -159,7 +159,7 @@ public class SimpleEditor extends JPanel{
 					}
 					if (ques.isRandomOrder() != rand){ /*We are changing the random order value*/
 						cont++;
-						JOptionPane.showMessageDialog(null, "New possible answers order: "+rand);
+						JOptionPane.showMessageDialog(null, "New possible answers random order: "+rand);
 						randAnsOr.setSelected(false);
 						ques.changeOrder(rand);
 						etiquetaRandOr.setText("Random Order of the possible answers: " + ques.isRandomOrder());

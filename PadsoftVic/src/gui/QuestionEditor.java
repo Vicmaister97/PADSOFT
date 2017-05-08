@@ -44,9 +44,13 @@ public class QuestionEditor extends JPanel{
     	/*for(int i=0; i<numq; i++){
     		nums.add(i);
     	}*/
-    	this.panels = new JPanel[numq];
+    	this.panels = new JPanel[numq+1];
+		this.panels[0] = new JPanel(new BorderLayout());
+		ExerciseEdit editPrincipal = new ExerciseEdit(exe);
+		this.panels[0].add(editPrincipal, BorderLayout.CENTER);
+
     	//int randomNum;
-    	for (int i = 0; i<numq; i++) {
+    	for (int i = 1; i<(numq+1); i++) {
     		this.panels[i] = new JPanel(new BorderLayout());
     		
     		/*if(exe.isRandomOrder() == true){
@@ -60,7 +64,7 @@ public class QuestionEditor extends JPanel{
     			}
     		}*/
     		
-    		Question q = exe.getQuestions().get(i);
+    		Question q = exe.getQuestions().get(i-1);
     		
     		if (q instanceof TextAnswer){
     			TextEditor textPane = new TextEditor((TextAnswer) q);
@@ -79,7 +83,7 @@ public class QuestionEditor extends JPanel{
     			this.panels[i].add(mCPane, BorderLayout.CENTER);
     		}
     		
-    		this.panels[i].add(new JLabel ("Question "+(i+1), JLabel.CENTER), BorderLayout.NORTH);
+    		this.panels[i].add(new JLabel ("Question "+i, JLabel.CENTER), BorderLayout.NORTH);
     	}
     }    
     
@@ -92,7 +96,7 @@ public class QuestionEditor extends JPanel{
         
         this.buildPanels(exe, numq);
         
-        for (int i = 0; i<numq; i++){
+        for (int i = 0; i<numq+1; i++){
         	cards.add(panels[i], String.valueOf(i+1));
         }
         
@@ -102,11 +106,12 @@ public class QuestionEditor extends JPanel{
         JButton last 	 = new JButton("Last");
         JButton previous = new JButton("Previous");
         JButton next     = new JButton("Next");
+        JButton finish = new JButton("Finish");
         //AÑADIR SAVE CHANGES Y EXIT
         
         combo = new JComboBox<String>();
         
-        for (int i = 1; i<numq+1; i++)
+        for (int i = 0; i<numq+1; i++)
         	combo.addItem(String.valueOf(i));
         
         JPanel panel = new JPanel();
@@ -115,6 +120,7 @@ public class QuestionEditor extends JPanel{
         panel.add(previous);
         panel.add(next);
         panel.add(combo);
+        panel.add(finish);
         
         this.add(panel, BorderLayout.SOUTH);
         
@@ -138,6 +144,19 @@ public class QuestionEditor extends JPanel{
                     panelLayout.previous (cards);
         		}
         		);
+        
+        finish.addActionListener(
+				f ->{
+					
+					JOptionPane.showMessageDialog(null, "Going back to " + exe.getCourse().getName());
+				
+					CourseScreenStudent backCourse = new CourseScreenStudent(exe.getCourse());
+					GeneralFrame.GFrame.remove(GeneralFrame.GFrame.getContentPane());
+		    		GeneralFrame.GFrame.setContentPane(backCourse);
+		    		GeneralFrame.GFrame.validate();
+				}
+				); 
+        
         combo.addItemListener(
         		e ->{
         			String item = (String) e.getItem ();
